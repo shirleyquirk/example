@@ -1,0 +1,3 @@
+[submodule "vendor/jtag-remote-server"]
+	path = vendor/jtag-remote-server
+	url = https://github.com/jiegec/jtag-remote-server
