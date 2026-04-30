@@ -4,3 +4,4 @@
 [submodule "vendor/libaji_client"]
 	path = vendor/libaji_client
 	url = https://github.com/intel/libaji_client
+	ignore = dirty
