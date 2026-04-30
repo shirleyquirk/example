@@ -14,6 +14,7 @@ test = ["pytest>=7"]
 
 [project.scripts]
 usb-blaster-decode = "usb_blaster_decode.cli:main"
+aji-probe = "aji_pyclient.cli:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]

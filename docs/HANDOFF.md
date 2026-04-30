@@ -80,25 +80,94 @@ These are the things I'd want to confirm before claiming v1 done:
    currently assume MPSSE-style command bytes throughout. Real captures
    may show control transfers we need to recognise (SET_BITMODE 0x0B).
 
-## Roadmap / next steps
+## Phase 2 — AJI client wrapper (in this branch)
+
+We added `intel/libaji_client` as a submodule, built it from source, and
+shipped a thin C++ shim + Python ctypes wrapper so we can drive `jtagd`
+from Python. The whole point is round-trip validation: AJI op → USB pcap
+→ our decoder → recovered IR/DR == what we asked for.
+
+### Setup on the lab box
+
+```sh
+git submodule update --init --recursive
+
+# Build libaji_client. The CET / Spectre flags conflict in modern gcc, so:
+cd vendor/libaji_client
+bash ./bootstrap
+./configure --prefix="$PWD/_install"
+make CXXFLAGS="-fcf-protection=none -O2 -g -Wno-error" \
+     CFLAGS="-fcf-protection=none -O2 -g -Wno-error" -j
+
+# Build the shim that flattens C++ overloads.
+cd /path/to/example
+make -C ext/aji_shim
+
+# Install the Python package.
+pip install -e '.[test]'
+
+# Sanity-check (jtagd must be running):
+aji-probe
+```
+
+### Capture-server hole in the bwrap
+
+Setup recipe lives in `tools/capture-server/README.md`. Short version:
+install `usb-blaster-capture.sh` to `/usr/local/bin`, give your user
+NOPASSWD sudo on it, run `capture-server.py` outside the bwrap, bind
+`/run/usb-blaster-decode` and `/var/lib/usb-blaster-decode` into the
+sandbox.
+
+### Running the hardware tests
+
+```sh
+USB_BLASTER_HW=1 \
+USB_BLASTER_USBMON=usbmon0 \
+USB_BLASTER_CAPTURE_SOCK=/run/usb-blaster-decode/capture.sock \
+pytest tests/hw -v
+```
+
+`USB_BLASTER_HW=1` alone runs the wrapper smoke tests (no capture
+needed); add `USB_BLASTER_CAPTURE_SOCK` for the round-trip tests.
+
+### Phase 2 known unknowns
+
+- **AJI flag sweeps.** `test_access_dr_flag_effect_on_wire` is set up
+  with no assertions on purpose — it's a corpus-builder. Run it once on
+  hardware with `pytest -s`, eyeball the wire-level output for each
+  flag, and write down what each does in `docs/usb-blaster-protocol.md`
+  or a new `docs/aji-flags.md`.
+- **AJI claim semantics.** The smoke tests use a weak `IR_WEAK ~0`
+  claim, which is what you want for ad-hoc decoder tests but not for
+  production code. If `aji_open_device` returns `INSTRUCTION_CLAIMED`,
+  another client (Quartus Programmer, Signal Tap) is holding a stronger
+  claim — kill it before testing.
+- **`aji_access_ir` with `instruction_length > 32`.** The DWORD-form
+  overload only fits 32 bits; longer IRs need the bit-vector form.
+  `OpenDevice.access_ir_bits` is wired up but untested against silicon.
+- **`aji_open_entire_device_chain`.** Not wrapped. We'd need it for
+  testing daisy-chained devices.
+- **The capture-server's tshark stop semantics.** SIGTERM should let
+  tshark flush, but on some kernels the last few packets can be lost in
+  the kernel ring buffer. If we see truncated pcaps, switch to
+  `SIGINT` + a small grace period.
+
+## Roadmap / next steps after phase 2
 
 In rough order of value:
 
-1. **Capture a real `jtag-remote-server` session against an FPGA.**
-   Save a few-second pcap. Run it through `usb-blaster-decode` and
-   sanity-check IR/DR shifts against the C-level debug output (set
-   `debug=true` in the C source — see `dprintf` in `common.cpp`).
-   Adjust layer 1 if needed.
-2. **Repeat with the proprietary `jtagd`.** This is the real test; it's
-   what we ultimately want to decode. Expect at least one new quirk.
-3. **Layer 5 starting with IDCODE decoding.** Once we trust the shifts,
-   pattern-match 32-bit DR shifts that follow an IR=BYPASS or come
-   straight out of TLR-induced auto-load and display
-   manufacturer / part number. JEDEC manufacturer IDs are well-known.
-4. **Altera virtual JTAG / SLD hub.** This is the big payoff for
+1. **Use the round-trip harness to characterise AJI's flag effects.**
+   Build a table: `(IR or DR) × flags × jtagd version → on-the-wire
+   shape`. This is the corpus we need before decoding `jtagd`-driven
+   captures becomes reliable.
+2. **Layer 5 starting with IDCODE decoding.** Pattern-match 32-bit DR
+   shifts that follow IR=IDCODE or come straight out of TLR-induced
+   auto-load and display manufacturer / part number. JEDEC manufacturer
+   IDs are well-known.
+3. **Altera virtual JTAG / SLD hub.** This is the big payoff for
    reverse-engineering Quartus traces. Cross-reference with urjtag's
    `data/altera/jtag` and the SLD hub docs.
-5. **Optional Wireshark Lua dissector.** Once layer 4 is solid we can
+4. **Optional Wireshark Lua dissector.** Once layer 4 is solid we can
    wrap it as a Lua dissector for usb.capdata. Lua is the supported
    path; Wireshark Python is fragile.
 

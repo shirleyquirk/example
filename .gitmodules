@@ -1,3 +1,6 @@
 [submodule "vendor/jtag-remote-server"]
 	path = vendor/jtag-remote-server
 	url = https://github.com/jiegec/jtag-remote-server
+[submodule "vendor/libaji_client"]
+	path = vendor/libaji_client
+	url = https://github.com/intel/libaji_client
