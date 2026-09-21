@@ -113,25 +113,37 @@ The device table starts as:
 
 The RAM table starts as the same rows with `dev_ok` irrelevant, plus `w4`/`x8`-class narrow forms for tiling remainders.
 
-### 5.2 Batch shape
+### 5.2 Block and lookahead
 
-A batch moves **T bytes**. It is described by:
+A variant is five things: direction, device instruction, RAM instruction, **block bytes T**, and **lookahead bytes**.
 
-- `dev_instr` and `dev_count`: the device side issues `dev_count` instructions of width `Wdev`, so `T = dev_count × Wdev`.
-- `ram_instr`: the RAM side tiles the same `T` bytes greedily with `ram_instr`, falling back to narrower rows of the RAM table for any remainder. The RAM side has no alignment constraint, so its instruction choice is independent of the device side's.
+A block moves T bytes. The load side issues `T/Wl` instructions, the store side `T/Ws`. A **schedule** is any interleaving of those two sequences in which a store issues only after every load covering its bytes has issued. There is exactly one knob:
 
-`dev_count` ∈ any positive integer from a configurable list; the default list is `{1, 2, 3, 4, 6, 8, 12, 16}` — **not** restricted to powers of two. A combination is skipped if `T` is not a multiple of `Wram`, or if register allocation exceeds the budget; every skip is printed with its reason.
+> **lookahead** — the number of bytes that may be loaded but not yet stored.
 
-### 5.3 Schedule
+- `lookahead = max(Wl, Ws)` → lockstep: load, store, load, store.
+- `lookahead = T` → every load, then every store.
+- in between → everything else.
 
-- **`batch`:** issue the whole batch's device accesses, then the whole batch's RAM accesses. Register need = one batch's worth.
-- **`pipe`:** software-pipelined, unrolled ×2 with two alternating register sets, so the device accesses for batch *i+1* are issued before batch *i*'s RAM side completes. Register need = two batches' worth.
+Register need is the peak of that same quantity, so the knob that buys overlap is the knob that spends registers. There is no separate batch-size axis and no separate schedule enum: T sets how much is unrolled, lookahead sets how much of it overlaps.
 
-  The premise is that a device load's latency can be overlapped with the previous batch's RAM stores. Whether the A53 permits more than one outstanding Device-nGnRnE transaction is exactly the open question; nR forbids *reordering* of device accesses relative to each other, which is not the same as forbidding overlap, but the core may serialise them anyway. **Speculation.** If phase-D/E data shows `pipe` never beating `batch`, it is dropped rather than debugged. `pipe` carries all the interesting failure modes (unguarded prologue, register-set aliasing, epilogue drain), so §6.4 tests for those specifically.
+Both sides must share a register class, because data flows load → store through registers and crossing classes would need an `FMOV` per chunk — which would be what we were measuring. The **group** size `G = lcm(Wl, Ws)` is the unit both sides tile evenly; T is a multiple of G, and lookahead is a multiple of G. The default T list is `{1, 2, 3, 4, 6, 8, 12, 16} × G` — **not** restricted to powers of two, since the loop guard is a byte comparison and non-powers cost nothing.
+
+### 5.3 What happened to `batch` and `pipe`
+
+They are the two extreme lookahead values, so they no longer need naming. More importantly, the **prologue and epilogue are gone**.
+
+Classic software pipelining overlaps across the loop back-edge, which is what requires a prologue to prime and an epilogue to drain — and the prologue is exactly where an unguarded batch of device loads reads past the end of the buffer. The same overlap is available from a larger block: a block of 2T with lookahead T keeps one batch in flight throughout. The only thing lost is overlap across the back-edge itself, one bubble per block.
+
+In exchange, every segment is a straight-line run guarded by a single comparison, with nothing live across an iteration and nothing live between segments. Reviewability decided this, not elegance: the failure mode being designed out is the one a human reviewer is least likely to spot.
+
+Whether overlap helps at all is the open question. `nR` forbids device accesses being *reordered* relative to each other, which is not the same as forbidding overlap, but the A53 may serialise them anyway. **Speculation.** If the data shows lookahead above one group never wins, that half of the space is dropped rather than debugged.
 
 ### 5.4 Feasibility
 
-Register need is **computed from the op list by liveness analysis**, not from a closed-form formula, so a newly added instruction gets a correct feasibility answer for free. A combination whose need exceeds the tier's budget (§4.2) is not generated; the generator prints each skipped combination and why. The total variant count is whatever the tables produce and is not a target.
+Register need is **computed by building the variant and allocating its registers**, not from a closed-form formula, so a newly added instruction gets a correct answer without anyone deriving one. Allocation hands out one group of `G` bytes at a time as a run of consecutive registers, which satisfies `LD1`/`ST1` contiguity on both sides without a special case and needs no interference graph — groups are born and die in order. It is slightly conservative, deliberately: a register allocator that cannot be checked by reading it is not worth the variants it buys.
+
+A combination whose allocation fails is not generated, and every skip is printed with its reason. Variants that render identical instruction sequences are deduplicated. The total count is whatever the tables produce and is not a target.
 
 ### 5.5 Baselines (hand-written C, `src/baselines.c`)
 
@@ -149,20 +161,23 @@ The op list is the single source of truth. The `.S` file is rendered from it, ne
 
 ### 6.2 Body structure
 
-The body is a sequence of segments. Each segment declares an explicit **precondition on `nbytes`**, and the renderer emits the guard that enforces it. No segment may be entered speculatively — in particular a `pipe` prologue must not issue a batch's device accesses before it is known that a batch's worth of bytes remains, since that would break D2 and D3.
+The entire control flow of every generated body:
 
 ```
-  (pipe only)  if nbytes < 2*T: skip to the single-instruction loop
-  (pipe only)  prologue: issue batch 0's device-side accesses
-  batched loop: while nbytes >= T    (pipe: unrolled x2, alternating register sets)
-  (pipe only)  epilogue: drain the last in-flight batch
-  single loop:  while nbytes >= Wdev
-  return                              (remaining bytes < Wdev are the C tail's job)
+  while (nbytes >= T) { block_T }     the overlap happens here
+  while (nbytes >= G) { block_G }     remainder, lockstep
+  return                              nbytes < G is the C tail's problem
 ```
 
-`T`, `Wdev` and `Wram` differ per variant and the loops above are expressed in bytes, so the structure imposes no relationship between the device and RAM instruction widths, between `T` and any power of two, or between the strides of the two sides. Pointer advance per segment is per-side and taken from the op list.
+Two loops, each guarded by its own comparison against a literal, each a straight-line run of accesses, nothing live across an iteration, nothing live between the loops, no prologue, no epilogue. When `T == G` the first loop is omitted rather than emitted twice. This is the whole structure, for every variant, at every width. It is stated this plainly because a human has to be able to prove it correct by reading it.
 
-Each segment is a straight-line op list with symbolic offsets relative to the current device/RAM pointers. Each op records: side (dev/ram), load/store, byte offset, size, registers, and mnemonic.
+The loops count **bytes**, not chunks, so nothing relates `Wdev` to `Wram`, `T` to any power of two, or either side's stride to the other's.
+
+**Addressing is post-index throughout** (`ldr x3, [x1], #8`). `LD1`/`ST1` have no immediate-offset form, so post-index is the only rule that covers every instruction; the pointer bump is free; there are no immediate ranges to check because there are no immediates; and each side's k'th access is at `base + k·W` **by construction**, which is what makes D1 provable by reading the code rather than by trusting a simulation.
+
+Each op records: side (dev/ram), load/store, byte offset, size, registers, and instruction.
+
+The generator can print a human-readable trace of any variant (`make explain NAME=…`) showing each access with its registers and the in-flight byte count beside it — the quantity that both creates the overlap and consumes the registers.
 
 ### 6.3 Variant table
 
@@ -170,21 +185,21 @@ Each segment is a straight-line op list with symbolic offsets relative to the cu
 
 ```c
 struct variant {
-  const char *name; int dir; int wdev; const char *dev_kind;
-  int dev_count; int t; const char *ram_kind; const char *sched;
-  const char *regtier; copy_fn fn;
+  const char *name; int dir; const char *dev_kind; int wdev;
+  const char *ram_kind; int wram; int block; int lookahead; int group;
+  const char *regtier; int need; copy_fn fn;
 };
 extern const struct variant variants[]; extern const size_t n_variants;
 ```
 
-`fn` is a C wrapper: head → `body_<id>` → tail. Names follow `<dir>_<devkind>_n<count>_<ramkind>_<sched>[_saved]`, for example `rd_qp32_n4_q16_pipe`.
+`fn` is a wrapper calling the shared `ht_copy` (head → `body_<id>` → tail), so the head/tail logic exists once rather than per variant. Names follow `<dir>_<devkind>_<ramkind>_t<T>_la<lookahead>`, for example `rd_qp32_q16_t128_la64`.
 
 ### 6.4 Validator (`gen/validate.py`) must check, for every variant
 
-1. **Simulation.** Interpret the op list over a model memory for `nbytes` = 0 … 4·T + Wdev + 3 (and every multiple of `Wdev` in that range), asserting: device accesses satisfy D1–D3 relative to a `Wdev`-aligned base; the RAM side covers the same byte range exactly once; and the resulting model memory equals a reference copy byte for byte.
-2. **Registers.** Only registers permitted by the tier (§4.2) are used, and no register is written before its previous value has been consumed. `pipe` variants are additionally checked for register-set aliasing between the two unrolled halves.
-3. **Guards.** Every segment's precondition is enforced by an emitted branch. A `pipe` prologue reachable with `nbytes < 2·T` is a hard failure.
-4. **Lint of the rendered `.S`.** No mnemonic with `dev_ok = false` on the device side (D4), no forbidden registers, exactly one global symbol per variant, every immediate offset within its addressing-mode limits.
+1. **Simulation.** Interpret the op list over a model memory for every `nbytes` the wrapper can pass — multiples of `G` from 0 to 4·T + 4·G — asserting: device accesses satisfy D1–D3 relative to a `Wdev`-aligned base; the destination is covered exactly once; and every destination byte carries the source byte that should have reached it, traced through the registers, so a wrong register and a wrong offset fail as loudly as a missing store.
+2. **Registers.** Only registers permitted by the tier (§4.2); `LD1`/`ST1` operands consecutive; no register overwritten while it still holds bytes nobody has stored; no block ending with data still in registers.
+3. **Guards.** Each loop's byte comparison is emitted and matches its block size. Since there is no prologue, there is no segment that can be entered speculatively.
+4. **Lint of the rendered `.S`.** D4 in two parts: barriers, cache maintenance, exclusives and atomics are forbidden *anywhere* in a body whichever side they name; `PRFM`/`LDNP`/`STNP` are forbidden on the device side only, since they are phase-G candidates for the RAM side. Plus no `x18` or `sp`, no callee-saved registers in the `caller` tier, exactly one global symbol per body.
 5. **Assemble and re-parse.** Assemble `variants.S` with `aarch64-linux-gnu-as`, disassemble with `aarch64-linux-gnu-objdump -d`, parse the disassembly back into an op list, and assert it matches the model. This catches renderer bugs, malformed operands and out-of-range immediates that neither a text lint nor execution reliably catches. If the cross-binutils are absent, this check fails the build with a message naming the package; it is never silently skipped.
 6. **Build gate.** Any failure exits non-zero and `make` fails. A variant that fails is never dropped silently.
 
@@ -193,7 +208,7 @@ extern const struct variant variants[]; extern const size_t n_variants;
 **Native (x86-64) tests.**
 
 - `tests/test_headtail.c` is built natively with the D6 accessors redefined to log `(addr, size, op)`. For device offsets 0–127 × `n` 0–600 × every `Wdev` in the table, it asserts D1–D3 and a correct copy. Built with `-fsanitize=address,undefined -fno-sanitize-recover=all`.
-- `tests/test_validate.py` feeds the validator deliberately broken op lists — misaligned, overlapping, out-of-range, forbidden register, forbidden mnemonic, unguarded `pipe` prologue, aliased `pipe` register sets, off-by-one range — and asserts each is rejected.
+- `tests/test_validate.py` mutates a known-good variant into each defect the generator could plausibly have — misaligned access, a device byte touched twice, a read past the block, a dropped store, a store reading the wrong register, a callee-saved register, non-consecutive `LD1` operands, a store before its load, `PRFM` on the device side, a barrier anywhere, `x18`, two globals in one body, and rendered code that disagrees with its model — and asserts each is caught by the gate that should catch it. It runs *before* generation in `make check`: a validator nobody has watched fail proves nothing about the variants it passes.
 - `tests/test_harness.c` runs the whole harness against the fake device (§7.2) and asserts the pattern checker catches injected faults: a copy short by one byte, long by one byte, displaced by 64 bytes, and one that writes its source.
 
 **Emulated (`qemu-aarch64-static`) tests.** `mcbench` is cross-built with `aarch64-linux-gnu-gcc -static` and `mcbench verify --fake-dev` is run under qemu for every variant over the full correctness sweep. This executes the real binary — generated bodies, C wrappers, head/tail, pattern checker — on real AArch64 semantics, and catches what no static check can:
@@ -296,7 +311,7 @@ Because R repeats the same copy back to back, the RAM side is warm in L1/L2 for 
 
 ## 8. Output (`results.csv`)
 
-Columns: `variant, dir, devsrc, dev_kind, wdev, dev_count, t, ram_kind, sched, regtier, size, dev_off, ram_off, samples, reps_per_sample, min_ticks, med_ticks, p90_ticks, cntfrq, med_ns, med_MBps, seed, git_sha, kernel, hostname, cpu, timestamp`.
+Columns: `variant, dir, devsrc, dev_kind, wdev, ram_kind, wram, block, lookahead, group, regtier, need, size, dev_off, ram_off, samples, reps_per_sample, min_ticks, med_ticks, p90_ticks, cntfrq, med_ns, med_MBps, seed, git_sha, kernel, hostname, cpu, timestamp`.
 
 One row per combination, flushed as produced. Baseline rows leave the generated-variant columns empty rather than inventing values. `git_sha` is embedded at build time.
 
@@ -305,7 +320,7 @@ One row per combination, flushed as produced. Baseline rows leave the generated-
 Input: one or more CSVs. Output: `report.md` containing:
 
 1. Per direction, the top 5 variants by median throughput in each size bucket: ≤64 B, 65–512 B, 513 B–4 KiB, >4 KiB.
-2. The effect of `Wdev` at fixed batch/schedule, and of `dev_count` at fixed kind/schedule, as small tables.
+2. The effect of `Wdev` at fixed block/lookahead, of block at fixed widths, and of **lookahead at fixed everything else** — the last is the one that answers whether the A53 overlaps Device-nGnRnE transactions at all.
 3. `l4b64` vs `l4d64` head-to-head.
 4. Small-size (1–64 B) cost versus `base_u64`.
 5. A noise check: flag rows where p90/median > 1.2.
@@ -322,11 +337,11 @@ Kernel code; changing mapping attributes; UIO→UIO or RAM→RAM optimisation; p
 ## 11. Repo layout
 
 ```
-CLAUDE.md SPEC.md ROADMAP.md NOTES.md Makefile
-gen/      isa.py variants.py emit.py validate.py gen_variants.py
+CLAUDE.md SPEC.md ROADMAP.md NOTES.md SETUP.md Makefile
+gen/      isa.py model.py variants.py emit.py validate.py gen_variants.py
 src/      main.c uio.c uio.h timing.h devio.h headtail.c headtail.h
           pattern.c pattern.h baselines.c
-tests/    test_headtail.c test_harness.c test_validate.py poison.S
+tests/    test_headtail.c test_harness.c test_bodies.c test_validate.py poison.S
 scripts/  board_env.sh run_on_device.sh analyze.py
 build/    (generated; not committed)
 ```
@@ -335,7 +350,9 @@ Makefile targets:
 
 | target | needs | does |
 |---|---|---|
+| `deps` | root | install the whole off-board toolchain (see SETUP.md) |
 | `gen` | python3 | run the generator and validator; any failure fails the build |
+| `explain NAME=…` | python3 | print a human-readable trace of matching variants |
 | `check` | python3, `aarch64-linux-gnu-as`/`objdump` | `gen` plus the assemble-and-re-parse gate and `tests/test_validate.py` |
 | `host-test` | host cc | build and run the native tests with ASan+UBSan |
 | `qemu-test` | `aarch64-linux-gnu-gcc`, `qemu-aarch64-static` | build `mcbench` static for AArch64 and run `verify --fake-dev --variants all` under qemu |
