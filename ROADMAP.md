@@ -1,10 +1,10 @@
 # ROADMAP — uio-memcpy-bench
 
-Phases A–D need no board and no AArch64 machine. They are developed and tested on an ordinary x86-64 host. Phase E is first board contact and is deliberately tiny, because by then everything except the memory attribute has already been tested.
+Phases A–D need no board. They are developed on an ordinary x86-64 host, with every variant actually executed under `qemu-aarch64-static`. Phase E is first board contact and is deliberately tiny, because by then the same binary has run the same correctness sweep against a fake device — everything except the memory attribute has been tested.
 
 Each phase ends with a **STOP**: the agent summarises what it built, lists anything deviating from the spec, and waits for review. "Human runs" means the agent does not touch the board in that step unless explicitly told to.
 
-**Host tooling required for A–D:** `python3` (stdlib only), a host C compiler with ASan/UBSan, and `binutils-aarch64-linux-gnu` (for `aarch64-linux-gnu-as` and `-objdump`). No cross *compiler*, no emulator, no board.
+**Host tooling required for A–D**, all distro packages: `python3` (stdlib only), a host C compiler with ASan/UBSan, `binutils-aarch64-linux-gnu`, `gcc-aarch64-linux-gnu`, `libc6-dev-arm64-cross`, `qemu-user-static`. No board. The distro cross compiler is a correctness tool only — the shipped binary is still built with the Yocto SDK in phase E.
 
 ---
 
@@ -36,11 +36,14 @@ Each phase ends with a **STOP**: the agent summarises what it built, lists anyth
 - The harness per SPEC §7: layout with per-test margins and window guards, process setup, the SIGBUS/SIGSEGV handler, the `verify` subcommand, CSV output.
 - `src/baselines.c`: `base_u8`, `base_u64`, `control_glibc`.
 - `tests/test_harness.c`: run the harness against the fake device and assert the pattern checker catches injected faults — short by one, long by one, displaced by 64, source written, and a copy that reads outside its range.
+- `tests/poison.S`: the AAPCS64 register-poisoning call wrapper (SPEC §6.5), used by `verify`.
+- The `PROT_NONE` reservation around the window (SPEC §7.2).
 
 **Acceptance**
-- `mcbench verify --fake-dev … --variants all` passes on the host for the baselines over the full correctness sweep.
+- `mcbench verify --fake-dev … --variants all` passes natively for the baselines over the full correctness sweep.
+- `make qemu-test` builds `mcbench` for AArch64 and runs the same sweep under qemu, passing.
 - Every injected fault is caught, and the failure report names the right byte and diagnosis.
-- Killing the process with a deliberate misaligned access produces a useful SIGBUS report, not a bare core dump.
+- A copy deliberately made to step outside the window faults on the guard page and produces a located SIGSEGV report, not silent corruption.
 - Still no board.
 
 **STOP**
@@ -59,10 +62,11 @@ Each phase ends with a **STOP**: the agent summarises what it built, lists anyth
 
 **Acceptance**
 - `make check` passes: every variant simulates correctly over `nbytes` = 0 … 4T+Wdev+3, assembles, and disassembles back to its own model.
-- Every negative test is rejected, including an unguarded `pipe` prologue and aliased `pipe` register sets.
+- `make qemu-test` passes for **every variant**, both directions, over the full correctness sweep: correct copies, no callee-saved register destroyed, no guard-page fault.
+- Every negative test is rejected, including an unguarded `pipe` prologue and aliased `pipe` register sets. The same three defects are also built deliberately and confirmed to fail under qemu, so the static and dynamic gates are each shown to work.
 - The generator prints the skipped combinations with reasons. The count is whatever it is.
 - Human reviews the rendered `.S` for 3 or 4 variants: at least one `batch`, one `pipe`, one X-register kind, one `l4*`, and one with a non-power-of-two `dev_count`.
-- Still no board.
+- Still no board. At this point every variant has been executed, just not against Device memory.
 
 **STOP**
 
@@ -98,7 +102,7 @@ The build finally needs the Yocto SDK. The human fills `scripts/board_env.sh` be
 **Acceptance**
 - `make all` cross-builds warning-free with `-Werror`.
 - `info` shows the correct map size, a `CNTFRQ_EL0` that passes the `CLOCK_MONOTONIC` cross-check, and the kernel version.
-- `verify` passes for every variant in both directions with no SIGBUS. Any SIGBUS here is a real finding: it means the validator's alignment model and the hardware disagree, and it stops the phase.
+- `verify` passes for every variant in both directions with no SIGBUS. Any SIGBUS here is a real finding: it means the validator's alignment model and the hardware disagree — qemu cannot catch that class, by construction — and it stops the phase.
 
 **STOP**
 

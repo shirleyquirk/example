@@ -6,7 +6,7 @@ Find the fastest correct way to copy between a **Device-nGnRnE userspace mapping
 
 The deliverable is data plus a recommendation: which instruction pattern wins per direction and size range, and why. This is a measurement tool, not a library.
 
-**Correctness and speed are separate activities.** Correctness is established by the generator's model checker, the host tests, and the `verify` mode — none of which need the board. Speed is measured by the `bench` mode, which does need the board. Everything up to first board contact is developed and tested on an ordinary x86-64 host.
+**Correctness and speed are separate activities.** Correctness is established by the generator's model checker, static checks on the rendered code, and execution of every variant under an emulator — none of which need the board. Speed is measured by the `bench` mode, which does need the board and is never run under emulation. Everything up to first board contact is developed and tested on an ordinary x86-64 host.
 
 ## 2. Platform facts (confirmed)
 
@@ -185,16 +185,25 @@ extern const struct variant variants[]; extern const size_t n_variants;
 2. **Registers.** Only registers permitted by the tier (§4.2) are used, and no register is written before its previous value has been consumed. `pipe` variants are additionally checked for register-set aliasing between the two unrolled halves.
 3. **Guards.** Every segment's precondition is enforced by an emitted branch. A `pipe` prologue reachable with `nbytes < 2·T` is a hard failure.
 4. **Lint of the rendered `.S`.** No mnemonic with `dev_ok = false` on the device side (D4), no forbidden registers, exactly one global symbol per variant, every immediate offset within its addressing-mode limits.
-5. **Assemble and re-parse.** Assemble `variants.S` with `aarch64-linux-gnu-as`, disassemble with `aarch64-linux-gnu-objdump -d`, parse the disassembly back into an op list, and assert it matches the model. This catches renderer bugs, malformed operands and out-of-range immediates that a text lint cannot, and needs no emulator and no target hardware. If the cross-binutils are absent, this check fails the build with a message naming the package; it is never silently skipped.
+5. **Assemble and re-parse.** Assemble `variants.S` with `aarch64-linux-gnu-as`, disassemble with `aarch64-linux-gnu-objdump -d`, parse the disassembly back into an op list, and assert it matches the model. This catches renderer bugs, malformed operands and out-of-range immediates that neither a text lint nor execution reliably catches. If the cross-binutils are absent, this check fails the build with a message naming the package; it is never silently skipped.
 6. **Build gate.** Any failure exits non-zero and `make` fails. A variant that fails is never dropped silently.
 
-### 6.5 Host tests
+### 6.5 Tests
 
-- `tests/test_headtail.c` is built natively (x86-64 is fine) with the D6 accessors redefined to log `(addr, size, op)`. For device offsets 0–127 × `n` 0–600 × every `Wdev` in the table, it asserts D1–D3 and a correct copy. Built with `-fsanitize=address,undefined -fno-sanitize-recover=all`.
+**Native (x86-64) tests.**
+
+- `tests/test_headtail.c` is built natively with the D6 accessors redefined to log `(addr, size, op)`. For device offsets 0–127 × `n` 0–600 × every `Wdev` in the table, it asserts D1–D3 and a correct copy. Built with `-fsanitize=address,undefined -fno-sanitize-recover=all`.
 - `tests/test_validate.py` feeds the validator deliberately broken op lists — misaligned, overlapping, out-of-range, forbidden register, forbidden mnemonic, unguarded `pipe` prologue, aliased `pipe` register sets, off-by-one range — and asserts each is rejected.
 - `tests/test_harness.c` runs the whole harness against the fake device (§7.2) and asserts the pattern checker catches injected faults: a copy short by one byte, long by one byte, displaced by 64 bytes, and one that writes its source.
 
-No emulator is used. Correctness of the generated code rests on (a) the model simulation, (b) the disassembly re-parse proving the emitted instructions are the model's, and (c) the head/tail and harness tests, which execute natively.
+**Emulated (`qemu-aarch64-static`) tests.** `mcbench` is cross-built with `aarch64-linux-gnu-gcc -static` and `mcbench verify --fake-dev` is run under qemu for every variant over the full correctness sweep. This executes the real binary — generated bodies, C wrappers, head/tail, pattern checker — on real AArch64 semantics, and catches what no static check can:
+
+- **AAPCS64 violations.** Under `verify`, every copy is called through `poison_call` (`tests/poison.S`): an assembly wrapper that loads `x18`–`x28` and `d8`–`d15` with known values, calls the copy, and reports the first register destroyed. Relying on a clobber to happen to break the caller is luck; this makes it deterministic.
+- **Escapes from the window.** The guard pages of §7.2 are `PROT_NONE`, so any access outside the mapping faults under qemu exactly as it would on the board. An unguarded `pipe` prologue reading one batch past the end is caught as a `SIGSEGV`, not as a silent pass.
+
+**What emulation does not give us.** qemu does not model Device-memory alignment faults — a misaligned `LD1` that would `SIGBUS` on the board succeeds under qemu. The op-list simulator is the alignment gate (§6.4.1) and always will be. qemu also says nothing about timing; `bench` is never run under it, and the fake-device banner covers the case where someone tries.
+
+The cross compiler here is *not* the Yocto SDK — different libc, different tuning. It is a correctness tool only; `make all` still builds the shipped binary with the SDK.
 
 ## 7. Harness (`mcbench`, `src/`)
 
@@ -219,7 +228,8 @@ Correctness and timing are separate subcommands. `bench` runs one verification p
 ### 7.2 Memory layout
 
 - The device window is the UIO map, mmapped at offset `M * pagesize`; its size comes from `/sys/class/uio/uioN/maps/mapM/size`. Under `--fake-dev` it is an anonymous mapping of the given size.
-- Guards of G = 256 bytes sit at each end of the window. The working area is `[G, size − G)`. The device base for a test is `working_start + dev_offset`, where `working_start` is 4096-aligned.
+- **The mapping sits inside a `PROT_NONE` reservation.** The harness first reserves `window + 2 pages` of address space with `PROT_NONE`, then maps the UIO window (or the fake device) `MAP_FIXED` one page in. Any access outside the window then faults immediately instead of landing on whatever the allocator put next door. On the board this turns a window escape into an instant, located `SIGBUS`/`SIGSEGV` report (§7.3) rather than silent corruption of another mapping; under qemu it is what catches an over-reading prologue.
+- Guards of G = 256 bytes sit at each end of the window, inside it. The working area is `[G, size − G)`. The device base for a test is `working_start + dev_offset`, where `working_start` is 4096-aligned.
 - **Per-test margins.** Immediately before and after each test's byte range, on *both* sides, sits a margin of M = 256 bytes carrying the margin pattern (§7.4). Margins are checked after every copy. Window guards catch gross runaways; margins catch the off-by-one, which is the failure mode generated assembly actually has.
 - The device-side fill and check use aligned 8-byte D6 accessors, so they operate on the 8-byte-aligned envelope of `[base, base+n)`. The margins are sized and positioned so this envelope always lies inside them; the envelope bytes outside the copy range carry the margin pattern and are checked like any other margin byte.
 - The RAM buffer comes from `posix_memalign(4096)` with the same margin/guard layout, and is prefaulted.
@@ -258,6 +268,8 @@ The tag bits make a failure self-describing, which is the point:
 | any source byte changed | copy wrote its source — pointer or direction bug |
 
 `verify` runs each combination twice, with `seed` and `~seed`, so a byte that accidentally matches under one pattern fails under the other.
+
+On AArch64 builds, `verify` makes every call through `poison_call` so an AAPCS64 clobber is caught here too, not only under emulation. `bench` calls directly — the wrapper is cheap but it is not free, and it has no business inside a timed loop.
 
 Any failure aborts the run, printing the variant, size, offsets, the first bad offset, and both bytes decoded into (side, region, expected-offset).
 
@@ -305,7 +317,7 @@ Optional PNG plots if matplotlib is available.
 
 ## 10. Non-goals
 
-Kernel code; changing mapping attributes; UIO→UIO or RAM→RAM optimisation; prefetch and non-temporal variants (phase G only, gated); head/tail strategy variants (phase G only, gated); auto-tuning or search algorithms; multi-threaded copies; emulators; any other CPU or SoC.
+Kernel code; changing mapping attributes; UIO→UIO or RAM→RAM optimisation; prefetch and non-temporal variants (phase G only, gated); head/tail strategy variants (phase G only, gated); auto-tuning or search algorithms; multi-threaded copies; timing under emulation; any other CPU or SoC.
 
 ## 11. Repo layout
 
@@ -314,7 +326,7 @@ CLAUDE.md SPEC.md ROADMAP.md NOTES.md Makefile
 gen/      isa.py variants.py emit.py validate.py gen_variants.py
 src/      main.c uio.c uio.h timing.h devio.h headtail.c headtail.h
           pattern.c pattern.h baselines.c
-tests/    test_headtail.c test_harness.c test_validate.py
+tests/    test_headtail.c test_harness.c test_validate.py poison.S
 scripts/  board_env.sh run_on_device.sh analyze.py
 build/    (generated; not committed)
 ```
@@ -326,9 +338,12 @@ Makefile targets:
 | `gen` | python3 | run the generator and validator; any failure fails the build |
 | `check` | python3, `aarch64-linux-gnu-as`/`objdump` | `gen` plus the assemble-and-re-parse gate and `tests/test_validate.py` |
 | `host-test` | host cc | build and run the native tests with ASan+UBSan |
+| `qemu-test` | `aarch64-linux-gnu-gcc`, `qemu-aarch64-static` | build `mcbench` static for AArch64 and run `verify --fake-dev --variants all` under qemu |
 | `all` | cross `$(CC)` from the Yocto SDK | `gen` plus cross-compile `mcbench` |
 | `clean` | | |
 
-`all` assumes the SDK environment is sourced. Build target code with `-O2 -Wall -Wextra -Werror`. Host tests additionally with `-fsanitize=address,undefined -fno-sanitize-recover=all`.
+`all` assumes the SDK environment is sourced and is the only target that produces a shipped binary. `qemu-test` uses the distro cross compiler, which is a different toolchain; it is a correctness check, never a build product. Build target code with `-O2 -Wall -Wextra -Werror`. Host tests additionally with `-fsanitize=address,undefined -fno-sanitize-recover=all`.
+
+Off-board toolchain, all distro packages: `python3` (stdlib only), a host cc, `binutils-aarch64-linux-gnu`, `gcc-aarch64-linux-gnu`, `libc6-dev-arm64-cross`, `qemu-user-static`.
 
 `scripts/board_env.sh` holds the board parameters as empty variable defines and documents the required kernel/boot setup. `scripts/run_on_device.sh` sources it, copies `build/mcbench` to `$BOARD:/tmp/`, runs it with the given arguments, and copies any `--out` file back. It does nothing else.
