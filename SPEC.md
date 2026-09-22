@@ -343,8 +343,15 @@ src/      main.c uio.c uio.h timing.h devio.h headtail.c headtail.h
           pattern.c pattern.h baselines.c
 tests/    test_headtail.c test_harness.c test_bodies.c test_validate.py poison.S
 scripts/  board_env.sh run_on_device.sh analyze.py
+third_party/ vfio-host-test (submodule; reference only, never built here)
 build/    (generated; not committed)
 ```
+
+`third_party/vfio-host-test` is checked out for reference, not used. It is
+virtualopensystems' VFIO test suite, and it carries a userspace PL330 driver
+that is the natural comparison point if a DMA engine is ever brought into
+scope -- a different mechanism with its own harness, not a variant of this
+one. See NOTES.md.
 
 Makefile targets:
 

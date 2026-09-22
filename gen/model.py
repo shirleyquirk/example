@@ -137,8 +137,7 @@ def allocate(ops, dev_is_load, dev_i, ram_i, group, cls, pool):
     store retires. Since both sides walk offsets upward, that is simply: take
     on first touch by a load, give back on last touch by a store.
     """
-    slot = isa.SLOT[cls]
-    regs_per_group = group // slot
+    rb = isa.REG_BYTES[cls]
     held = {}          # group index -> [register numbers]
     out = []
     for kind, off, size in ops:
@@ -155,7 +154,7 @@ def allocate(ops, dev_is_load, dev_i, ram_i, group, cls, pool):
             run = held[g]
             lo = max(off, g * group) - g * group
             hi = min(off + size, (g + 1) * group) - g * group
-            regs += run[lo // slot:hi // slot]
+            regs += run[lo // rb:hi // rb]
         instr = (dev_i if (kind == "L") == dev_is_load else ram_i)
         side = "dev" if (kind == "L") == dev_is_load else "ram"
         out.append(Op(side, kind, off, size, tuple(regs), instr))
@@ -192,11 +191,11 @@ def build(dev_i, ram_i, direction, block, lookahead, tier):
     blocks = []
     for nb, la in shape:
         seq = interleave(nb, wl, ws, min(la, nb))
-        pool = RegPool(tier, cls, group // isa.SLOT[cls])
+        pool = RegPool(tier, cls, group // isa.REG_BYTES[cls])
         ops = allocate(seq, dev_is_load, dev_i, ram_i, group, cls, pool)
         if ops is None:
             return None
-        need = peak_inflight(seq) // isa.SLOT[cls]
+        need = peak_inflight(seq) // isa.REG_BYTES[cls]
         blocks.append(Block(nb, ops, need))
     return blocks
 
@@ -233,14 +232,13 @@ def simulate(blocks, nbytes, dev_base_align):
                             raise AssertionError("D3: device byte +%d twice"
                                                  % (addr + k))
                         dev_seen[addr + k] = op.kind
+                rb = isa.REG_BYTES[op.instr.regclass]
                 if op.kind == "L":
                     for k in range(op.size):
-                        regs[op.regs[k // isa.SLOT[op.instr.regclass]],
-                             k % isa.SLOT[op.instr.regclass]] = addr + k
+                        regs[op.regs[k // rb], k % rb] = addr + k
                 else:
                     for k in range(op.size):
-                        src = regs.get((op.regs[k // isa.SLOT[op.instr.regclass]],
-                                        k % isa.SLOT[op.instr.regclass]))
+                        src = regs.get((op.regs[k // rb], k % rb))
                         if src is None:
                             raise AssertionError("store of an unloaded register")
                         dst_image[addr + k] = src

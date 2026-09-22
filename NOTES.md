@@ -33,6 +33,18 @@ Things deliberately not built. Raise to the human before implementing any of the
 
 - **Variant count is 1532** in the `caller` tier (1768 in `saved`), because lookahead is a finer axis than the old schedule enum. The `bench` size sweep is still only a few minutes of timing; the `verify` sweep is the expensive one and is what `--variants` exists to subset.
 
+- **PL330 from userspace, as a comparison point.** `third_party/vfio-host-test`
+  (submodule, reference only, never built by our Makefile) carries a userspace
+  PL330/DMA-330 driver over VFIO in `src_test/pl330/pl330_vfio_driver/`. If the
+  Agilex HPS PL330 can be bound to `vfio-platform` and its SMMU stream IDs
+  mapped, a DMA engine descriptor-chaining the same copy would be the honest
+  upper bound to measure the CPU against -- and VFIO gets us IOMMU segregation
+  of the reserved region rather than the blanket access a UIO `no-map` mapping
+  gives. It is a different mechanism, not a variant, so it is a separate
+  harness and a separate CSV, not a row in ours. Unblocked only if the
+  device-tree and SMMU setup exists, which is the human's call and outside
+  what this agent touches.
+
 ## Open questions for the human
 
 - `CNTFRQ_EL0` for this board: stated to exist in an earlier conversation, not available in this session. The harness reads it at runtime and cross-checks it, so nothing is blocked; paste it into `CNTFRQ_HZ_EXPECT` in `scripts/board_env.sh` if you want the extra check.

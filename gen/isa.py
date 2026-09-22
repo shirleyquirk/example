@@ -55,7 +55,7 @@ RAM = list(DEV)
 BY_ID = {i.id: i for i in DEV}
 
 # Bytes held by one register of each class.
-SLOT = {"x": 8, "v": 16}
+REG_BYTES = {"x": 8, "v": 16}
 
 # Register tiers (SPEC 4.2). x0/x1/x2 carry the arguments; x18 is the platform
 # register and is never touched.

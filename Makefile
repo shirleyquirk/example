@@ -4,7 +4,8 @@
 #   make gen         generate and validate the variants
 #   make check       gen + negative tests (the gates must be shown to fail)
 #   make qemu-test   execute every generated body under qemu
-#   make host-test   native tests under ASan+UBSan          [phase A]
+#   make host-test   native head/tail tests under ASan+UBSan
+#   make qemu-mcbench  cross-build mcbench and run info/list under qemu
 #   make all         cross-compile mcbench with the Yocto SDK [phase E]
 #
 # Phases A-D need nothing but `make deps`. See SETUP.md.
@@ -23,7 +24,7 @@ GEN_OUT   := $(GEN)/variants.S $(GEN)/variants_table.c $(GEN)/bodies_table.c
 WARN      := -O2 -Wall -Wextra -Werror
 SAN       := -fsanitize=address,undefined -fno-sanitize-recover=all
 
-.PHONY: all gen check qemu-test host-test deps clean explain
+.PHONY: all gen check qemu-test qemu-mcbench host-test deps clean explain check-tools
 .DEFAULT_GOAL := check
 
 # ---------------------------------------------------------------- toolchain --
@@ -71,10 +72,19 @@ qemu-test: gen
 
 # --------------------------------------------------------- phase A and later --
 host-test:
-	@test -f tests/test_headtail.c || { echo "phase A not built yet"; exit 1; }
+	@mkdir -p $(BUILD)
 	$(HOSTCC) $(WARN) $(SAN) -DHOST_MOCK_DEVIO -Isrc \
 	    -o $(BUILD)/test_headtail tests/test_headtail.c src/headtail.c
 	$(BUILD)/test_headtail
+
+# mcbench itself, cross-built and run under emulation. Proves the binary the
+# board will run, minus the memory attribute.
+qemu-mcbench: gen
+	$(CROSS)gcc $(WARN) -static -Isrc -DGIT_SHA='"$(shell git rev-parse --short HEAD)"' \
+	    -o $(BUILD)/mcbench-qemu src/main.c src/uio.c src/headtail.c \
+	    $(GEN)/variants.S $(GEN)/variants_table.c
+	$(QEMU) $(BUILD)/mcbench-qemu info --fake-dev 1048576
+	@$(QEMU) $(BUILD)/mcbench-qemu list | tail -1
 
 all: gen
 	@test -f src/main.c || { echo "phase A not built yet"; exit 1; }
