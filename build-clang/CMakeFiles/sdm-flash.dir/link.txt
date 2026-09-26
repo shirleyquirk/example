@@ -1,1 +1,0 @@
-/usr/bin/clang++ -O3 -DNDEBUG "CMakeFiles/sdm-flash.dir/examples/sdm_flash/main.cpp.o" -o sdm-flash  libsdm_core.a libsdm_core.a 

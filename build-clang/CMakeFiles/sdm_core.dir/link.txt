@@ -1,2 +1,0 @@
-/usr/bin/llvm-ar qc libsdm_core.a CMakeFiles/sdm_core.dir/sdm/src/flash_plan.cpp.o
-/usr/bin/llvm-ranlib libsdm_core.a
