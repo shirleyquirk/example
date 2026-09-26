@@ -11,18 +11,16 @@ Protocol details and sources are in [PROTOCOL.md](PROTOCOL.md).
 
 ---
 
-## 0. Blockers and inputs needed
+## 0. Decisions and open inputs
 
-1. **The `SdmService` class is not in this repo.** The repo only contains an empty
-   `Thing/Thing.ino`. To finish the "is our command set complete" check, the class's command
-   enum needs to be diffed against PROTOCOL.md §3. It needs pushing to this branch, or at
-   least its command enum and transport interface.
-2. **Transport:** does `SdmService<T>` talk to jtagd (as System Console does), or to the
-   cable directly? This decides whether the "15 s startup" saving comes for free or needs work.
-3. **Filename convention for offsets.** Proposal: accept `<anything>@0x<hex>.bin` and
-   `0x<hex>_<anything>.bin`, and reject anything ambiguous.
-4. **Test framework already in use** (GoogleTest, Catch2, doctest?). Match it. Otherwise use
-   doctest: one header, fast to build.
+| Topic | Status |
+|---|---|
+| Transport | **jtagd.** The same path as `quartus_pgm`/`quartus_jli`, so no difference in cable speed. The win is not paying Quartus' per-invocation startup, plus doing less work (skipping blank chunks, choosing the erase size). |
+| Service API | `sdm.sendCommand<Command::X>(args?)` returns a `Response`, and `Response.code()` gives the SDM error code. Two **assumptions** remain, both isolated in `sdm/include/sdm/adapter.hpp`: args arrive as `std::span<const uint32_t>`, and `Response.data()` gives the payload words. Fix them there if they are wrong. |
+| Filename → offset | **Placeholder**: `placeholderOffsetParser` takes the first `0x<hex>` token. This is swappable because `loadDirectory` takes an `OffsetParser`. |
+| Erase block size | **A knob, to be swept.** `PlanOptions::eraseBlock` (alignment/rounding) and `maxEraseBytesPerCmd` (bytes per `QSPI_ERASE`), exposed as `--erase-block` and `--erase-cmd-max`. The `erase_sweep` probe times 4K/32K/64K/256K on hardware. |
+| Test framework | doctest (vendored, single header). No preference was given, so switching is cheap. |
+| `SdmService` source | Still not in the repo. The command diff table (§1) waits on its enum. |
 
 ## 1. Command completeness check
 
@@ -173,11 +171,31 @@ Real gains beyond that come from doing less work:
 
 | # | Deliverable | Needs HW | Exit criterion |
 |---|---|---|---|
-| M0 | `SdmService` in repo; command diff table (§1) filled in | no | every PROTOCOL.md code has a row |
-| M1 | L0 tests + typed QSPI wrappers + `QspiSession` RAII | no | CI green |
-| M2 | `FakeSdm` + L1 tests incl. fault injection | no | CI green |
-| M3 | `FlashPlan` + `sdm-flash --dry-run` | no | plan unit tests incl. shared-4K-block and overlap cases |
+| M0 | `SdmService` in repo; command diff table (§1) filled in | no | every PROTOCOL.md code has a row. **Open** |
+| M1 | L0 tests + typed QSPI wrappers + `QspiSession` RAII | no | **Done** against the stand-in `sdm::Command` |
+| M2 | `FakeSdm` + L1 tests incl. fault injection | no | **Done** |
+| M3 | `FlashPlan` + `sdm-flash --dry-run` / `--fake` | no | **Done**, including shared-block, overlap, blank-skip and erase-knob cases |
 | M4 | L2 assertions on a real Agilex 7 board | yes | all pass on 1 board |
 | M5 | L2 characterisations → `sdm_characterisation.jsonl`; PROTOCOL.md `[?]` items resolved | yes | MAX_WORDS, erase semantics, stale-open recovery known |
 | M6 | `sdm-flash` optimistic, real flash of a mfg image set; timing against `quartus_pgm -o pvi` | yes | byte-identical readback, time ≤ Quartus |
 | M7 | Phase-2 error policies from M5 data; parallel multi-board | yes | defined behaviour for every catalogued failure |
+
+## 5. Code map
+
+| Path | What |
+|---|---|
+| `sdm/include/sdm/adapter.hpp` | **The only file that knows SdmService's shape.** `SdmServiceLike` concept, `send<C>()`, `words()` |
+| `sdm/include/sdm/command.hpp` | Stand-in command enum (replace with SdmService's own) |
+| `sdm/include/sdm/error.hpp` | SDM error-code names, `SdmError`, `UsageError` |
+| `sdm/include/sdm/qspi.hpp` | `QspiSession<Sdm>`: RAII open/close, checked erase/write/read/device-reg ops, raw escape hatch |
+| `sdm/include/sdm/flash_plan.hpp`, `src/flash_plan.cpp` | Directory → images → erase spans and write chunks |
+| `sdm/include/sdm/flash_writer.hpp` | `writeFlash<Sdm>()`: execute a plan, verify, report, phase-1 error policy |
+| `sdm/testing/fake_sdm.hpp` | NOR-accurate fake with fault injection |
+| `sdm/testing/hil_suite.hpp` | `runAssertions()` + `characterise()`, templated so the same code runs on the fake in CI and on hardware |
+| `examples/sdm_flash/main.cpp` | CLI. The hardware backend plugs in at one marked line |
+| `tests/` | doctest suites (26 cases), `cmake -B build && cmake --build build && ctest --test-dir build` |
+
+To run the HIL suite on hardware: write a small main that constructs the real `SdmService`,
+calls `hil::runAssertions(sdm, cfg)` and prints the results, then calls
+`hil::characterise(sdm, cfg, jsonl_file)`. Set `cfg.scratchBase` to a region that is safe to
+clobber.
