@@ -1,10 +1,12 @@
 #include "sdm/flash_plan.hpp"
 
 #include <algorithm>
+#include <bit>
 #include <charconv>
 #include <format>
 #include <fstream>
 #include <iterator>
+#include <map>
 
 namespace sdm {
 
@@ -55,6 +57,13 @@ FlashPlan makePlan(std::vector<FileImage> files, const PlanOptions& o)
         throw PlanError(std::format("eraseBlock {} is not a multiple of 4 KiB", o.eraseBlock));
     if (o.maxEraseBytesPerCmd % o.eraseBlock)
         throw PlanError("maxEraseBytesPerCmd must be a multiple of eraseBlock");
+    auto opSizes = o.eraseOpSizes;
+    std::ranges::sort(opSizes, std::greater{});
+    for (auto sz : opSizes)
+        if (sz < 4096 || !std::has_single_bit(sz))
+            throw PlanError(std::format("erase op size {} is not a power of two >= 4 KiB", sz));
+    if (!opSizes.empty() && o.eraseBlock % opSizes.back())
+        throw PlanError("eraseBlock must be a multiple of the smallest erase op size");
     if (o.writeChunk == 0 || o.writeChunk % 4)
         throw PlanError("writeChunk must be a non-zero multiple of 4");
 
@@ -105,6 +114,14 @@ FlashPlan makePlan(std::vector<FileImage> files, const PlanOptions& o)
 
     // Split spans into erase commands, and flag bytes erased that belong to no file.
     for (auto& s : plan.spans) {
+        if (!opSizes.empty()) {
+            for (std::uint64_t a = s.begin; a < s.end;) {
+                auto fit = std::ranges::find_if(opSizes, [&](std::uint32_t sz) { return a % sz == 0 && a + sz <= s.end; });
+                s.erases.push_back({static_cast<std::uint32_t>(a), *fit});  // smallest always fits
+                a += *fit;
+            }
+            continue;
+        }
         std::uint32_t step = o.maxEraseBytesPerCmd ? o.maxEraseBytesPerCmd : s.end - s.begin;
         for (std::uint64_t a = s.begin; a < s.end; a += step)
             s.erases.push_back({static_cast<std::uint32_t>(a),
@@ -150,9 +167,14 @@ std::string FlashPlan::describe() const
     std::string out;
     for (const auto& f : files)
         out += std::format("  file  0x{:08x} +0x{:08x}  {}\n", f.offset, f.data.size(), f.name);
-    for (const auto& s : spans)
-        out += std::format("  span  [0x{:08x}, 0x{:08x})  {} erase cmd(s), {} write cmd(s)\n", s.begin,
-                           s.end, s.erases.size(), s.writes.size());
+    for (const auto& s : spans) {
+        std::map<std::uint32_t, std::size_t> sizes;
+        for (const auto& e : s.erases) ++sizes[e.bytes];
+        std::string mix;
+        for (auto [sz, n] : sizes) mix += std::format(" {}x{}K", n, sz / 1024);
+        out += std::format("  span  [0x{:08x}, 0x{:08x})  erase{}, {} write cmd(s)\n", s.begin, s.end, mix,
+                           s.writes.size());
+    }
     out += std::format("  total erase 0x{:x} B, write 0x{:x} B, skipped (0xFF) 0x{:x} B\n", eraseBytes(),
                        writeBytes(), skippedBytes);
     for (const auto& w : warnings) out += "  warning: " + w + "\n";

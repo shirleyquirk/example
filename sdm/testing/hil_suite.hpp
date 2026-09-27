@@ -26,6 +26,10 @@ struct Config {
     std::uint32_t scratchBytes = 1u << 20;   // must be >= 256 KiB for the erase sweep
     std::uint32_t chipSelect = 0;
     QspiLimits limits;
+    // Clock sweep (characterise): called with each frequency in order; return false if the
+    // cable refused it. Put the value you want to keep last. Empty = no sweep.
+    std::function<bool(std::uint32_t hz)> setJtagClock;
+    std::vector<std::uint32_t> clockSweepHz = {6'000'000, 16'000'000, 24'000'000};
 };
 
 struct Result {
@@ -102,6 +106,25 @@ std::vector<Result> runAssertions(Sdm& sdm, const Config& cfg)
         auto off = std::to_integer<int>(q.readDeviceReg(0x05, 1)[0]);
         d = std::format("SR after WREN 0x{:02x}, after WRDI 0x{:02x}", on, off);
         return (on & 0x02) && !(off & 0x02);
+    });
+    check("device_info", [&](std::string& d) {
+        QspiSession q(sdm, cfg.chipSelect, cfg.limits);
+        auto info = q.deviceInfo()[cfg.chipSelect];
+        auto jedecCap = q.jedecId().capacity();
+        d = std::format("raw size 0x{:08x} erasesize 0x{:x}; decoded {} B, JEDEC says {} B", info.rawSize,
+                        info.eraseSize, info.sizeBytes().value_or(0), jedecCap.value_or(0));
+        return info.present() && info.sizeBytes() && (!jedecCap || *info.sizeBytes() == *jedecCap);
+    });
+    check("direct_erase_64k", [&](std::string& d) {
+        QspiSession q(sdm, cfg.chipSelect, cfg.limits);
+        auto cap = q.jedecId().capacity();
+        auto data = pattern(4096, 7);
+        q.erase(base, 65536);
+        q.write(base + 61440, data);  // dirty the last 4K of the block
+        auto polls = q.eraseDirect(base, 65536, !cap || *cap > (16u << 20));
+        auto r = q.read(base + 61440, 4096);
+        d = std::format("{} WIP polls", polls);
+        return std::ranges::all_of(r, [](std::byte b) { return b == std::byte{0xFF}; });
     });
     check("erase_reads_ff", [&](std::string&) {
         QspiSession q(sdm, cfg.chipSelect, cfg.limits);
@@ -194,6 +217,32 @@ void characterise(Sdm& sdm, const Config& cfg, std::ostream& jsonl)
                                         total, detail::msSince(t), c));
     }
 
+    // Same sweep with the flash's own opcodes, bypassing the SDM's choice of erase size.
+    {
+        auto cap = q.jedecId().capacity();
+        bool fourByte = !cap || *cap > (16u << 20);
+        for (const auto& op : kEraseOpcodes) {
+            const std::uint32_t total = 262144;
+            auto t = steady_clock::now();
+            std::uint64_t polls = 0;
+            std::string err;
+            try {
+                for (std::uint32_t a = 0; a < total; a += op.bytes) polls += q.eraseDirect(base + a, op.bytes, fourByte);
+            } catch (const std::exception& e) {
+                err = e.what();
+            }
+            emit("erase_sweep_direct", std::format("\"block\":{},\"total\":{},\"ms\":{:.3f},\"polls\":{},\"error\":\"{}\"",
+                                                   op.bytes, total, detail::msSince(t), polls, err));
+        }
+    }
+
+    {
+        auto info = q.deviceInfo();
+        std::string cs;
+        for (const auto& d : info) cs += std::format("{}[\"0x{:08x}\",\"0x{:x}\"]", cs.empty() ? "" : ",", d.rawSize, d.eraseSize);
+        emit("device_info", std::format("\"cs\":[{}]", cs));
+    }
+
     // write_throughput by chunk size.
     for (std::uint32_t words : {64u, 256u, 1024u, 4096u}) {
         const std::uint32_t total = 65536;
@@ -210,6 +259,30 @@ void characterise(Sdm& sdm, const Config& cfg, std::ostream& jsonl)
         double ms = detail::msSince(t);
         emit("write_throughput", std::format("\"words\":{},\"ms\":{:.3f},\"MBps\":{:.3f},\"code\":\"0x{:03x}\"",
                                              words, ms, total / 1e3 / ms, c));
+    }
+
+    // clock_sweep: does TCK matter, or is the jtagd round trip the bottleneck?
+    if (cfg.setJtagClock) {
+        const std::uint32_t total = 65536;
+        auto data = detail::pattern(total, 99);
+        for (auto hz : cfg.clockSweepHz) {
+            if (!cfg.setJtagClock(hz)) {
+                emit("clock_sweep", std::format("\"hz\":{},\"error\":\"refused\"", hz));
+                continue;
+            }
+            auto t = steady_clock::now();
+            for (int i = 0; i < 50; ++i) send<Command::NOOP>(sdm);
+            double noopMs = detail::msSince(t) / 50;
+            q.erase(base, total);
+            t = steady_clock::now();
+            q.write(base, data);
+            double writeMs = detail::msSince(t);
+            t = steady_clock::now();
+            q.read(base, total);
+            double readMs = detail::msSince(t);
+            emit("clock_sweep", std::format("\"hz\":{},\"noop_ms\":{:.3f},\"write_MBps\":{:.3f},\"read_MBps\":{:.3f}",
+                                            hz, noopMs, total / 1e3 / writeMs, total / 1e3 / readMs));
+        }
     }
 
     // Error codes for misuse (compare against the table in PROTOCOL.md §2).

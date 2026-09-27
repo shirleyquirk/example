@@ -34,6 +34,10 @@ struct PlanOptions {
     std::uint32_t eraseBlock = 4096;
     // Max bytes per QSPI_ERASE command (multiple of eraseBlock). 0 = one command per merged span.
     std::uint32_t maxEraseBytesPerCmd = 0;
+    // If non-empty, overrides maxEraseBytesPerCmd: each span is decomposed greedily into erase
+    // ops of these sizes (largest that is aligned and fits first), e.g. {65536, 32768, 4096}.
+    // This is how the flash's own sector sizes get used without extra collateral erase.
+    std::vector<std::uint32_t> eraseOpSizes;
     // Write chunk size in bytes; chunks are aligned to absolute multiples of this.
     std::uint32_t writeChunk = 4096;
     // Don't send chunks that are entirely 0xFF: erase already left them that way.

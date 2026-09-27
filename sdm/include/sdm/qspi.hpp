@@ -5,6 +5,7 @@
 #include "sdm/error.hpp"
 #include "sdm/stats.hpp"
 
+#include <algorithm>
 #include <array>
 #include <bit>
 #include <chrono>
@@ -36,11 +37,6 @@ constexpr std::uint32_t setCsArg(std::uint32_t chipSelect, bool extDecoder = fal
            (std::uint32_t{combinedAddr} << 26);
 }
 
-constexpr std::uint32_t bswap32(std::uint32_t x)
-{
-    return (x >> 24) | ((x >> 8) & 0xFF00) | ((x << 8) & 0xFF0000) | (x << 24);
-}
-
 // Flash bytes are packed little-endian into words (byte 0 = bits [7:0] of word 0), matching
 // ATF, which hands the SDM an in-memory byte buffer as a uint32_t* on a little-endian core.
 inline std::vector<std::uint32_t> packWords(std::span<const std::byte> bytes)
@@ -48,7 +44,7 @@ inline std::vector<std::uint32_t> packWords(std::span<const std::byte> bytes)
     std::vector<std::uint32_t> w((bytes.size() + 3) / 4, 0xFFFFFFFFu);
     std::memcpy(w.data(), bytes.data(), bytes.size());
     if constexpr (std::endian::native == std::endian::big)
-        for (auto& x : w) x = bswap32(x);
+        for (auto& x : w) x = std::byteswap(x);
     return w;
 }
 
@@ -57,7 +53,7 @@ inline std::vector<std::byte> unpackWords(std::span<const std::uint32_t> words, 
     std::vector<std::byte> b(nbytes);
     std::vector<std::uint32_t> w(words.begin(), words.end());
     if constexpr (std::endian::native == std::endian::big)
-        for (auto& x : w) x = bswap32(x);
+        for (auto& x : w) x = std::byteswap(x);
     std::memcpy(b.data(), w.data(), std::min(nbytes, w.size() * 4));
     return b;
 }
@@ -70,6 +66,55 @@ constexpr std::optional<std::uint64_t> jedecCapacityBytes(std::uint8_t density)
     if (density >= 0x20 && density <= 0x22) return std::uint64_t{1} << (density - 6);
     return std::nullopt;
 }
+
+// One chip select's entry from QSPI_GET_DEVICE_INFO (8 words = 4 x {size, erasesize}).
+// Layout from U-Boot rsu_ll_qspi.c / Linux stratix10-rsu.c. `size` uses the SFDP density
+// encoding: bit31=0 -> bit count (SFDP stores count-1; U-Boot ignores the -1), bit31=1 ->
+// 2^N bits. erasesize units are not documented (bytes assumed). Confirm on hardware.
+struct FlashDeviceInfo {
+    std::uint32_t rawSize = 0, eraseSize = 0;
+
+    bool present() const { return rawSize != 0 && rawSize != 0xFFFFFFFF; }
+
+    std::optional<std::uint64_t> sizeBytes() const
+    {
+        if (!present()) return std::nullopt;
+        std::uint64_t v = rawSize & 0x7FFFFFFFu;
+        if (rawSize & 0x80000000u) return v < 64 ? std::optional<std::uint64_t>((std::uint64_t{1} << v) / 8) : std::nullopt;
+        if (std::has_single_bit(v + 1)) ++v;  // SFDP "count - 1" form
+        return v / 8;
+    }
+};
+
+using DeviceInfo = std::array<FlashDeviceInfo, 4>;
+
+inline DeviceInfo decodeDeviceInfo(std::span<const std::uint32_t> w)
+{
+    DeviceInfo d{};
+    for (std::size_t i = 0; i < d.size() && 2 * i + 1 < w.size(); ++i) d[i] = {w[2 * i], w[2 * i + 1]};
+    return d;
+}
+
+// Erase opcodes for direct erase via QSPI_WRITE_DEVICE_REG (Intel documents that use: address
+// written MSB first). The 4-byte-address forms work regardless of the flash's address mode on
+// Micron MT25Q, Macronix MX25/66 and Winbond W25Q >= 256 Mb; <= 128 Mb parts need the 3-byte forms.
+struct EraseOpcode {
+    std::uint32_t bytes;
+    std::uint8_t opcode3, opcode4;
+};
+inline constexpr std::array<EraseOpcode, 3> kEraseOpcodes{{
+    {4096, 0x20, 0x21},
+    {32768, 0x52, 0x5C},
+    {65536, 0xD8, 0xDC},
+}};
+
+inline constexpr std::uint8_t kOpWriteEnable = 0x06;
+inline constexpr std::uint8_t kOpReadStatus = 0x05;
+inline constexpr std::uint8_t kStatusWip = 0x01;
+
+class FlashBusyTimeout : public std::runtime_error {
+    using std::runtime_error::runtime_error;
+};
 
 struct JedecId {
     std::uint8_t manufacturer, type, density;
@@ -100,8 +145,7 @@ public:
 
     const QspiLimits& limits() const { return limits_; }
 
-    // Raw 8-word QSPI_GET_DEVICE_INFO response. Layout undocumented in public sources.
-    std::vector<std::uint32_t> deviceInfo() { return words(call<Command::QSPI_GET_DEVICE_INFO>({}, "")); }
+    DeviceInfo deviceInfo() { return decodeDeviceInfo(words(call<Command::QSPI_GET_DEVICE_INFO>({}, ""))); }
 
     std::vector<std::byte> readDeviceReg(std::uint8_t opcode, std::uint32_t nbytes)
     {
@@ -144,6 +188,38 @@ public:
                                          "non-zero multiples of 4 KiB", addr, bytes));
         std::array<std::uint32_t, 2> args{addr, bytes / 4};
         call<Command::QSPI_ERASE>(args, std::format("addr=0x{:08x} bytes=0x{:x}", addr, bytes));
+    }
+
+    // Erase one block by sending the flash's own erase opcode (bypasses the SDM's choice of erase
+    // size): WREN, WRITE_DEVICE_REG(opcode, address MSB first), then poll WIP. Returns the number
+    // of status polls, which is a rough measure of how long the flash was busy.
+    std::uint32_t eraseDirect(std::uint32_t addr, std::uint32_t bytes, bool fourByteAddr,
+                              std::chrono::milliseconds timeout = std::chrono::seconds(5))
+    {
+        auto it = std::ranges::find(kEraseOpcodes, bytes, &EraseOpcode::bytes);
+        if (it == kEraseOpcodes.end() || addr % bytes)
+            throw UsageError(std::format("direct erase addr=0x{:08x} bytes=0x{:x}: size must be 4K/32K/64K "
+                                         "and addr aligned to it", addr, bytes));
+        std::array<std::byte, 4> a{std::byte(addr >> 24), std::byte(addr >> 16), std::byte(addr >> 8), std::byte(addr)};
+        sendDeviceOp(kOpWriteEnable);
+        if (fourByteAddr)
+            writeDeviceReg(it->opcode4, a);
+        else
+            writeDeviceReg(it->opcode3, std::span(a).subspan(1));
+        return waitReady(timeout);
+    }
+
+    // Poll the status register until WIP clears.
+    std::uint32_t waitReady(std::chrono::milliseconds timeout)
+    {
+        auto deadline = std::chrono::steady_clock::now() + timeout;
+        for (std::uint32_t polls = 1;; ++polls) {
+            auto sr = std::to_integer<std::uint8_t>(readDeviceReg(kOpReadStatus, 1)[0]);
+            if (!(sr & kStatusWip)) return polls;
+            if (std::chrono::steady_clock::now() > deadline)
+                throw FlashBusyTimeout(std::format("flash still busy (SR=0x{:02x}) after {} polls / {} ms", sr,
+                                                   polls, timeout.count()));
+        }
     }
 
     // Splits into QSPI_WRITE commands of at most limits().maxRwWords. The tail is padded with 0xFF.

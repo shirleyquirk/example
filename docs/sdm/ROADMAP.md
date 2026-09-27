@@ -18,7 +18,9 @@ Protocol details and sources are in [PROTOCOL.md](PROTOCOL.md).
 | Transport | **jtagd.** The same path as `quartus_pgm`/`quartus_jli`, so no difference in cable speed. The win is not paying Quartus' per-invocation startup, plus doing less work (skipping blank chunks, choosing the erase size). |
 | Service API | `sdm.sendCommand<Command::X>(args?)` returns a `Response`, and `Response.code()` gives the SDM error code. Two **assumptions** remain, both isolated in `sdm/include/sdm/adapter.hpp`: args arrive as `std::span<const uint32_t>`, and `Response.data()` gives the payload words. Fix them there if they are wrong. |
 | Filename → offset | **Placeholder**: `placeholderOffsetParser` takes the first `0x<hex>` token. This is swappable because `loadDirectory` takes an `OffsetParser`. |
-| Erase block size | **A knob, to be swept.** `PlanOptions::eraseBlock` (alignment/rounding) and `maxEraseBytesPerCmd` (bytes per `QSPI_ERASE`), exposed as `--erase-block` and `--erase-cmd-max`. The `erase_sweep` probe times 4K/32K/64K/256K on hardware. |
+| Language | **C++23** (GCC 14 in production; GCC 13 here). `std::byteswap`, `std::expected`, `std::ranges::contains`. |
+| JTAG clock | `sdm::jtag::setJtagClock` (AJI `aji_set_parameter`, the same message `jtagconfig --setparam` sends) plus a jtagconfig fallback. See [ERASE_AND_CLOCK.md](ERASE_AND_CLOCK.md). |
+| Erase block size | **A knob, to be swept.** See [ERASE_AND_CLOCK.md](ERASE_AND_CLOCK.md) for the investigation. Now also: direct flash opcodes (`--erase-method direct`), greedy mixed sizes (`--erase-sizes 64K,32K,4K`) and write-first (`--write-first`). `PlanOptions::eraseBlock` (alignment/rounding) and `maxEraseBytesPerCmd` (bytes per `QSPI_ERASE`), exposed as `--erase-block` and `--erase-cmd-max`. The `erase_sweep` probe times 4K/32K/64K/256K on hardware. |
 | Test framework | doctest (vendored, single header). No preference was given, so switching is cheap. |
 | `SdmService` source | Still not in the repo. The command diff table (§1) waits on its enum. |
 
@@ -193,7 +195,8 @@ Real gains beyond that come from doing less work:
 | `sdm/testing/fake_sdm.hpp` | NOR-accurate fake with fault injection |
 | `sdm/testing/hil_suite.hpp` | `runAssertions()` + `characterise()`, templated so the same code runs on the fake in CI and on hardware |
 | `examples/sdm_flash/main.cpp` | CLI. The hardware backend plugs in at one marked line |
-| `tests/` | doctest suites (26 cases), `cmake -B build && cmake --build build && ctest --test-dir build` |
+| `sdm/include/sdm/jtag_clock.hpp` | JTAG TCK: AJI `setJtagClock` + jtagconfig fallback, frequency parsing |
+| `tests/` | doctest suites (33 cases), `cmake -B build && cmake --build build && ctest --test-dir build` |
 
 To run the HIL suite on hardware: write a small main that constructs the real `SdmService`,
 calls `hil::runAssertions(sdm, cfg)` and prints the results, then calls

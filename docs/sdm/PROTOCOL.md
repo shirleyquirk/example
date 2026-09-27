@@ -114,7 +114,7 @@ SDM codes. Do not mix them into this table.
 | 0x039 | **QSPI_WRITE** | 2+n | 0 | [src] | `{byte_addr, nwords, data[nwords]}`. `byte_addr` must be word aligned. Max `nwords`: **ATF says 0x1000 (16 KiB); the IP UG excerpt says 1024 (4 KiB)**, so this has to be measured over JTAG. |
 | 0x03A | **QSPI_READ** | 2 | n | [src] | `{byte_addr, nwords}`, same maximum as write. |
 | 0x03B | QSPI_DIRECT | 0 | 1 | [src] | HPS only: hands the QSPI controller to HPS and returns the ref clock. Expect this to fail from JTAG. |
-| 0x074 | **QSPI_GET_DEVICE_INFO** | 0 | 8 | [src] | Flash size and erase size. The 8-word layout is not documented in the sources read; decode it empirically. (ATF also names 0x74 `RSU_GET_DEVICE_INFO`.) |
+| 0x074 | **QSPI_GET_DEVICE_INFO** | 0 | 8 | [src] | 4 × `{size, erasesize}`, one per chip select (U-Boot `rsu_ll_qspi.c`, Linux `stratix10-rsu.c`). `size` uses the SFDP density encoding: bit 31 = 0 means a bit count, bit 31 = 1 means 2^N bits. `erasesize` units are undocumented (bytes assumed). ATF also names 0x74 `RSU_GET_DEVICE_INFO`. |
 
 ### 3.3 RSU (useful for checking the result after programming)
 
@@ -159,6 +159,9 @@ QSPI_CLOSE                 always
   `RESTART`, or a reconfiguration. **[?]** This is the first thing to characterise.
 
 ## Sources
+
+- intel/libaji_client (jtagd client, MIT): `src/h/aji.h`, `src/jtag/jtag_client_chain.cpp`, <https://github.com/intel/libaji_client>
+- U-Boot `arch/arm/mach-socfpga/rsu_ll_qspi.c` (`QSPI_GET_DEVICE_INFO` decode), Linux `drivers/firmware/stratix10-rsu.c`
 
 - ATF `plat/intel/soc/common/include/socfpga_mailbox.h`, `soc/socfpga_mailbox.c`, `socfpga_sip_svc.c`,
   [github.com/ARM-software/arm-trusted-firmware](https://github.com/ARM-software/arm-trusted-firmware/blob/master/plat/intel/soc/common/include/socfpga_mailbox.h) (master, fetched 2026-09-26)
