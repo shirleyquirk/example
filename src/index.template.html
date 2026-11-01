@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Symbol Odds">
+<meta name="theme-color" content="#1d1b26">
+<link rel="manifest" href="manifest.webmanifest">
+<title>Symbol Odds</title>
+<style>
+:root{--bg:#f6f4fb;--card:#fff;--fg:#1d1b26;--muted:#6b6880;--acc:#b0249a;--accbg:#f7e3f3;--line:#e2deea;--err:#b3261e}
+@media (prefers-color-scheme:dark){:root{--bg:#14131a;--card:#1f1d28;--fg:#ece9f5;--muted:#9a96ad;--acc:#f07ad8;--accbg:#3b1f37;--line:#33303f;--err:#ff8a80}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.4 -apple-system,system-ui,sans-serif;padding:max(12px,env(safe-area-inset-top)) 16px 40px}
+main{max-width:520px;margin:0 auto}
+h1{font-size:20px;margin:4px 0 12px}
+h2{font-size:15px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:0 0 10px}
+section{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:14px}
+#chips{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.chip{display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 0;border-radius:12px;border:1.5px solid var(--line);background:var(--card);color:var(--fg);font:inherit}
+.chip .g{font-size:24px;line-height:1}
+.chip small{color:var(--muted);font-size:11px}
+.chip.on{border-color:var(--acc);background:var(--accbg)}
+.big{font-size:40px;font-weight:700;color:var(--acc);line-height:1.1}
+.big span{font-size:16px;font-weight:400;color:var(--muted)}
+p{margin:6px 0}
+.muted{color:var(--muted);font-size:14px}
+.err{color:var(--err)}
+label{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:8px 0}
+.row{display:flex;align-items:center;gap:6px}
+input::-webkit-inner-spin-button,input::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
+input{-moz-appearance:textfield;width:72px;font:inherit;font-size:18px;padding:6px 8px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--fg);text-align:center}
+.step{width:40px;height:40px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--fg);font-size:20px}
+table{border-collapse:collapse;width:100%;margin-top:10px;font-variant-numeric:tabular-nums}
+td,th{padding:5px 8px;border-bottom:1px solid var(--line);text-align:left}
+th{font-weight:600;color:var(--muted);font-size:13px}
+tr.hl td{background:var(--accbg);font-weight:600}
+details{margin-top:10px}
+summary{color:var(--muted);font-size:14px}
+#clear{font:inherit;color:var(--acc);background:none;border:none;padding:0;float:right}
+</style>
+</head>
+<body>
+<main>
+<h1>Symbol Odds <button id="clear">reset</button></h1>
+<section>
+  <h2>Symbols</h2>
+  <div id="chips"></div>
+  <div id="countOut" style="margin-top:12px"></div>
+</section>
+<section>
+  <h2>Odds for the next draw</h2>
+  <label>cards already played
+    <span class="row"><button class="step" data-t="played" data-d="-1">−</button><input id="played" type="number" inputmode="numeric" min="0" value="0"><button class="step" data-t="played" data-d="1">+</button></span></label>
+  <label>…of which matched any selected
+    <input id="anyObs" type="number" inputmode="numeric" min="0" placeholder="?"></label>
+  <div id="symObs"></div>
+  <label>drawing next
+    <span class="row"><button class="step" data-t="draw" data-d="-1">−</button><input id="draw" type="number" inputmode="numeric" min="1" value="1"><button class="step" data-t="draw" data-d="1">+</button></span></label>
+  <div id="oddsOut"></div>
+  <p class="muted">Leave a box as “?” if you don’t know it. Assumes the deck was shuffled and nothing else is known about the played cards.</p>
+</section>
+<section>
+  <h2>Deck</h2>
+  <label>deck size <input id="deck" type="number" inputmode="numeric" min="1"></label>
+  <p class="muted" id="blankNote"></p>
+</section>
+</main>
+<script>
+/*APP*/
+</script>
+<script>
+if ('serviceWorker' in navigator && location.protocol === 'https:') navigator.serviceWorker.register('sw.js');
+</script>
+</body>
+</html>
