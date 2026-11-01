@@ -1,4 +1,4 @@
-# Symbol Odds
+# Symbol Odds (ISS Vanguard)
 
 A one-page phone tool for a card game: 40 cards, 12 symbols (A–M, no J), each card shows zero or more symbols.
 

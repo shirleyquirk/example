@@ -7,7 +7,7 @@
 <meta name="apple-mobile-web-app-title" content="Symbol Odds">
 <meta name="theme-color" content="#1d1b26">
 <link rel="manifest" href="manifest.webmanifest">
-<title>Symbol Odds</title>
+<title>Vanguard Odds</title>
 <style>
 :root{--bg:#f6f4fb;--card:#fff;--fg:#1d1b26;--muted:#6b6880;--acc:#b0249a;--accbg:#f7e3f3;--line:#e2deea;--err:#b3261e}
 @media (prefers-color-scheme:dark){:root{--bg:#14131a;--card:#1f1d28;--fg:#ece9f5;--muted:#9a96ad;--acc:#f07ad8;--accbg:#3b1f37;--line:#33303f;--err:#ff8a80}}
@@ -38,12 +38,13 @@ th{font-weight:600;color:var(--muted);font-size:13px}
 tr.hl td{background:var(--accbg);font-weight:600}
 details{margin-top:10px}
 summary{color:var(--muted);font-size:14px}
+.links{list-style:none;margin:0;padding:0}.links li{padding:8px 0;border-bottom:1px solid var(--line)}.links li:last-child{border:0}.links a{color:var(--acc);font-weight:600;text-decoration:none}.links small{display:block;color:var(--muted);font-size:13px}
 #clear{font:inherit;color:var(--acc);background:none;border:none;padding:0;float:right}
 </style>
 </head>
 <body>
 <main>
-<h1>Symbol Odds <button id="clear">reset</button></h1>
+<h1>ISS Vanguard · Symbol Odds <button id="clear">reset</button></h1>
 <section>
   <h2>Symbols</h2>
   <div id="chips"></div>
@@ -60,6 +61,13 @@ summary{color:var(--muted);font-size:14px}
     <span class="row"><button class="step" data-t="draw" data-d="-1">−</button><input id="draw" type="number" inputmode="numeric" min="1" value="1"><button class="step" data-t="draw" data-d="1">+</button></span></label>
   <div id="oddsOut"></div>
   <p class="muted">Leave a box as “?” if you don’t know it. Assumes the deck was shuffled and nothing else is known about the played cards.</p>
+</section>
+<section>
+  <h2>Rules</h2>
+  <ul class="links">
+    <li><a href="https://www.orderofgamers.com/downloads/ISSVanguard_v2.pdf" target="_blank" rel="noopener">Rules summary &amp; reference (Order of Gamers, PDF)</a><small>Fan-made, v2 incl. Ship Book procedures</small></li>
+    <li><a href="https://rulespal.com/iss-vanguard/rulebook" target="_blank" rel="noopener">Rulebook, browsable (RulesPal)</a><small>Planetary exploration &amp; general rules</small></li>
+  </ul>
 </section>
 <section>
   <h2>Deck</h2>
