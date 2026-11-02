@@ -130,7 +130,7 @@ proc analyse*(safe: Cards, obs: Observation): Odds =
   result.safePlayedChance = newSeq[float](obs.played + 1)
 
   var kindSizes = initCountTable[Kind]()
-  for index in AllCards:
+  for index in CardIndex:
     kindSizes.inc kindOf(index, safe, obs.counts)
 
   var ways = {Tally(): 1.0}.toTable

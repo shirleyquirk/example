@@ -16,7 +16,7 @@ Open the GitHub Pages URL in Safari → Share → **Add to Home Screen**. After 
 (service worker). `index.html` is fully self-contained, so it also works opened from any local copy that runs JavaScript.
 
 ## Code
-- `src/model.nim`: `Symbol` enum; `Cards = set[CardIndex]` with `CardIndex = range[0..39]`; `Deck = array[Symbol, Cards]`, i.e. for each symbol the cards showing it. "Cards with X or Y" is `card(deck[X] + deck[Y])`.
+- `src/model.nim`: `Symbol` enum; `Cards = set[CardIndex]` with `CardIndex = range[0..39]`; `Deck = array[Symbol, Cards]`, i.e. for each symbol the cards showing it (one notebook column). "Cards with X or Y" is `card(deck[X] + deck[Y])`. The notebook data, matrix view and save format all use this per-symbol form.
 - `src/odds.nim`: the probability calculation, explained in comments. Works only on card sets (no symbols, no blank rule, no UI).
 - `src/storage.nim`: saving settings and matrix edits in localStorage.
 - `src/app.nim`: the page. All state is in one `App` object owned by `main`.

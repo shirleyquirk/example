@@ -188,13 +188,13 @@ proc renderMatrix(app: App) =
   for symbol in Symbol:
     html.add "<th title='" & $symbol & "'>" & Glyph[symbol] & "<br>" & Letter[symbol] & "</th>"
   html.add "</tr>"
-  for index in AllCards:
-    let symbols = app.deck.symbolsOn(index)
-    html.add "<tr" & (if symbols == {}: " class=blank" else: "") & "><th>" &
+  let blank = app.deck.blank
+  for index in CardIndex:
+    html.add "<tr" & (if index in blank: " class=blank" else: "") & "><th>" &
       notebookLabel(index) & "</th>"
     for symbol in Symbol:
       html.add "<td data-card=" & $index & " data-symbol=" & $ord(symbol) &
-        (if symbol in symbols: " class=on" else: "") & "></td>"
+        (if index in app.deck[symbol]: " class=on" else: "") & "></td>"
     html.add "</tr>"
   html.add "<tr class=tot><th>Σ</th>"
   for symbol in Symbol: html.add "<th>" & $card(app.deck[symbol]) & "</th>"

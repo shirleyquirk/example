@@ -18,12 +18,17 @@ suite "deck":
   test "set queries":
     check card(deck.withAny({Void, Caves})) == 21
     check card(deck.withAll({Void, Caves})) == 0
-    check deck.symbolsOn(4) == {Void, Deadly, Vegetation, Water}   # notebook row 1·5 "AFGH"
-  test "text round trip":
-    var copy: Deck
-    check parseRows(deck.toRows, copy)
-    check copy == deck
-    check not parseRows(["A", "B"], copy)
+  test "matches the notebook read row by row":
+    # An independent transcription, one string per card, to cross-check the
+    # per-symbol constant.
+    const rows = ["A", "B", "CD", "E", "AFGH", "BCFGI", "DG", "D", "GI", "AFH",
+      "G", "D", "I", "AE", "AH", "C", "AFK", "H", "BCGIKL", "BCIL",
+      "FGKLM", "BIKL", "AHL", "BHL", "BCEGL", "BCFIKM", "GLM",
+      "BCFIKM", "DGHLM", "FHM", "BIL", "CM", "BIKM", "CFL", "AFHIKM", "BIM",
+      "BIL", "CFM", "EGHKLM", ""]
+    for index in CardIndex:
+      for symbol in Symbol:
+        check (index in deck[symbol]) == (Letter[symbol] in rows[index])
 
 suite "odds":
   test "nothing played, blank safe: danger = 31/40":

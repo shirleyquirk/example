@@ -1,8 +1,8 @@
 ## The cards and their symbols, as transcribed from the notebook grid.
 ##
 ## The deck is stored per symbol: for each symbol, the set of cards that show
-## it. Questions like "how many cards show X or Y" are then set operations:
-## `card(deck[X] + deck[Y])`.
+## it (one column of the notebook grid). Questions like "how many cards show
+## X or Y" are then set operations: `card(deck[X] + deck[Y])`.
 
 type
   Symbol* = enum
@@ -14,7 +14,7 @@ const DeckSize* = 40
 
 type
   CardIndex* = range[0 .. DeckSize - 1]
-    ## A card's position in the notebook transcription.
+    ## A card's row in the notebook grid.
   Cards* = set[CardIndex]
     ## Some cards of the deck.
   Deck* = array[Symbol, Cards]
@@ -26,6 +26,10 @@ type
     blankIsSafe    ## a blank card matches every symbol
     blankIsDanger  ## a blank card matches nothing
 
+iterator items*(_: typedesc[CardIndex]): CardIndex =
+  ## `for index in CardIndex:` visits every card.
+  for index in CardIndex.low .. CardIndex.high: yield index
+
 const
   AllCards*: Cards = {CardIndex.low .. CardIndex.high}
   Letter*: array[Symbol, char] =
@@ -34,6 +38,32 @@ const
   Glyph*: array[Symbol, string] =
     ["🌀", "🕳️", "🌋", "🎯", "💎", "☠️", "🌿", "💧", "🏛️", "❄️", "🪨", "🏜️"]
     ## Emoji stand-ins for the printed icons.
+
+# The notebook grid, column by column: the rows (0-based) marked in each
+# symbol's column. Rows 0-26 are page 1, rows 27-38 are page 2, and row 39 is
+# the blank card, which isn't in the notebook.
+const NotebookDeck*: Deck = [
+  Void:        {0, 4, 9, 13, 14, 16, 22, 34},
+  Caves:       {1, 5, 18, 19, 21, 23, 24, 25, 27, 30, 32, 35, 36},
+  Volcanic:    {2, 5, 15, 18, 19, 24, 25, 27, 31, 33, 37},
+  Hostile:     {2, 6, 7, 11, 28},
+  Crystalline: {3, 13, 24, 38},
+  Deadly:      {4, 5, 9, 16, 20, 25, 27, 29, 33, 34, 37},
+  Vegetation:  {4, 5, 6, 8, 10, 18, 20, 24, 26, 28, 38},
+  Water:       {4, 9, 14, 17, 22, 23, 28, 29, 34, 38},
+  Ruins:       {5, 8, 12, 18, 19, 21, 25, 27, 30, 32, 34, 35, 36},
+  Frigid:      {16, 18, 20, 21, 25, 27, 32, 34, 38},
+  Rocky:       {18, 19, 20, 21, 22, 23, 24, 26, 28, 30, 33, 36, 38},
+  Desert:      {20, 25, 26, 27, 28, 29, 31, 32, 34, 35, 37, 38}]
+
+const NotebookPage1Rows = 27
+
+proc notebookLabel*(index: CardIndex): string =
+  ## Where a card sits in the notebook, as "page·row", for checking against
+  ## the paper copy.
+  if index < NotebookPage1Rows: "1·" & $(index + 1)
+  elif index < DeckSize - 1: "2·" & $(index - NotebookPage1Rows + 1)
+  else: "extra"
 
 # ---------------------------------------------------------------- queries
 
@@ -56,59 +86,6 @@ proc safe*(deck: Deck, selected: set[Symbol], rule: BlankRule): Cards =
   result = deck.withAny(selected)
   if rule == blankIsSafe: result = result + deck.blank
 
-proc symbolsOn*(deck: Deck, index: CardIndex): set[Symbol] =
-  ## The symbols printed on one card.
-  for symbol in Symbol:
-    if index in deck[symbol]: result.incl symbol
-
 proc toggle*(deck: var Deck, index: CardIndex, symbol: Symbol) =
   if index in deck[symbol]: deck[symbol].excl index
   else: deck[symbol].incl index
-
-# ---------------------------------------------------------------- text form
-# One string of letters per card, e.g. "BCF" for {Caves, Volcanic, Deadly}.
-# Used for the notebook data and for saving edits.
-
-proc parseRows*(rows: openArray[string], deck: var Deck): bool =
-  ## Fills `deck` from exactly `DeckSize` rows; false (deck untouched) otherwise.
-  if rows.len != DeckSize: return false
-  var parsed: Deck
-  for index, row in rows:
-    for ch in row:
-      for symbol in Symbol:
-        if Letter[symbol] == ch: parsed[symbol].incl CardIndex(index)
-  deck = parsed
-  true
-
-proc toRows*(deck: Deck): seq[string] =
-  for index in AllCards:
-    var row = ""
-    for symbol in deck.symbolsOn(index): row.add Letter[symbol]
-    result.add row
-
-const
-  NotebookPage1Rows = 27  ## rows on the first notebook page; the rest are on page 2
-  NotebookRows: array[DeckSize, string] = [
-    # page 1
-    "A", "B", "CD", "E", "AFGH", "BCFGI", "DG", "D", "GI", "AFH",
-    "G", "D", "I", "AE", "AH", "C", "AFK", "H", "BCGIKL", "BCIL",
-    "FGKLM", "BIKL", "AHL", "BHL", "BCEGL", "BCFIKM", "GLM",
-    # page 2
-    "BCFIKM", "DGHLM", "FHM", "BIL", "CM", "BIKM", "CFL", "AFHIKM", "BIM",
-    "BIL", "CFM", "EGHKLM",
-    # not in the notebook: the one blank card
-    ""]
-
-proc notebookDeck(): Deck =
-  doAssert parseRows(NotebookRows, result)
-
-const NotebookDeck*: Deck = notebookDeck()
-  ## The deck as transcribed. Column totals: A8 B13 C11 D5 E4 F11 G11 H10
-  ## I13 K9 L13 M12 = 120 symbols.
-
-proc notebookLabel*(index: CardIndex): string =
-  ## Where a card sits in the notebook, as "page·row", for checking against
-  ## the paper copy.
-  if index < NotebookPage1Rows: "1·" & $(index + 1)
-  elif index < DeckSize - 1: "2·" & $(index - NotebookPage1Rows + 1)
-  else: "extra"
