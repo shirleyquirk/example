@@ -3,7 +3,7 @@
 A one-page phone tool for a card game: 40 cards, 12 symbols (A–M, no J), each card shows zero or more symbols.
 
 - **Count**: tap symbols → how many cards show at least one of them (and how many show all).
-- **Odds**: enter how many cards have been played and whatever you know about them
+- **Odds**: Danger (next card has none of the selected symbols) or Safe (has one); defaults to Danger. Blank card counts as Safe by default (Settings ⚙︎).
   (how many matched any selected symbol, and/or how many showed each symbol; blank = unknown).
   It gives the exact chance that the next *S* cards include at least one selected symbol.
 

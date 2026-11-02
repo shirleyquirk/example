@@ -9,8 +9,8 @@
 <link rel="manifest" href="manifest.webmanifest">
 <title>Vanguard Odds</title>
 <style>
-:root{--bg:#f6f4fb;--card:#fff;--fg:#1d1b26;--muted:#6b6880;--acc:#b0249a;--accbg:#f7e3f3;--line:#e2deea;--err:#b3261e}
-@media (prefers-color-scheme:dark){:root{--bg:#14131a;--card:#1f1d28;--fg:#ece9f5;--muted:#9a96ad;--acc:#f07ad8;--accbg:#3b1f37;--line:#33303f;--err:#ff8a80}}
+:root{--bg:#f6f4fb;--card:#fff;--fg:#1d1b26;--muted:#6b6880;--acc:#b0249a;--accbg:#f7e3f3;--line:#e2deea;--err:#b3261e;--ok:#1e7d3a;--bad:#c2410c}
+@media (prefers-color-scheme:dark){:root{--bg:#14131a;--card:#1f1d28;--fg:#ece9f5;--muted:#9a96ad;--acc:#f07ad8;--accbg:#3b1f37;--line:#33303f;--err:#ff8a80;--ok:#5fd38a;--bad:#ff9a5c}}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.4 -apple-system,system-ui,sans-serif;padding:max(12px,env(safe-area-inset-top)) 16px 40px}
 main{max-width:520px;margin:0 auto}
@@ -40,12 +40,27 @@ tr.hl td{background:var(--accbg);font-weight:600}
 details{margin-top:10px}
 summary{color:var(--muted);font-size:14px}
 .links{list-style:none;margin:0;padding:0}.links li{padding:8px 0;border-bottom:1px solid var(--line)}.links li:last-child{border:0}.links a{color:var(--acc);font-weight:600;text-decoration:none}.links small{display:block;color:var(--muted);font-size:13px}
-#clear{font:inherit;color:var(--acc);background:none;border:none;padding:0;float:right}
+.hbtn{font:inherit;color:var(--acc);background:none;border:none;padding:0 0 0 14px;float:right}
+.ok{color:var(--ok)}.bad{color:var(--bad)}.big.ok,.big.bad{}
+.seg{display:flex;border:1px solid var(--line);border-radius:10px;overflow:hidden;margin:4px 0 10px}
+.seg button{flex:1;font:inherit;font-size:15px;padding:9px 4px;border:0;background:var(--bg);color:var(--fg)}
+.seg button+button{border-left:1px solid var(--line)}
+.seg button.on{background:var(--acc);color:#fff;font-weight:600}
+td.ok,td.bad{font-weight:500}
+.mx{overflow-x:auto;margin-top:8px}
+.mxt{font-size:12px;margin:0;table-layout:fixed}
+.mxt th,.mxt td{padding:3px 0;text-align:center;border:1px solid var(--line);min-width:22px}
+.mxt tr>th:first-child{min-width:34px;color:var(--muted);font-weight:500}
+.mxt td.on::after{content:"●";color:var(--acc)}
+.mxt tr.blank td{background:repeating-linear-gradient(45deg,transparent 0 4px,var(--line) 4px 5px)}
+.mxt tr.tot th{color:var(--fg)}
+.unlocked .mxt td{cursor:pointer;background:var(--accbg)}
+.btn{font:inherit;font-size:15px;padding:8px 12px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--fg);margin:8px 8px 0 0}
 </style>
 </head>
 <body>
 <main>
-<h1>ISS Vanguard · Symbol Odds <button id="clear">reset</button></h1>
+<h1>ISS Vanguard · Odds <button id="gear" class="hbtn" aria-label="Settings">⚙︎</button><button id="clear" class="hbtn">reset</button></h1>
 <section>
   <h2>Symbols</h2>
   <div id="chips"></div>
@@ -53,9 +68,10 @@ summary{color:var(--muted);font-size:14px}
 </section>
 <section>
   <h2>Odds for the next draw</h2>
+  <div class="seg" id="modeSeg"><button data-v="1">Danger (no match)</button><button data-v="0">Safe (match)</button></div>
   <label>cards already played
     <span class="row"><button class="step" data-t="played" data-d="-1">−</button><input id="played" type="number" inputmode="numeric" min="0" value="0"><button class="step" data-t="played" data-d="1">+</button></span></label>
-  <label>…of which matched any selected
+  <label>…of which were safe (matched)
     <input id="anyObs" type="number" inputmode="numeric" min="0" placeholder="?"></label>
   <div id="symObs"></div>
   <label>drawing next
@@ -70,10 +86,16 @@ summary{color:var(--muted);font-size:14px}
     <li><a href="https://rulespal.com/iss-vanguard/rulebook" target="_blank" rel="noopener">Rulebook, browsable (RulesPal)</a><small>Planetary exploration &amp; general rules</small></li>
   </ul>
 </section>
-<section>
-  <h2>Deck</h2>
+<section id="settings" hidden>
+  <h2>Settings <button id="closeSettings" class="hbtn">close</button></h2>
+  <p>Blank card counts as</p>
+  <div class="seg" id="blankSeg"><button data-v="1">Safe (match)</button><button data-v="0">Danger (no match)</button></div>
   <label>deck size <input id="deck" type="number" inputmode="numeric" min="1"></label>
   <p class="muted" id="blankNote"></p>
+  <h2 style="margin-top:16px">Cards × symbols</h2>
+  <p class="muted">Rows are notebook page·row. <span id="mxNote"></span></p>
+  <div class="mx" id="matrix"></div>
+  <button class="btn" id="lockBtn"></button><button class="btn" id="restoreBtn" hidden>Restore original</button>
 </section>
 </main>
 <script>
