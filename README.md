@@ -15,14 +15,21 @@ hypergeometric draw from what's left.
 Open the GitHub Pages URL in Safari → Share → **Add to Home Screen**. After one online visit it works offline
 (service worker). `index.html` is fully self-contained, so it also works opened from any local copy that runs JavaScript.
 
+## Code
+- `src/model.nim`: `Symbol` enum, `Card = set[Symbol]`, `Deck = array[40, Card]` (so the deck size can't drift) and the notebook transcription.
+- `src/odds.nim`: the probability calculation, with the method explained in comments. No UI code.
+- `src/storage.nim`: saving settings and matrix edits in localStorage.
+- `src/app.nim`: the page. All state is in one `App` object owned by `main`.
+- `tests/test_odds.nim`: checks against hand-worked answers and Monte Carlo results.
+
 ## Data
 Letters map to ISS Vanguard biomes: A Void, B Caves, C Volcanic, D Hostile, E Crystalline, F Deadly, G Vegetation, H Water, I Ruins, K Frigid, L Rocky, M Desert.
-Transcribed from the notebook grid in `src/app.nim` (`CardRows`). Column totals: A8 B13 C11 D5 E4 F11 G11 H10 I13 K9 L13 M12 = 120 marks
-over 39 cards; the 40th card has no symbols. Glyphs are emoji stand-ins for the hand-drawn symbols (`Glyphs`).
+Column totals: A8 B13 C11 D5 E4 F11 G11 H10 I13 K9 L13 M12 = 120 symbols over 39 cards; the 40th card is blank.
 
-## Build
-Source is Nim (JS backend). Requires `nim` (tested with 1.6.14) and `python3`:
+## Build and test
+Requires `nim` (tested with 1.6.14) and `python3`:
 
-    ./build.sh      # src/app.nim -> build/app.js -> inlined into index.html
+    ./build.sh                                   # src/*.nim -> build/app.js -> inlined into index.html
+    nim c -r --hints:off tests/test_odds.nim     # unit tests (C backend)
 
 `build/app.js` and `index.html` are committed so Pages serves them without a build step.

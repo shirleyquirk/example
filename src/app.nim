@@ -1,493 +1,327 @@
-## Symbol odds: card/symbol probability helper. Compiled with `nim js`.
-import std/[dom, tables, strutils]
+## The page: reads the inputs, calls `odds`, renders the results.
+## Compiled with `nim js` (see build.sh).
 
-const
-  NSym = 12
-  Letters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "K", "L", "M"]
-  # ISS Vanguard biome for each notebook letter (confirmed by the owner).
-  Names = ["Void", "Caves", "Volcanic", "Hostile", "Crystalline", "Deadly",
-    "Vegetation", "Water", "Ruins", "Frigid", "Rocky", "Desert"]
-  Glyphs = ["🌀", "🕳️", "🌋", "🎯", "💎", "☠️", "🌿", "💧", "🏛️", "❄️", "🪨", "🏜️"]
-  # One string per card, transcribed from the notebook grid (39 rows).
-  # The 40th card has no symbols; extra blank cards come from DefaultDeck - len.
-  CardRows = ["A", "B", "CD", "E", "AFGH", "BCFGI", "DG", "D", "GI", "AFH",
-    "G", "D", "I", "AE", "AH", "C", "AFK", "H", "BCGIKL", "BCIL", "FGKLM",
-    "BIKL", "AHL", "BHL", "BCEGL", "BCFIKM", "GLM",
-    "BCFIKM", "DGHLM", "FHM", "BIL", "CM", "BIKM", "CFL", "AFHIKM", "BIM",
-    "BIL", "CFM", "EGHKLM"]
-  DefaultDeck = 40
+import std/[dom, strutils, options]
+import model, odds, storage
 
-type Mask = int
+const MaxDrawRows = 8  ## rows in the "next N cards" table
 
-proc symIndex(c: char): int =
-  for i, l in Letters:
-    if l[0] == c: return i
-  -1
+type
+  App = ref object
+    ## All page state. Owned by `main`; event handlers close over it.
+    deck: Deck
+    selected: set[Symbol]
+    observation: Observation
+    draw: Positive               ## how many cards the headline asks about
+    blankRule: BlankRule
+    headline: Outcome            ## which outcome the big number shows
+    editingMatrix: bool
 
-proc parseCards(): seq[Mask] =
-  for row in CardRows:
-    var m = 0
-    for c in row: m = m or (1 shl symIndex(c))
-    result.add m
+# ---------------------------------------------------------------- helpers
 
-var cards = parseCards()   # may be replaced by an edited copy from storage
-let defaultCards = parseCards()
+proc element(id: string): Element = document.getElementById(id.cstring)
 
-proc popcount(m: Mask): int =
-  var x = m
-  while x != 0:
-    x = x and (x - 1)
-    inc result
+proc percent(chance: float): string =
+  if chance >= 0.9995 and chance < 1.0: return ">99.9%"
+  if chance > 0 and chance < 0.0005: return "<0.1%"
+  formatFloat(chance * 100, ffDecimal, 1) & "%"
 
-proc choose(n, k: int): float =
-  if k < 0 or n < 0 or k > n: return 0.0
-  var kk = min(k, n - k)
-  result = 1.0
-  for i in 1 .. kk:
-    result = result * float(n - kk + i) / float(i)
+proc readCount(id: string): Option[Natural] =
+  ## A number box; empty or invalid means "unknown".
+  try:
+    let value = parseInt(strip($element(id).value))
+    if value >= 0: result = some(Natural(value))
+  except ValueError: discard
 
-# ---------------------------------------------------------------- state
-var
-  sel: Mask = 0
-  deckSize = DefaultDeck
-  played = 0
-  anyObs = -1                 # -1 = unknown
-  symObs: array[NSym, int]
-  drawMax = 8
-  blankSafe = true            # blank card counts as a match (safe)
-  showDanger = true           # headline shows danger (no-match) odds
-  unlocked = false            # matrix editing
-for i in 0 ..< NSym: symObs[i] = -1
+proc label(symbol: Symbol): string = Glyph[symbol] & " " & $symbol
 
-const BlankBit = 1 shl NSym   # pseudo-pattern for blank cards (no symbols)
-
-proc blanks(): int =
-  ## Cards with no symbols: missing rows up to the deck size, plus empty rows.
-  result = max(0, deckSize - cards.len)
-  for c in cards:
-    if c == 0: inc result
-
-proc symCount(i: int): int =
-  for c in cards:
-    if (c and (1 shl i)) != 0: inc result
-
-proc symMatchCount(t: Mask): int =
-  for c in cards:
-    if (c and t) != 0: inc result
-
-proc matchCount(t: Mask): int =
-  ## Cards that count as a match (safe): any selected symbol, plus blanks if set.
-  symMatchCount(t) + (if blankSafe: blanks() else: 0)
-
-proc allCount(t: Mask): int =
-  if t == 0: return 0
-  for c in cards:
-    if (c and t) == t: inc result
-
-# ---------------------------------------------------------------- odds
-type Posterior = object
-  ok: bool
-  weights: seq[float]   # index u = played cards matching the target set
-  total: float
-
-proc posterior(t: Mask): Posterior =
-  ## Played cards are a uniformly random subset of size `played`,
-  ## conditioned on the observed counts. Group cards by pattern (card ∩ t)
-  ## and run a DP over (matching played, per-constrained-symbol counts).
-  var cons: seq[int]
-  for i in 0 ..< NSym:
-    if (t and (1 shl i)) != 0 and symObs[i] >= 0: cons.add i
-  var groups = initTable[Mask, int]()
-  var n0 = 0                  # cards that do not match
-  for c in cards:
-    let p = c and t
-    if c == 0: discard        # blank, handled below
-    elif p == 0: inc n0
-    else: groups[p] = groups.getOrDefault(p, 0) + 1
-  let nb = max(0, deckSize - cards.len) + (block:
-    var z = 0
-    for c in cards:
-      if c == 0: inc z
-    z)
-  if blankSafe and nb > 0: groups[BlankBit] = nb
-  else: n0 += nb
-  const B = 41
-  proc enc(u: int, cs: seq[int]): int =
-    result = u
-    var mul = B
-    for c in cs:
-      result += c * mul
-      mul *= B
-  proc dec(k: int, q: int): (int, seq[int]) =
-    var x = k
-    result[0] = x mod B
-    x = x div B
-    for i in 0 ..< q:
-      result[1].add x mod B
-      x = x div B
-  var dp = initTable[int, float]()
-  dp[enc(0, newSeq[int](cons.len))] = 1.0
-  for pat, n in groups:
-    var nd = initTable[int, float]()
-    for key, w in dp:
-      let (u, cs) = dec(key, cons.len)
-      for m in 0 .. min(n, played - u):
-        var ncs = cs
-        var bad = false
-        for j, s in cons:
-          if (pat and (1 shl s)) != 0:
-            ncs[j] += m
-            if ncs[j] > symObs[s]: bad = true
-        if bad: break
-        if anyObs >= 0 and u + m > anyObs: break
-        let k2 = enc(u + m, ncs)
-        nd[k2] = nd.getOrDefault(k2, 0.0) + w * choose(n, m)
-    dp = nd
-  result.weights = newSeq[float](played + 1)
-  for key, w in dp:
-    let (u, cs) = dec(key, cons.len)
-    var good = true
-    for j, s in cons:
-      if cs[j] != symObs[s]: good = false
-    if anyObs >= 0 and u != anyObs: good = false
-    if good:
-      let ww = w * choose(n0, played - u)
-      result.weights[u] += ww
-      result.total += ww
-  result.ok = result.total > 0
-
-proc hitProb(post: Posterior, g: int, s: int, danger: bool): float =
-  ## P(at least one of the next s cards is safe (matches), or, with
-  ## `danger`, at least one is a non-match).
-  let r = deckSize - played
-  for u, w in post.weights:
-    if w == 0: continue
-    let safeLeft = g - u
-    let other = if danger: safeLeft else: r - safeLeft
-    if s > r: result += w * (if r - other > 0: 1.0 else: 0.0)
-    else: result += w * (1.0 - choose(other, s) / choose(r, s))
-  result /= post.total
-
-# ---------------------------------------------------------------- DOM
-proc el(id: string): Element = document.getElementById(id.cstring)
-
-proc pct(x: float): string =
-  if x >= 0.9995 and x < 1.0: return ">99.9%"
-  if x > 0 and x < 0.0005: return "<0.1%"
-  formatFloat(x * 100, ffDecimal, 1) & "%"
-
-proc readInt(id: string, def: int): int =
-  let v = strip($el(id).value)
-  if v.len == 0: return def
-  try: parseInt(v) except ValueError: def
-
-proc selNames(t: Mask): string =
+proc describe(symbols: set[Symbol]): string =
   var parts: seq[string]
-  for i in 0 ..< NSym:
-    if (t and (1 shl i)) != 0: parts.add Glyphs[i] & " " & Names[i]
+  for symbol in symbols: parts.add symbol.label
   parts.join(" or ")
 
-proc renderResults() =
-  let nSel = popcount(sel)
-  let nb = blanks()
-  # --- count section
-  var h = ""
-  if nSel == 0:
-    h = "<p class=muted>Tap symbols above.</p>"
+proc plural(n: int, word: string): string =
+  $n & " " & word & (if n == 1: "" else: "s")
+
+proc outcomeWord(outcome: Outcome): string =
+  if outcome == Safe: "<b class=ok>safe</b>" else: "<b class=bad>danger</b>"
+
+proc blankRuleWords(rule: BlankRule): string =
+  if rule == blankIsSafe: "<b class=ok>matches all (safe)</b>"
+  else: "<b class=bad>matches none (danger)</b>"
+
+proc highlightSegment(id: string, firstOn: bool) =
+  ## Two-button toggles: mark the first or the second button as selected.
+  for index, button in element(id).querySelectorAll("button"):
+    if (index == 0) == firstOn: button.classList.add("on")
+    else: button.classList.remove("on")
+
+proc closestWith(target: EventTarget, selector: string): Element =
+  ## The element matching `selector` that contains the tapped element.
+  {.emit: [result, " = ", target, ".closest(", selector.cstring, ");"].}
+
+proc dataInt(element: Element, name: string): int =
+  ## Integer `data-` attribute, or -1 if absent.
+  if element == nil: return -1
+  try: parseInt($element.getAttribute(cstring("data-" & name)))
+  except ValueError: -1
+
+# ---------------------------------------------------------------- reading input
+
+proc readObservation(app: App) =
+  app.observation.played = readCount("played").get(Natural 0)
+  app.observation.safePlayed = readCount("safePlayed")
+  for symbol in Symbol:
+    app.observation.symbolPlayed[symbol] =
+      if symbol in app.selected: readCount("played" & $symbol)
+      else: none(Natural)
+  app.draw = max(1, readCount("draw").get(Natural 1).int)
+
+# ---------------------------------------------------------------- rendering
+
+proc renderChips(app: App) =
+  var html = ""
+  for symbol in Symbol:
+    html.add "<button class='chip" & (if symbol in app.selected: " on" else: "") &
+      "' data-symbol=" & $ord(symbol) & "><span class=g>" & Glyph[symbol] &
+      "</span><b>" & $symbol & "</b><small>" & Letter[symbol] & " · " &
+      $app.deck.cardsWith(symbol) & "</small></button>"
+  element("chips").innerHTML = html.cstring
+
+proc renderSymbolInputs(app: App) =
+  ## One "played with X" box per selected symbol, keeping typed values.
+  var html = ""
+  for symbol in app.selected:
+    let known = app.observation.symbolPlayed[symbol]
+    html.add "<label>played with " & symbol.label & "<input id='played" & $symbol &
+      "' type=number inputmode=numeric min=0 placeholder='?' value='" &
+      (if known.isSome: $known.get else: "") & "'></label>"
+  element("symbolPlayed").innerHTML = html.cstring
+
+proc renderCount(app: App) =
+  if app.selected == {}:
+    element("countOut").innerHTML = "<p class=muted>Tap symbols above.</p>"
+    return
+  var html = "<div class=big>" & $app.deck.cardsWithAny(app.selected) &
+    "<span> / " & $DeckSize & " cards</span></div>" &
+    "<p>have at least one of " & describe(app.selected) & ".</p>"
+  let blanks = app.deck.blankCards
+  if blanks > 0:
+    html.add "<p class=muted>+ " & plural(blanks, "blank card") & ", which " &
+      blankRuleWords(app.blankRule) & ".</p>"
+  if app.selected.card > 1:
+    html.add "<p class=muted>" & $app.deck.cardsWithAll(app.selected) &
+      " have all of them.</p>"
+  element("countOut").innerHTML = html.cstring
+
+proc renderOdds(app: App) =
+  let output = element("oddsOut")
+  if app.selected == {}:
+    output.innerHTML = "<p class=muted>Select symbols first.</p>"
+    return
+  if app.observation.played > DeckSize:
+    output.innerHTML = cstring("<p class=err>Only " & $DeckSize & " cards in the deck.</p>")
+    return
+  let odds = analyse(app.deck, app.selected, app.blankRule, app.observation)
+  if not odds.possible:
+    output.innerHTML = "<p class=err>That information is impossible with this deck — check the numbers.</p>"
+    return
+  if odds.remaining == 0:
+    output.innerHTML = "<p class=muted>No cards left.</p>"
+    return
+
+  let draw = min(app.draw, odds.remaining)
+  let cls = if app.headline == Safe: "ok" else: "bad"
+  var html = "<div class='big " & cls & "'>" &
+    percent(odds.chanceAtLeastOne(draw, app.headline)) & "</div>"
+  if draw == 1:
+    let blankNote =
+      if app.blankRule == blankIsSafe and app.deck.blankCards > 0:
+        (if app.headline == Safe: ", or blank" else: ", not blank")
+      else: ""
+    html.add "<p>chance the next card is " & outcomeWord(app.headline) &
+      (if app.headline == Safe: " (has " else: " (none of ") &
+      describe(app.selected) & blankNote & ").</p>"
   else:
-    let any = symMatchCount(sel)
-    h.add "<div class=big>" & $any & "<span> / " & $deckSize & " cards</span></div>"
-    h.add "<p>have at least one of " & selNames(sel) & ".</p>"
-    if nb > 0:
-      h.add "<p class=muted>+ " & $nb & " blank card" & (if nb == 1: "" else: "s") &
-        ", which " & (if blankSafe: "<b class=ok>matches all (safe)</b>" else: "<b class=bad>matches none (danger)</b>") &
-        ".</p>"
-    if nSel > 1:
-      h.add "<p class=muted>" & $allCount(sel) & " have all of them.</p>"
-  el("countOut").innerHTML = h.cstring
+    html.add "<p>chance at least one of the next " & $draw & " cards is " &
+      outcomeWord(app.headline) & ".</p>"
+  let safeLeft = odds.expectedSafeLeft
+  html.add "<p class=muted>" & plural(odds.remaining, "card") & " left: about " &
+    formatFloat(safeLeft, ffDecimal, 1) & " safe, " &
+    formatFloat(float(odds.remaining) - safeLeft, ffDecimal, 1) & " danger.</p>"
 
-  # --- odds section
-  var o = ""
-  if nSel == 0:
-    o = "<p class=muted>Select symbols first.</p>"
-  elif played > deckSize:
-    o = "<p class=err>Played exceeds deck size.</p>"
-  else:
-    let post = posterior(sel)
-    if not post.ok:
-      o = "<p class=err>That information is impossible with this deck — check the numbers.</p>"
-    else:
-      let g = matchCount(sel)
-      var expLeft = 0.0
-      for u, w in post.weights: expLeft += w * float(g - u)
-      expLeft /= post.total
-      let r = deckSize - played
-      let s1 = max(1, readInt("draw", 1))
-      let cls = if showDanger: "bad" else: "ok"
-      o.add "<div class='big " & cls & "'>" & pct(hitProb(post, g, s1, showDanger)) & "</div>"
-      if s1 == 1:
-        o.add "<p>chance the next card is " & (if showDanger:
-          "<b class=bad>danger</b> (none of " else: "<b class=ok>safe</b> (has ") &
-          selNames(sel) & (if blankSafe and nb > 0: (if showDanger: ", not blank" else: ", or blank") else: "") &
-          ").</p>"
-      else:
-        o.add "<p>chance at least one of the next " & $s1 & " cards is " &
-          (if showDanger: "<b class=bad>danger</b>" else: "<b class=ok>safe</b>") & ".</p>"
-      o.add "<p class=muted>" & $r & " cards left: about " &
-        formatFloat(expLeft, ffDecimal, 1) & " safe, " &
-        formatFloat(float(r) - expLeft, ffDecimal, 1) & " danger.</p>"
-      o.add "<table><tr><th>next</th><th>≥1 danger</th><th>≥1 safe</th></tr>"
-      for s in 1 .. min(drawMax, r):
-        o.add "<tr" & (if s == s1: " class=hl" else: "") & "><td>" & $s &
-          "</td><td class=bad>" & pct(hitProb(post, g, s, true)) &
-          "</td><td class=ok>" & pct(hitProb(post, g, s, false)) & "</td></tr>"
-      o.add "</table>"
-      var nz = 0
-      for w in post.weights:
-        if w > 0: inc nz
-      if nz > 1:
-        o.add "<details><summary>Safe cards still in the deck</summary><table>"
-        for u in countdown(post.weights.high, 0):
-          let w = post.weights[u]
-          if w > 0:
-            o.add "<tr><td>" & $(g - u) & "</td><td>" & pct(w / post.total) & "</td></tr>"
-        o.add "</table></details>"
-  el("oddsOut").innerHTML = o.cstring
+  html.add "<table><tr><th>next</th><th>≥1 danger</th><th>≥1 safe</th></tr>"
+  for n in 1 .. min(MaxDrawRows, odds.remaining):
+    html.add "<tr" & (if n == draw: " class=hl" else: "") & "><td>" & $n &
+      "</td><td class=bad>" & percent(odds.chanceAtLeastOne(n, Danger)) &
+      "</td><td class=ok>" & percent(odds.chanceAtLeastOne(n, Safe)) & "</td></tr>"
+  html.add "</table>"
 
-proc readInputs() =
-  deckSize = max(cards.len, readInt("deck", DefaultDeck))
-  el("blankNote").innerHTML = cstring($(cards.len - (blanks() - max(0, deckSize - cards.len))) &
-    " cards with symbols + " & $blanks() & " blank")
-  played = max(0, readInt("played", 0))
-  anyObs = readInt("anyObs", -1)
-  for i in 0 ..< NSym:
-    if (sel and (1 shl i)) != 0:
-      symObs[i] = readInt("obs" & $i, -1)
+  var possibleCounts = 0
+  for chance in odds.safePlayedChance:
+    if chance > 0: inc possibleCounts
+  if possibleCounts > 1:
+    html.add "<details><summary>Safe cards still in the deck</summary><table>"
+    for safePlayed in countdown(odds.safePlayedChance.high, 0):
+      let chance = odds.safePlayedChance[safePlayed]
+      if chance > 0:
+        html.add "<tr><td>" & $(odds.safeInDeck - safePlayed) & "</td><td>" &
+          percent(chance) & "</td></tr>"
+    html.add "</table></details>"
+  output.innerHTML = html.cstring
 
-proc onInput(ev: Event) =
-  readInputs()
-  renderResults()
+proc renderMatrix(app: App) =
+  var html = "<table class=mxt><tr><th></th>"
+  for symbol in Symbol:
+    html.add "<th title='" & $symbol & "'>" & Glyph[symbol] & "<br>" & Letter[symbol] & "</th>"
+  html.add "</tr>"
+  for index, card in app.deck:
+    html.add "<tr" & (if card == {}: " class=blank" else: "") & "><th>" &
+      notebookLabel(index) & "</th>"
+    for symbol in Symbol:
+      html.add "<td data-card=" & $index & " data-symbol=" & $ord(symbol) &
+        (if symbol in card: " class=on" else: "") & "></td>"
+    html.add "</tr>"
+  html.add "<tr class=tot><th>Σ</th>"
+  for symbol in Symbol: html.add "<th>" & $app.deck.cardsWith(symbol) & "</th>"
+  html.add "</tr></table>"
+  let matrix = element("matrix")
+  matrix.innerHTML = html.cstring
+  if app.editingMatrix: matrix.classList.add("unlocked")
+  else: matrix.classList.remove("unlocked")
 
-proc renderObsInputs() =
-  var h = ""
-  for i in 0 ..< NSym:
-    if (sel and (1 shl i)) != 0:
-      let v = if symObs[i] >= 0: $symObs[i] else: ""
-      h.add "<label>played with " & Glyphs[i] & " " & Names[i] &
-        "<input id=obs" & $i & " type=number inputmode=numeric min=0 placeholder='?' value='" &
-        v & "'></label>"
-  el("symObs").innerHTML = h.cstring
-  for i in 0 ..< NSym:
-    if (sel and (1 shl i)) != 0:
-      el("obs" & $i).addEventListener("input", onInput)
+  element("lockBtn").innerHTML =
+    if app.editingMatrix: "🔓 Done editing" else: "🔒 Locked — edit…"
+  let edited = app.deck != NotebookDeck
+  element("matrixNote").innerHTML =
+    if edited: "<span class=err>Edited — differs from the notebook transcription.</span>"
+    else: "Matches the notebook transcription."
+  if edited: element("restoreBtn").removeAttribute("hidden")
+  else: element("restoreBtn").setAttribute("hidden", "")
 
-proc renderChips()
+proc renderToggles(app: App) =
+  highlightSegment("modeSeg", app.headline == Danger)
+  highlightSegment("blankSeg", app.blankRule == blankIsSafe)
+  highlightSegment("blankSeg2", app.blankRule == blankIsSafe)
 
-proc onChip(ev: Event) =
-  let i = parseInt($ev.currentTarget.getAttribute("data-i"))
-  sel = sel xor (1 shl i)
-  renderChips()
-  renderObsInputs()
-  readInputs()
-  renderResults()
+proc renderResults(app: App) =
+  app.renderCount()
+  app.renderOdds()
 
-proc renderChips() =
-  var h = ""
-  for i in 0 ..< NSym:
-    let on = (sel and (1 shl i)) != 0
-    h.add "<button class='chip" & (if on: " on" else: "") & "' data-i=" & $i &
-      "><span class=g>" & Glyphs[i] & "</span><b>" & Names[i] & "</b><small>" & Letters[i] & " · " &
-      $symCount(i) & "</small></button>"
-  el("chips").innerHTML = h.cstring
-  for b in document.querySelectorAll(".chip"):
-    b.addEventListener("click", onChip)
+proc renderAll(app: App) =
+  app.renderChips()
+  app.renderSymbolInputs()
+  app.readObservation()
+  app.renderResults()
+  app.renderMatrix()
+  app.renderToggles()
 
-proc onStep(ev: Event) =
-  let t = ev.currentTarget
-  let target = el($t.getAttribute("data-t"))
-  let d = parseInt($t.getAttribute("data-d"))
-  let cur = strip($target.value)
-  var v = (if cur.len == 0: 0 else: (try: parseInt(cur) except ValueError: 0)) + d
-  if v < 0: v = 0
-  target.value = cstring($v)
-  readInputs()
-  renderResults()
+# ---------------------------------------------------------------- events
 
-proc onClear(ev: Event) =
-  sel = 0
-  played = 0
-  anyObs = -1
-  for i in 0 ..< NSym: symObs[i] = -1
-  el("played").value = "0"
-  el("anyObs").value = ""
-  el("draw").value = "1"
-  renderChips()
-  renderObsInputs()
-  renderResults()
+proc confirmed(message: cstring): bool {.importjs: "confirm(#)".}
 
-# ---------------------------------------------------------------- storage
-proc lsGet(k: cstring): cstring {.importjs:
-  "(function(k){try{return localStorage.getItem(k)||''}catch(e){return ''}})(#)".}
-proc lsSet(k, v: cstring) {.importjs:
-  "(function(k,v){try{localStorage.setItem(k,v)}catch(e){}})(#,#)".}
-proc lsDel(k: cstring) {.importjs:
-  "(function(k){try{localStorage.removeItem(k)}catch(e){}})(#)".}
-proc jsConfirm(msg: cstring): bool {.importjs: "confirm(#)".}
+proc wireEvents(app: App) =
+  proc onNumbers(ev: Event) =
+    app.readObservation()
+    app.renderResults()
 
-proc encodeCards(cs: seq[Mask]): string =
-  var parts: seq[string]
-  for c in cs:
-    var r = ""
-    for i in 0 ..< NSym:
-      if (c and (1 shl i)) != 0: r.add Letters[i]
-    parts.add r
-  parts.join(",")
+  proc onChip(ev: Event) =
+    let index = closestWith(ev.target, ".chip").dataInt("symbol")
+    if index < 0: return
+    let symbol = Symbol(index)
+    if symbol in app.selected: app.selected.excl symbol
+    else: app.selected.incl symbol
+    app.renderChips()
+    app.renderSymbolInputs()   # rebuilt from app.observation, so typed values survive
+    app.readObservation()
+    app.renderResults()
 
-proc decodeCards(s: string): seq[Mask] =
-  for row in s.split(','):
-    var m = 0
-    for c in row:
-      let i = symIndex(c)
-      if i >= 0: m = m or (1 shl i)
-    result.add m
+  proc onStep(ev: Event) =
+    let button = closestWith(ev.target, ".step")
+    let input = element($button.getAttribute("data-t"))
+    let current = try: parseInt(strip($input.value)) except ValueError: 0
+    input.value = cstring($max(0, current + button.dataInt("d")))
+    onNumbers(ev)
 
-proc saveSettings() =
-  lsSet("vo.blankSafe", cstring(if blankSafe: "1" else: "0"))
-  lsSet("vo.danger", cstring(if showDanger: "1" else: "0"))
-  lsSet("vo.deck", cstring($deckSize))
-  if cards == defaultCards: lsDel("vo.cards")
-  else: lsSet("vo.cards", cstring(encodeCards(cards)))
+  proc onHeadline(ev: Event) =
+    let choice = closestWith(ev.target, "button").dataInt("v")
+    if choice < 0: return
+    app.headline = if choice == 1: Danger else: Safe
+    saveHeadline(app.headline)
+    app.renderToggles()
+    app.renderResults()
 
-proc loadSettings() =
-  let b = $lsGet("vo.blankSafe")
-  if b.len > 0: blankSafe = b == "1"
-  let d = $lsGet("vo.danger")
-  if d.len > 0: showDanger = d == "1"
-  let n = $lsGet("vo.deck")
-  if n.len > 0:
-    try: deckSize = parseInt(n) except ValueError: discard
-  let c = $lsGet("vo.cards")
-  if c.len > 0:
-    let dc = decodeCards(c)
-    if dc.len > 0: cards = dc
+  proc onBlankRule(ev: Event) =
+    let choice = closestWith(ev.target, "button").dataInt("v")
+    if choice < 0: return
+    app.blankRule = if choice == 1: blankIsSafe else: blankIsDanger
+    saveBlankRule(app.blankRule)
+    app.renderToggles()
+    app.renderResults()
 
-# ---------------------------------------------------------------- settings UI
-proc setSeg(id: string, first: bool) =
-  let kids = el(id).querySelectorAll("button")
-  for k, b in kids:
-    if (k == 0) == first: b.classList.add("on") else: b.classList.remove("on")
+  proc onMatrixCell(ev: Event) =
+    if not app.editingMatrix: return
+    let cell = closestWith(ev.target, "td")
+    let index = cell.dataInt("card")
+    let symbolIndex = cell.dataInt("symbol")
+    if index < 0 or symbolIndex < 0: return
+    let symbol = Symbol(symbolIndex)
+    if symbol in app.deck[index]: app.deck[index].excl symbol
+    else: app.deck[index].incl symbol
+    saveDeck(app.deck)
+    app.renderAll()
 
-proc renderMatrix() =
-  var h = "<table class=mxt><tr><th></th>"
-  for i in 0 ..< NSym:
-    h.add "<th title='" & Names[i] & "'>" & Glyphs[i] & "<br>" & Letters[i] & "</th>"
-  h.add "</tr>"
-  for r, c in cards:
-    # Notebook position: page 1 has the first 27 rows, page 2 the rest.
-    let lbl = if r < 27: "1·" & $(r + 1) else: "2·" & $(r - 26)
-    h.add "<tr><th>" & lbl & "</th>"
-    for i in 0 ..< NSym:
-      let on = (c and (1 shl i)) != 0
-      h.add "<td data-c='" & $r & "," & $i & "'" & (if on: " class=on" else: "") & "></td>"
-    h.add "</tr>"
-  let extra = max(0, deckSize - cards.len)
-  for k in 0 ..< extra:
-    h.add "<tr class=blank><th>blank</th><td colspan=12></td></tr>"
-  h.add "<tr class=tot><th>Σ</th>"
-  for i in 0 ..< NSym: h.add "<th>" & $symCount(i) & "</th>"
-  h.add "</tr></table>"
-  el("matrix").innerHTML = h.cstring
-  let mx = el("matrix")
-  if unlocked: mx.classList.add("unlocked") else: mx.classList.remove("unlocked")
-  el("lockBtn").innerHTML = (if unlocked: "🔓 Done editing" else: "🔒 Locked — edit…")
-  var note = ""
-  if cards != defaultCards:
-    note = "<span class=err>Edited — differs from the notebook transcription.</span>"
-  else:
-    note = "Matches the notebook transcription."
-  el("mxNote").innerHTML = note.cstring
-  if cards != defaultCards: el("restoreBtn").removeAttribute("hidden")
-  else: el("restoreBtn").setAttribute("hidden", "")
+  proc onLock(ev: Event) =
+    if app.editingMatrix: app.editingMatrix = false
+    elif confirmed("Edit the card matrix? Tap cells to toggle symbols. Changes are saved on this device."):
+      app.editingMatrix = true
+    app.renderMatrix()
 
-proc refreshAll() =
-  renderChips()
-  renderObsInputs()
-  readInputs()
-  renderResults()
-  renderMatrix()
+  proc onRestore(ev: Event) =
+    if confirmed("Discard edits and restore the notebook transcription?"):
+      app.deck = NotebookDeck
+      app.editingMatrix = false
+      saveDeck(app.deck)
+      app.renderAll()
 
-proc onMatrix(ev: Event) =
-  if not unlocked: return
-  let t = cast[Element](ev.target)
-  let a = $t.getAttribute("data-c")
-  if a.len == 0 or a == "null": return
-  let parts = a.split(',')
-  let r = parseInt(parts[0])
-  let i = parseInt(parts[1])
-  cards[r] = cards[r] xor (1 shl i)
-  saveSettings()
-  refreshAll()
+  proc onSettings(ev: Event) =
+    let panel = element("settings")
+    if panel.hasAttribute("hidden"):
+      panel.removeAttribute("hidden")
+      panel.scrollIntoView()
+    else: panel.setAttribute("hidden", "")
 
-proc onLock(ev: Event) =
-  if unlocked: unlocked = false
-  elif jsConfirm("Edit the card matrix? Tap cells to toggle symbols. Changes are saved on this device."):
-    unlocked = true
-  renderMatrix()
+  proc onReset(ev: Event) =
+    ## Clears the current question; settings and matrix edits are kept.
+    app.selected = {}
+    app.observation = Observation()
+    element("played").value = "0"
+    element("safePlayed").value = ""
+    element("draw").value = "1"
+    app.renderAll()
 
-proc onRestore(ev: Event) =
-  if jsConfirm("Discard edits and restore the notebook transcription?"):
-    cards = defaultCards
-    unlocked = false
-    saveSettings()
-    refreshAll()
-
-proc onSettingsToggle(ev: Event) =
-  let s = el("settings")
-  if s.hasAttribute("hidden"):
-    s.removeAttribute("hidden")
-    s.scrollIntoView()
-  else: s.setAttribute("hidden", "")
-
-proc onBlankSeg(ev: Event) =
-  blankSafe = $ev.currentTarget.getAttribute("data-v") == "1"
-  setSeg("blankSeg", blankSafe)
-  setSeg("blankSeg2", blankSafe)
-  saveSettings()
-  readInputs()
-  renderResults()
-
-proc onModeSeg(ev: Event) =
-  showDanger = $ev.currentTarget.getAttribute("data-v") == "1"
-  setSeg("modeSeg", showDanger)
-  saveSettings()
-  renderResults()
-
-proc onDeck(ev: Event) =
-  readInputs()
-  saveSettings()
-  renderResults()
-  renderMatrix()
+  element("chips").addEventListener("click", onChip)
+  for id in ["played", "safePlayed", "draw", "symbolPlayed"]:
+    element(id).addEventListener("input", onNumbers)
+  for button in document.querySelectorAll(".step"):
+    button.addEventListener("click", onStep)
+  element("modeSeg").addEventListener("click", onHeadline)
+  element("blankSeg").addEventListener("click", onBlankRule)
+  element("blankSeg2").addEventListener("click", onBlankRule)
+  element("matrix").addEventListener("click", onMatrixCell)
+  element("lockBtn").addEventListener("click", onLock)
+  element("restoreBtn").addEventListener("click", onRestore)
+  element("gear").addEventListener("click", onSettings)
+  element("closeSettings").addEventListener("click", onSettings)
+  element("clear").addEventListener("click", onReset)
 
 proc main() =
-  loadSettings()
-  el("deck").value = cstring($deckSize)
-  setSeg("blankSeg", blankSafe)
-  setSeg("blankSeg2", blankSafe)
-  setSeg("modeSeg", showDanger)
-  for id in ["blankSeg", "blankSeg2"]:
-    for b in el(id).querySelectorAll("button"): b.addEventListener("click", onBlankSeg)
-  for b in el("modeSeg").querySelectorAll("button"): b.addEventListener("click", onModeSeg)
-  el("gear").addEventListener("click", onSettingsToggle)
-  el("closeSettings").addEventListener("click", onSettingsToggle)
-  el("matrix").addEventListener("click", onMatrix)
-  el("lockBtn").addEventListener("click", onLock)
-  el("restoreBtn").addEventListener("click", onRestore)
-  el("deck").addEventListener("input", onDeck)
-  for id in ["played", "anyObs", "draw"]:
-    el(id).addEventListener("input", onInput)
-  for b in document.querySelectorAll(".step"):
-    b.addEventListener("click", onStep)
-  el("clear").addEventListener("click", onClear)
-  refreshAll()
+  let app = App(
+    deck: loadDeck(),
+    draw: 1,
+    blankRule: loadBlankRule(default = blankIsSafe),
+    headline: loadHeadline(default = Danger))
+  app.wireEvents()
+  app.renderAll()
 
 main()

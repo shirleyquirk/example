@@ -72,8 +72,8 @@ td.ok,td.bad{font-weight:500}
   <label>cards already played
     <span class="row"><button class="step" data-t="played" data-d="-1">−</button><input id="played" type="number" inputmode="numeric" min="0" value="0"><button class="step" data-t="played" data-d="1">+</button></span></label>
   <label>…of which were safe (matched)
-    <input id="anyObs" type="number" inputmode="numeric" min="0" placeholder="?"></label>
-  <div id="symObs"></div>
+    <input id="safePlayed" type="number" inputmode="numeric" min="0" placeholder="?"></label>
+  <div id="symbolPlayed"></div>
   <p style="margin-top:10px">Blank card</p>
   <div class="seg" id="blankSeg2"><button data-v="1">Matches all (safe)</button><button data-v="0">Matches none (danger)</button></div>
   <label>drawing next
@@ -92,10 +92,8 @@ td.ok,td.bad{font-weight:500}
   <h2>Settings <button id="closeSettings" class="hbtn">close</button></h2>
   <p>Blank card counts as</p>
   <div class="seg" id="blankSeg"><button data-v="1">Matches all (safe)</button><button data-v="0">Matches none (danger)</button></div>
-  <label>deck size <input id="deck" type="number" inputmode="numeric" min="1"></label>
-  <p class="muted" id="blankNote"></p>
   <h2 style="margin-top:16px">Cards × symbols</h2>
-  <p class="muted">Rows are notebook page·row. <span id="mxNote"></span></p>
+  <p class="muted">Rows are notebook page·row. <span id="matrixNote"></span></p>
   <div class="mx" id="matrix"></div>
   <button class="btn" id="lockBtn"></button><button class="btn" id="restoreBtn" hidden>Restore original</button>
 </section>
