@@ -16,6 +16,7 @@ Open the GitHub Pages URL in Safari → Share → **Add to Home Screen**. After 
 (service worker). `index.html` is fully self-contained, so it also works opened from any local copy that runs JavaScript.
 
 ## Data
+Letters map to ISS Vanguard biomes: A Void, B Water, C Volcanic, D Hostile, E Caves, F Deadly, G Vegetation, H Desert, I Ruins, K Frigid, L Rocky, M Crystalline (E/M least certain).
 Transcribed from the notebook grid in `src/app.nim` (`CardRows`). Column totals: A8 B13 C11 D5 E4 F11 G11 H10 I13 K9 L13 M12 = 120 marks
 over 39 cards; the 40th card has no symbols. Glyphs are emoji stand-ins for the hand-drawn symbols (`Glyphs`).
 

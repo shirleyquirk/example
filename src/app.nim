@@ -4,8 +4,11 @@ import std/[dom, tables, strutils]
 const
   NSym = 12
   Letters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "K", "L", "M"]
-  # Placeholder glyphs approximating the hand-drawn symbols. Edit freely.
-  Glyphs = ["🌀", "👁", "🗼", "🎯", "✉️", "🏚", "🍃", "🌊", "⛰️", "✳️", "🧿", "🐍"]
+  # ISS Vanguard biome for each notebook letter (matched from the hand drawings
+  # to the rulebook's Biome Icons page; E and M are the least certain).
+  Names = ["Void", "Water", "Volcanic", "Hostile", "Caves", "Deadly",
+    "Vegetation", "Desert", "Ruins", "Frigid", "Rocky", "Crystalline"]
+  Glyphs = ["🌀", "💧", "🌋", "🎯", "🕳️", "☠️", "🌿", "🏜️", "🏛️", "❄️", "🪨", "💎"]
   # One string per card, transcribed from the notebook grid (39 rows).
   # The 40th card has no symbols; extra blank cards come from DefaultDeck - len.
   CardRows = ["A", "B", "CD", "E", "AFGH", "BCFGI", "DG", "D", "GI", "AFH",
@@ -158,7 +161,7 @@ proc readInt(id: string, def: int): int =
 proc selNames(t: Mask): string =
   var parts: seq[string]
   for i in 0 ..< NSym:
-    if (t and (1 shl i)) != 0: parts.add Glyphs[i] & Letters[i]
+    if (t and (1 shl i)) != 0: parts.add Glyphs[i] & " " & Names[i]
   parts.join(" or ")
 
 proc renderResults() =
@@ -233,7 +236,7 @@ proc renderObsInputs() =
   for i in 0 ..< NSym:
     if (sel and (1 shl i)) != 0:
       let v = if symObs[i] >= 0: $symObs[i] else: ""
-      h.add "<label>played with " & Glyphs[i] & Letters[i] &
+      h.add "<label>played with " & Glyphs[i] & " " & Names[i] &
         "<input id=obs" & $i & " type=number inputmode=numeric min=0 placeholder='?' value='" &
         v & "'></label>"
   el("symObs").innerHTML = h.cstring
@@ -256,8 +259,8 @@ proc renderChips() =
   for i in 0 ..< NSym:
     let on = (sel and (1 shl i)) != 0
     h.add "<button class='chip" & (if on: " on" else: "") & "' data-i=" & $i &
-      "><span class=g>" & Glyphs[i] & "</span><b>" & Letters[i] &
-      "</b><small>" & $symCount(i) & "</small></button>"
+      "><span class=g>" & Glyphs[i] & "</span><b>" & Names[i] & "</b><small>" & Letters[i] & " · " &
+      $symCount(i) & "</small></button>"
   el("chips").innerHTML = h.cstring
   for b in document.querySelectorAll(".chip"):
     b.addEventListener("click", onChip)
