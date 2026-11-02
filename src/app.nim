@@ -1,7 +1,7 @@
 ## The page: reads the inputs, calls `odds`, renders the results.
 ## Compiled with `nim js` (see build.sh).
 
-import std/[dom, strutils, options]
+import std/[dom, strutils, options, htmlgen]
 import model, odds, storage
 
 const MaxDrawRows = 8  ## rows in the "next N cards" table
@@ -24,8 +24,8 @@ type
 proc element(id: string): Element = document.getElementById(id.cstring)
 
 proc percent(chance: float): string =
-  if chance >= 0.9995 and chance < 1.0: return ">99.9%"
-  if chance > 0 and chance < 0.0005: return "<0.1%"
+  if chance >= 0.9995 and chance < 1.0: return "&gt;99.9%"  # htmlgen does not escape text
+  if chance > 0 and chance < 0.0005: return "&lt;0.1%"
   formatFloat(chance * 100, ffDecimal, 1) & "%"
 
 proc readCount(id: string): Option[Natural] =
@@ -35,22 +35,25 @@ proc readCount(id: string): Option[Natural] =
     if value >= 0: result = some(Natural(value))
   except ValueError: discard
 
-proc label(symbol: Symbol): string = Glyph[symbol] & " " & $symbol
+proc named(symbol: Symbol): string = Glyph[symbol] & " " & $symbol
 
 proc describe(symbols: set[Symbol]): string =
   var parts: seq[string]
-  for symbol in symbols: parts.add symbol.label
+  for symbol in symbols: parts.add symbol.named
   parts.join(" or ")
 
 proc plural(n: int, word: string): string =
   $n & " " & word & (if n == 1: "" else: "s")
 
 proc outcomeWord(outcome: Outcome): string =
-  if outcome == Safe: "<b class=ok>safe</b>" else: "<b class=bad>danger</b>"
+  if outcome == Safe: b(class = "ok", "safe") else: b(class = "bad", "danger")
 
 proc blankRuleWords(rule: BlankRule): string =
-  if rule == blankIsSafe: "<b class=ok>matches all (safe)</b>"
-  else: "<b class=bad>matches none (danger)</b>"
+  if rule == blankIsSafe: b(class = "ok", "matches all (safe)")
+  else: b(class = "bad", "matches none (danger)")
+
+proc classIf(condition: bool, name: string): string =
+  if condition: name else: ""
 
 proc highlightSegment(id: string, firstOn: bool) =
   ## Two-button toggles: mark the first or the second button as selected.
@@ -93,114 +96,114 @@ proc observation(app: App): Observation =
 # ---------------------------------------------------------------- rendering
 
 proc renderChips(app: App) =
-  var html = ""
+  var chips = ""
   for symbol in Symbol:
-    html.add "<button class='chip" & (if symbol in app.selected: " on" else: "") &
-      "' data-symbol=" & $ord(symbol) & "><span class=g>" & Glyph[symbol] &
-      "</span><b>" & $symbol & "</b><small>" & Letter[symbol] & " · " &
-      $card(app.deck[symbol]) & "</small></button>"
-  element("chips").innerHTML = html.cstring
+    chips.add button(class = "chip " & classIf(symbol in app.selected, "on"),
+      `data-symbol` = $ord(symbol),
+      span(class = "g", Glyph[symbol]),
+      b($symbol),
+      small(Letter[symbol] & " · " & $card(app.deck[symbol])))
+  element("chips").innerHTML = chips.cstring
 
 proc renderSymbolInputs(app: App) =
   ## One "played with X" box per selected symbol, keeping typed values.
-  var html = ""
+  var boxes = ""
   for symbol in app.selected:
     let known = app.symbolPlayed[symbol]
-    html.add "<label>played with " & symbol.label & "<input id='played" & $symbol &
-      "' type=number inputmode=numeric min=0 placeholder='?' value='" &
-      (if known.isSome: $known.get else: "") & "'></label>"
-  element("symbolPlayed").innerHTML = html.cstring
+    boxes.add label("played with " & symbol.named,
+      input(id = "played" & $symbol, `type` = "number", inputmode = "numeric",
+            min = "0", placeholder = "?",
+            value = (if known.isSome: $known.get else: "")))
+  element("symbolPlayed").innerHTML = boxes.cstring
 
 proc renderCount(app: App) =
   if app.selected == {}:
-    element("countOut").innerHTML = "<p class=muted>Tap symbols above.</p>"
+    element("countOut").innerHTML = p(class = "muted", "Tap symbols above.").cstring
     return
-  var html = "<div class=big>" & $card(app.deck.withAny(app.selected)) &
-    "<span> / " & $DeckSize & " cards</span></div>" &
-    "<p>have at least one of " & describe(app.selected) & ".</p>"
+  var html =
+    `div`(class = "big", $card(app.deck.withAny(app.selected)),
+      span(" / " & $DeckSize & " cards")) &
+    p("have at least one of " & describe(app.selected) & ".")
   let blanks = card(app.deck.blank)
   if blanks > 0:
-    html.add "<p class=muted>+ " & plural(blanks, "blank card") & ", which " &
-      blankRuleWords(app.blankRule) & ".</p>"
+    html.add p(class = "muted", "+ " & plural(blanks, "blank card") & ", which " &
+      blankRuleWords(app.blankRule) & ".")
   if app.selected.card > 1:
-    html.add "<p class=muted>" & $card(app.deck.withAll(app.selected)) &
-      " have all of them.</p>"
+    html.add p(class = "muted",
+      $card(app.deck.withAll(app.selected)) & " have all of them.")
   element("countOut").innerHTML = html.cstring
 
-proc renderOdds(app: App) =
-  let output = element("oddsOut")
+proc oddsHtml(app: App): string =
   if app.selected == {}:
-    output.innerHTML = "<p class=muted>Select symbols first.</p>"
-    return
+    return p(class = "muted", "Select symbols first.")
   if app.played > DeckSize:
-    output.innerHTML = cstring("<p class=err>Only " & $DeckSize & " cards in the deck.</p>")
-    return
+    return p(class = "err", "Only " & $DeckSize & " cards in the deck.")
   let odds = analyse(app.safeCards, app.observation)
   if not odds.possible:
-    output.innerHTML = "<p class=err>That information is impossible with this deck — check the numbers.</p>"
-    return
+    return p(class = "err",
+      "That information is impossible with this deck — check the numbers.")
   if odds.remaining == 0:
-    output.innerHTML = "<p class=muted>No cards left.</p>"
-    return
+    return p(class = "muted", "No cards left.")
 
   let draw = min(app.draw, odds.remaining)
-  let cls = if app.headline == Safe: "ok" else: "bad"
-  var html = "<div class='big " & cls & "'>" &
-    percent(odds.chanceAtLeastOne(draw, app.headline)) & "</div>"
+  result.add `div`(class = "big " & (if app.headline == Safe: "ok" else: "bad"),
+    percent(odds.chanceAtLeastOne(draw, app.headline)))
   if draw == 1:
     let blankNote =
       if app.blankRule == blankIsSafe and app.deck.blank != {}:
         (if app.headline == Safe: ", or blank" else: ", not blank")
       else: ""
-    html.add "<p>chance the next card is " & outcomeWord(app.headline) &
+    result.add p("chance the next card is " & outcomeWord(app.headline) &
       (if app.headline == Safe: " (has " else: " (none of ") &
-      describe(app.selected) & blankNote & ").</p>"
+      describe(app.selected) & blankNote & ").")
   else:
-    html.add "<p>chance at least one of the next " & $draw & " cards is " &
-      outcomeWord(app.headline) & ".</p>"
+    result.add p("chance at least one of the next " & $draw & " cards is " &
+      outcomeWord(app.headline) & ".")
   let safeLeft = odds.expectedSafeLeft
-  html.add "<p class=muted>" & plural(odds.remaining, "card") & " left: about " &
+  result.add p(class = "muted", plural(odds.remaining, "card") & " left: about " &
     formatFloat(safeLeft, ffDecimal, 1) & " safe, " &
-    formatFloat(float(odds.remaining) - safeLeft, ffDecimal, 1) & " danger.</p>"
+    formatFloat(float(odds.remaining) - safeLeft, ffDecimal, 1) & " danger.")
 
-  html.add "<table><tr><th>next</th><th>≥1 danger</th><th>≥1 safe</th></tr>"
+  var rows = tr(th("next"), th("≥1 danger"), th("≥1 safe"))
   for n in 1 .. min(MaxDrawRows, odds.remaining):
-    html.add "<tr" & (if n == draw: " class=hl" else: "") & "><td>" & $n &
-      "</td><td class=bad>" & percent(odds.chanceAtLeastOne(n, Danger)) &
-      "</td><td class=ok>" & percent(odds.chanceAtLeastOne(n, Safe)) & "</td></tr>"
-  html.add "</table>"
+    rows.add tr(class = classIf(n == draw, "hl"),
+      td($n),
+      td(class = "bad", percent(odds.chanceAtLeastOne(n, Danger))),
+      td(class = "ok", percent(odds.chanceAtLeastOne(n, Safe))))
+  result.add table(rows)
 
   var possibleCounts = 0
   for chance in odds.safePlayedChance:
     if chance > 0: inc possibleCounts
   if possibleCounts > 1:
-    html.add "<details><summary>Safe cards still in the deck</summary><table>"
+    var spread = ""
     for safePlayed in countdown(odds.safePlayedChance.high, 0):
       let chance = odds.safePlayedChance[safePlayed]
       if chance > 0:
-        html.add "<tr><td>" & $(odds.safeInDeck - safePlayed) & "</td><td>" &
-          percent(chance) & "</td></tr>"
-    html.add "</table></details>"
-  output.innerHTML = html.cstring
+        spread.add tr(td($(odds.safeInDeck - safePlayed)), td(percent(chance)))
+    result.add details(summary("Safe cards still in the deck"), table(spread))
+
+proc renderOdds(app: App) =
+  element("oddsOut").innerHTML = app.oddsHtml.cstring
 
 proc renderMatrix(app: App) =
-  var html = "<table class=mxt><tr><th></th>"
+  var header = th("")
   for symbol in Symbol:
-    html.add "<th title='" & $symbol & "'>" & Glyph[symbol] & "<br>" & Letter[symbol] & "</th>"
-  html.add "</tr>"
+    header.add th(title = $symbol, Glyph[symbol], br(), $Letter[symbol])
+  var rows = tr(header)
   let blank = app.deck.blank
   for index in CardIndex:
-    html.add "<tr" & (if index in blank: " class=blank" else: "") & "><th>" &
-      notebookLabel(index) & "</th>"
+    var cells = th(notebookLabel(index))
     for symbol in Symbol:
-      html.add "<td data-card=" & $index & " data-symbol=" & $ord(symbol) &
-        (if index in app.deck[symbol]: " class=on" else: "") & "></td>"
-    html.add "</tr>"
-  html.add "<tr class=tot><th>Σ</th>"
-  for symbol in Symbol: html.add "<th>" & $card(app.deck[symbol]) & "</th>"
-  html.add "</tr></table>"
+      cells.add td(`data-card` = $index, `data-symbol` = $ord(symbol),
+                   class = classIf(index in app.deck[symbol], "on"))
+    rows.add tr(class = classIf(index in blank, "blank"), cells)
+  var totals = th("Σ")
+  for symbol in Symbol: totals.add th($card(app.deck[symbol]))
+  rows.add tr(class = "tot", totals)
+
   let matrix = element("matrix")
-  matrix.innerHTML = html.cstring
+  matrix.innerHTML = table(class = "mxt", rows).cstring
   if app.editingMatrix: matrix.classList.add("unlocked")
   else: matrix.classList.remove("unlocked")
 
@@ -208,7 +211,8 @@ proc renderMatrix(app: App) =
     if app.editingMatrix: "🔓 Done editing" else: "🔒 Locked — edit…"
   let edited = app.deck != NotebookDeck
   element("matrixNote").innerHTML =
-    if edited: "<span class=err>Edited — differs from the notebook transcription.</span>"
+    if edited: span(class = "err",
+      "Edited — differs from the notebook transcription.").cstring
     else: "Matches the notebook transcription."
   if edited: element("restoreBtn").removeAttribute("hidden")
   else: element("restoreBtn").setAttribute("hidden", "")
