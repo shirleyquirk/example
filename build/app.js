@@ -314,8 +314,8 @@ function chckIndx(i_33557184, a_33557185, b_33557186) {
 
 }
             var Letters_486539269 = [makeNimstrLit("A"), makeNimstrLit("B"), makeNimstrLit("C"), makeNimstrLit("D"), makeNimstrLit("E"), makeNimstrLit("F"), makeNimstrLit("G"), makeNimstrLit("H"), makeNimstrLit("I"), makeNimstrLit("K"), makeNimstrLit("L"), makeNimstrLit("M")];
-            var Glyphs_486539271 = [makeNimstrLit("\xF0\x9F\x8C\x80"), makeNimstrLit("\xF0\x9F\x92\xA7"), makeNimstrLit("\xF0\x9F\x8C\x8B"), makeNimstrLit("\xF0\x9F\x8E\xAF"), makeNimstrLit("\xF0\x9F\x95\xB3\xEF\xB8\x8F"), makeNimstrLit("\xE2\x98\xA0\xEF\xB8\x8F"), makeNimstrLit("\xF0\x9F\x8C\xBF"), makeNimstrLit("\xF0\x9F\x8F\x9C\xEF\xB8\x8F"), makeNimstrLit("\xF0\x9F\x8F\x9B\xEF\xB8\x8F"), makeNimstrLit("\xE2\x9D\x84\xEF\xB8\x8F"), makeNimstrLit("\xF0\x9F\xAA\xA8"), makeNimstrLit("\xF0\x9F\x92\x8E")];
-            var Names_486539270 = [makeNimstrLit("Void"), makeNimstrLit("Water"), makeNimstrLit("Volcanic"), makeNimstrLit("Hostile"), makeNimstrLit("Caves"), makeNimstrLit("Deadly"), makeNimstrLit("Vegetation"), makeNimstrLit("Desert"), makeNimstrLit("Ruins"), makeNimstrLit("Frigid"), makeNimstrLit("Rocky"), makeNimstrLit("Crystalline")];
+            var Glyphs_486539271 = [makeNimstrLit("\xF0\x9F\x8C\x80"), makeNimstrLit("\xF0\x9F\x95\xB3\xEF\xB8\x8F"), makeNimstrLit("\xF0\x9F\x8C\x8B"), makeNimstrLit("\xF0\x9F\x8E\xAF"), makeNimstrLit("\xF0\x9F\x92\x8E"), makeNimstrLit("\xE2\x98\xA0\xEF\xB8\x8F"), makeNimstrLit("\xF0\x9F\x8C\xBF"), makeNimstrLit("\xF0\x9F\x92\xA7"), makeNimstrLit("\xF0\x9F\x8F\x9B\xEF\xB8\x8F"), makeNimstrLit("\xE2\x9D\x84\xEF\xB8\x8F"), makeNimstrLit("\xF0\x9F\xAA\xA8"), makeNimstrLit("\xF0\x9F\x8F\x9C\xEF\xB8\x8F")];
+            var Names_486539270 = [makeNimstrLit("Void"), makeNimstrLit("Caves"), makeNimstrLit("Volcanic"), makeNimstrLit("Hostile"), makeNimstrLit("Crystalline"), makeNimstrLit("Deadly"), makeNimstrLit("Vegetation"), makeNimstrLit("Water"), makeNimstrLit("Ruins"), makeNimstrLit("Frigid"), makeNimstrLit("Rocky"), makeNimstrLit("Desert")];
 var ConstSet2 = setConstr([48, 57]);
 var ConstSet3 = setConstr([48, 57]);
 

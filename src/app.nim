@@ -4,11 +4,10 @@ import std/[dom, tables, strutils]
 const
   NSym = 12
   Letters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "K", "L", "M"]
-  # ISS Vanguard biome for each notebook letter (matched from the hand drawings
-  # to the rulebook's Biome Icons page; E and M are the least certain).
-  Names = ["Void", "Water", "Volcanic", "Hostile", "Caves", "Deadly",
-    "Vegetation", "Desert", "Ruins", "Frigid", "Rocky", "Crystalline"]
-  Glyphs = ["🌀", "💧", "🌋", "🎯", "🕳️", "☠️", "🌿", "🏜️", "🏛️", "❄️", "🪨", "💎"]
+  # ISS Vanguard biome for each notebook letter (confirmed by the owner).
+  Names = ["Void", "Caves", "Volcanic", "Hostile", "Crystalline", "Deadly",
+    "Vegetation", "Water", "Ruins", "Frigid", "Rocky", "Desert"]
+  Glyphs = ["🌀", "🕳️", "🌋", "🎯", "💎", "☠️", "🌿", "💧", "🏛️", "❄️", "🪨", "🏜️"]
   # One string per card, transcribed from the notebook grid (39 rows).
   # The 40th card has no symbols; extra blank cards come from DefaultDeck - len.
   CardRows = ["A", "B", "CD", "E", "AFGH", "BCFGI", "DG", "D", "GI", "AFH",
