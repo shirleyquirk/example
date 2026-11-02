@@ -74,6 +74,8 @@ td.ok,td.bad{font-weight:500}
   <label>…of which were safe (matched)
     <input id="anyObs" type="number" inputmode="numeric" min="0" placeholder="?"></label>
   <div id="symObs"></div>
+  <p style="margin-top:10px">Blank card</p>
+  <div class="seg" id="blankSeg2"><button data-v="1">Matches all (safe)</button><button data-v="0">Matches none (danger)</button></div>
   <label>drawing next
     <span class="row"><button class="step" data-t="draw" data-d="-1">−</button><input id="draw" type="number" inputmode="numeric" min="1" value="1"><button class="step" data-t="draw" data-d="1">+</button></span></label>
   <div id="oddsOut"></div>
@@ -89,7 +91,7 @@ td.ok,td.bad{font-weight:500}
 <section id="settings" hidden>
   <h2>Settings <button id="closeSettings" class="hbtn">close</button></h2>
   <p>Blank card counts as</p>
-  <div class="seg" id="blankSeg"><button data-v="1">Safe (match)</button><button data-v="0">Danger (no match)</button></div>
+  <div class="seg" id="blankSeg"><button data-v="1">Matches all (safe)</button><button data-v="0">Matches none (danger)</button></div>
   <label>deck size <input id="deck" type="number" inputmode="numeric" min="1"></label>
   <p class="muted" id="blankNote"></p>
   <h2 style="margin-top:16px">Cards × symbols</h2>

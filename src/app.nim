@@ -200,8 +200,8 @@ proc renderResults() =
     h.add "<p>have at least one of " & selNames(sel) & ".</p>"
     if nb > 0:
       h.add "<p class=muted>+ " & $nb & " blank card" & (if nb == 1: "" else: "s") &
-        ", counted as " & (if blankSafe: "<b class=ok>safe</b>" else: "<b class=bad>danger</b>") &
-        " (settings).</p>"
+        ", which " & (if blankSafe: "<b class=ok>matches all (safe)</b>" else: "<b class=bad>matches none (danger)</b>") &
+        ".</p>"
     if nSel > 1:
       h.add "<p class=muted>" & $allCount(sel) & " have all of them.</p>"
   el("countOut").innerHTML = h.cstring
@@ -451,6 +451,7 @@ proc onSettingsToggle(ev: Event) =
 proc onBlankSeg(ev: Event) =
   blankSafe = $ev.currentTarget.getAttribute("data-v") == "1"
   setSeg("blankSeg", blankSafe)
+  setSeg("blankSeg2", blankSafe)
   saveSettings()
   readInputs()
   renderResults()
@@ -471,8 +472,10 @@ proc main() =
   loadSettings()
   el("deck").value = cstring($deckSize)
   setSeg("blankSeg", blankSafe)
+  setSeg("blankSeg2", blankSafe)
   setSeg("modeSeg", showDanger)
-  for b in el("blankSeg").querySelectorAll("button"): b.addEventListener("click", onBlankSeg)
+  for id in ["blankSeg", "blankSeg2"]:
+    for b in el(id).querySelectorAll("button"): b.addEventListener("click", onBlankSeg)
   for b in el("modeSeg").querySelectorAll("button"): b.addEventListener("click", onModeSeg)
   el("gear").addEventListener("click", onSettingsToggle)
   el("closeSettings").addEventListener("click", onSettingsToggle)
