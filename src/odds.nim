@@ -1,40 +1,34 @@
-## The probability calculation, free of any UI code so it can be unit tested.
+## The probability calculation. It knows nothing about symbols or blank cards:
+## it works on sets of cards, so it can be unit tested on its own.
 ##
-## Terms
-## -----
-## * The player selects some symbols. A card is **safe** if it shows at least
-##   one selected symbol; otherwise it is **danger**. The blank card has no
-##   symbols, so whether it is safe is a rule the player picks (`BlankRule`).
-## * Some cards have already been played. We know how many, and maybe some
-##   counts about them (an `Observation`), but not exactly which cards.
+## * `safe` is the set of cards that count as a match. Every other card is
+##   danger.
+## * Some cards have already been played. We know how many, and maybe how
+##   many of them fell in certain sets of cards (`Count`s), e.g. "4 of the
+##   played cards were safe" or "1 of them showed Void".
 ##
 ## The question: what is the chance that the next `draw` cards include at
 ## least one safe (or at least one danger) card?
 
-import std/[tables, hashes, options]
+import std/[tables, hashes]
 import model
 
 type
-  BlankRule* = enum
-    blankIsSafe    ## the blank card matches every symbol
-    blankIsDanger  ## the blank card matches nothing
-
   Outcome* = enum
     Danger, Safe
 
-  Observation* = object
-    ## What is known about the cards already played.
+  Count* = object
+    ## "Exactly `played` of the played cards were among `cards`."
+    cards*: Cards
     played*: Natural
-      ## How many cards have been played.
-    safePlayed*: Option[Natural]
-      ## How many of them were safe, if known (the blank card counts here
-      ## when `blankIsSafe`).
-    symbolPlayed*: array[Symbol, Option[Natural]]
-      ## How many of them showed each symbol, if known.
+
+  Observation* = object
+    played*: Natural      ## how many cards have been played
+    counts*: seq[Count]   ## what is known about them; may be empty
 
   Odds* = object
-    ## The result of `analyse`: everything needed to answer "what about the
-    ## next N cards?" for any N.
+    ## The result of `analyse`: enough to answer "what about the next N
+    ## cards?" for any N.
     possible*: bool
       ## False if no set of played cards fits the observation.
     safeInDeck*: int
@@ -42,16 +36,8 @@ type
     remaining*: int
       ## Cards not yet played.
     safePlayedChance*: seq[float]
-      ## safePlayedChance[k] = probability that exactly k of the played
-      ## cards were safe, given the observation.
-
-proc isSafe*(card: Card, selected: set[Symbol], rule: BlankRule): bool =
-  if card == {}: rule == blankIsSafe
-  else: card * selected != {}
-
-proc safeCards*(deck: Deck, selected: set[Symbol], rule: BlankRule): int =
-  for card in deck:
-    if isSafe(card, selected, rule): inc result
+      ## safePlayedChance[k] = probability that exactly k of the played cards
+      ## were safe, given the observation.
 
 proc binomial*(n, k: int): float =
   ## n choose k: the number of ways to pick k cards out of n.
@@ -71,82 +57,81 @@ proc binomial*(n, k: int): float =
 #
 # Every set of `played` cards is equally likely (the deck was shuffled). We
 # want, for each k, how many of those sets contain exactly k safe cards *and*
-# agree with the observation. Dividing by the total gives P(k safe played).
+# agree with every Count. Dividing by the total gives P(k safe played).
 #
 # Listing every possible set of played cards is far too slow (40 choose 20 is
 # about 1.4e11), but most cards are interchangeable for this question: two
-# cards differ only if one is safe and the other isn't, or if they differ on a
-# symbol whose played count we were told. So we sort cards into these
-# `CardKind`s and count by kind. If a kind has n cards and m of them were
-# played, there are `binomial(n, m)` ways to pick which ones.
+# cards only differ if one is safe and the other isn't, or if one is in some
+# Count's set and the other isn't. Cards that agree on all of those form a
+# `Kind`. If a kind has n cards and m of them were played, there are
+# `binomial(n, m)` ways to pick which ones.
 #
 # Then we go through the kinds one at a time, keeping a table
 #   ways[tally] = number of ways to pick played cards from the kinds seen so
 #                 far that give this tally (how many played, how many safe,
-#                 how many of each observed symbol).
+#                 how many in each Count's set).
 # Adding a kind means: for each tally and each m, add m cards of that kind.
-# Tallies that already exceed an observed count are dropped straight away.
-# At the end we keep only tallies that match the observation exactly.
+# Tallies that already go over a Count are dropped straight away. At the end
+# we keep only tallies that match every Count exactly.
 #
 # The table is rebuilt on every call because it *is* the calculation: its
-# contents depend on the selection, the blank rule and every observed number.
-# It holds at most a few thousand entries, so this takes well under a
-# millisecond.
+# contents depend on the safe set and every observed number. It holds at most
+# a few thousand entries, so this takes well under a millisecond.
+
+const MaxCounts = 16
 
 type
-  CardKind = object
+  CountIndex = range[0 .. MaxCounts - 1]
+
+  Kind = object
     ## Cards that are interchangeable for this question.
     safe: bool
-    observedSymbols: set[Symbol]  ## which observed symbols the card shows
+    inCounts: set[CountIndex]   ## which Counts' sets the cards belong to
 
   Tally = object
     ## Running totals for one way of choosing the played cards.
     played: int
     safe: int
-    bySymbol: array[Symbol, int]  ## only observed symbols are counted
+    perCount: array[CountIndex, int]
 
-proc hash(kind: CardKind): Hash =
+proc hash(kind: Kind): Hash =
   var h = hash(kind.safe)
-  for symbol in kind.observedSymbols: h = h !& hash(ord(symbol))
+  for index in kind.inCounts: h = h !& hash(index)
   !$h
 
 proc hash(tally: Tally): Hash =
   var h = hash(tally.played) !& hash(tally.safe)
-  for count in tally.bySymbol: h = h !& hash(count)
+  for n in tally.perCount: h = h !& hash(n)
   !$h
 
+proc kindOf(index: CardIndex, safe: Cards, counts: seq[Count]): Kind =
+  result.safe = index in safe
+  for countIndex, count in counts:
+    if index in count.cards: result.inCounts.incl countIndex
+
 proc fitsSoFar(tally: Tally, obs: Observation): bool =
-  ## Could more cards still be added to reach the observation?
+  ## Could adding more cards still reach the observation?
   if tally.played > obs.played: return false
-  if obs.safePlayed.isSome and tally.safe > obs.safePlayed.get: return false
-  for symbol in Symbol:
-    let seen = obs.symbolPlayed[symbol]
-    if seen.isSome and tally.bySymbol[symbol] > seen.get: return false
+  for index, count in obs.counts:
+    if tally.perCount[index] > count.played: return false
   true
 
 proc matches(tally: Tally, obs: Observation): bool =
   if tally.played != obs.played: return false
-  if obs.safePlayed.isSome and tally.safe != obs.safePlayed.get: return false
-  for symbol in Symbol:
-    let seen = obs.symbolPlayed[symbol]
-    if seen.isSome and tally.bySymbol[symbol] != seen.get: return false
+  for index, count in obs.counts:
+    if tally.perCount[index] != count.played: return false
   true
 
-proc analyse*(deck: Deck, selected: set[Symbol], rule: BlankRule,
-              obs: Observation): Odds =
-  result.safeInDeck = safeCards(deck, selected, rule)
+proc analyse*(safe: Cards, obs: Observation): Odds =
+  doAssert obs.counts.len <= MaxCounts
+  result.safeInDeck = card(safe)
   result.remaining = DeckSize - obs.played
-  result.safePlayedChance = newSeq[float](obs.played + 1)
   if obs.played > DeckSize: return
+  result.safePlayedChance = newSeq[float](obs.played + 1)
 
-  var observed: set[Symbol]
-  for symbol in Symbol:
-    if obs.symbolPlayed[symbol].isSome: observed.incl symbol
-
-  var kindSizes = initCountTable[CardKind]()
-  for card in deck:
-    kindSizes.inc CardKind(safe: isSafe(card, selected, rule),
-                           observedSymbols: card * observed)
+  var kindSizes = initCountTable[Kind]()
+  for index in AllCards:
+    kindSizes.inc kindOf(index, safe, obs.counts)
 
   var ways = {Tally(): 1.0}.toTable
   for kind, size in kindSizes:
@@ -156,7 +141,7 @@ proc analyse*(deck: Deck, selected: set[Symbol], rule: BlankRule,
         var t = tally
         t.played += taken
         if kind.safe: t.safe += taken
-        for symbol in kind.observedSymbols: t.bySymbol[symbol] += taken
+        for countIndex in kind.inCounts: t.perCount[countIndex] += taken
         if not t.fitsSoFar(obs): break   # taking more only makes it worse
         next[t] = next.getOrDefault(t) + count * binomial(size, taken)
     ways = next

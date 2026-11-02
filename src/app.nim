@@ -11,7 +11,9 @@ type
     ## All page state. Owned by `main`; event handlers close over it.
     deck: Deck
     selected: set[Symbol]
-    observation: Observation
+    played: Natural                         ## cards already played
+    safePlayed: Option[Natural]             ## how many of them were safe, if known
+    symbolPlayed: array[Symbol, Option[Natural]]  ## how many showed each symbol, if known
     draw: Positive               ## how many cards the headline asks about
     blankRule: BlankRule
     headline: Outcome            ## which outcome the big number shows
@@ -68,14 +70,25 @@ proc dataInt(element: Element, name: string): int =
 
 # ---------------------------------------------------------------- reading input
 
-proc readObservation(app: App) =
-  app.observation.played = readCount("played").get(Natural 0)
-  app.observation.safePlayed = readCount("safePlayed")
+proc readInputs(app: App) =
+  app.played = readCount("played").get(Natural 0)
+  app.safePlayed = readCount("safePlayed")
   for symbol in Symbol:
-    app.observation.symbolPlayed[symbol] =
+    app.symbolPlayed[symbol] =
       if symbol in app.selected: readCount("played" & $symbol)
       else: none(Natural)
   app.draw = max(1, readCount("draw").get(Natural 1).int)
+
+proc safeCards(app: App): Cards = app.deck.safe(app.selected, app.blankRule)
+
+proc observation(app: App): Observation =
+  ## Turns the numbers typed in into counts over sets of cards.
+  result.played = app.played
+  if app.safePlayed.isSome:
+    result.counts.add Count(cards: app.safeCards, played: app.safePlayed.get)
+  for symbol in app.selected:
+    if app.symbolPlayed[symbol].isSome:
+      result.counts.add Count(cards: app.deck[symbol], played: app.symbolPlayed[symbol].get)
 
 # ---------------------------------------------------------------- rendering
 
@@ -85,14 +98,14 @@ proc renderChips(app: App) =
     html.add "<button class='chip" & (if symbol in app.selected: " on" else: "") &
       "' data-symbol=" & $ord(symbol) & "><span class=g>" & Glyph[symbol] &
       "</span><b>" & $symbol & "</b><small>" & Letter[symbol] & " · " &
-      $app.deck.cardsWith(symbol) & "</small></button>"
+      $card(app.deck[symbol]) & "</small></button>"
   element("chips").innerHTML = html.cstring
 
 proc renderSymbolInputs(app: App) =
   ## One "played with X" box per selected symbol, keeping typed values.
   var html = ""
   for symbol in app.selected:
-    let known = app.observation.symbolPlayed[symbol]
+    let known = app.symbolPlayed[symbol]
     html.add "<label>played with " & symbol.label & "<input id='played" & $symbol &
       "' type=number inputmode=numeric min=0 placeholder='?' value='" &
       (if known.isSome: $known.get else: "") & "'></label>"
@@ -102,15 +115,15 @@ proc renderCount(app: App) =
   if app.selected == {}:
     element("countOut").innerHTML = "<p class=muted>Tap symbols above.</p>"
     return
-  var html = "<div class=big>" & $app.deck.cardsWithAny(app.selected) &
+  var html = "<div class=big>" & $card(app.deck.withAny(app.selected)) &
     "<span> / " & $DeckSize & " cards</span></div>" &
     "<p>have at least one of " & describe(app.selected) & ".</p>"
-  let blanks = app.deck.blankCards
+  let blanks = card(app.deck.blank)
   if blanks > 0:
     html.add "<p class=muted>+ " & plural(blanks, "blank card") & ", which " &
       blankRuleWords(app.blankRule) & ".</p>"
   if app.selected.card > 1:
-    html.add "<p class=muted>" & $app.deck.cardsWithAll(app.selected) &
+    html.add "<p class=muted>" & $card(app.deck.withAll(app.selected)) &
       " have all of them.</p>"
   element("countOut").innerHTML = html.cstring
 
@@ -119,10 +132,10 @@ proc renderOdds(app: App) =
   if app.selected == {}:
     output.innerHTML = "<p class=muted>Select symbols first.</p>"
     return
-  if app.observation.played > DeckSize:
+  if app.played > DeckSize:
     output.innerHTML = cstring("<p class=err>Only " & $DeckSize & " cards in the deck.</p>")
     return
-  let odds = analyse(app.deck, app.selected, app.blankRule, app.observation)
+  let odds = analyse(app.safeCards, app.observation)
   if not odds.possible:
     output.innerHTML = "<p class=err>That information is impossible with this deck — check the numbers.</p>"
     return
@@ -136,7 +149,7 @@ proc renderOdds(app: App) =
     percent(odds.chanceAtLeastOne(draw, app.headline)) & "</div>"
   if draw == 1:
     let blankNote =
-      if app.blankRule == blankIsSafe and app.deck.blankCards > 0:
+      if app.blankRule == blankIsSafe and app.deck.blank != {}:
         (if app.headline == Safe: ", or blank" else: ", not blank")
       else: ""
     html.add "<p>chance the next card is " & outcomeWord(app.headline) &
@@ -175,15 +188,16 @@ proc renderMatrix(app: App) =
   for symbol in Symbol:
     html.add "<th title='" & $symbol & "'>" & Glyph[symbol] & "<br>" & Letter[symbol] & "</th>"
   html.add "</tr>"
-  for index, card in app.deck:
-    html.add "<tr" & (if card == {}: " class=blank" else: "") & "><th>" &
+  for index in AllCards:
+    let symbols = app.deck.symbolsOn(index)
+    html.add "<tr" & (if symbols == {}: " class=blank" else: "") & "><th>" &
       notebookLabel(index) & "</th>"
     for symbol in Symbol:
       html.add "<td data-card=" & $index & " data-symbol=" & $ord(symbol) &
-        (if symbol in card: " class=on" else: "") & "></td>"
+        (if symbol in symbols: " class=on" else: "") & "></td>"
     html.add "</tr>"
   html.add "<tr class=tot><th>Σ</th>"
-  for symbol in Symbol: html.add "<th>" & $app.deck.cardsWith(symbol) & "</th>"
+  for symbol in Symbol: html.add "<th>" & $card(app.deck[symbol]) & "</th>"
   html.add "</tr></table>"
   let matrix = element("matrix")
   matrix.innerHTML = html.cstring
@@ -211,7 +225,7 @@ proc renderResults(app: App) =
 proc renderAll(app: App) =
   app.renderChips()
   app.renderSymbolInputs()
-  app.readObservation()
+  app.readInputs()
   app.renderResults()
   app.renderMatrix()
   app.renderToggles()
@@ -222,7 +236,7 @@ proc confirmed(message: cstring): bool {.importjs: "confirm(#)".}
 
 proc wireEvents(app: App) =
   proc onNumbers(ev: Event) =
-    app.readObservation()
+    app.readInputs()
     app.renderResults()
 
   proc onChip(ev: Event) =
@@ -233,7 +247,7 @@ proc wireEvents(app: App) =
     else: app.selected.incl symbol
     app.renderChips()
     app.renderSymbolInputs()   # rebuilt from app.observation, so typed values survive
-    app.readObservation()
+    app.readInputs()
     app.renderResults()
 
   proc onStep(ev: Event) =
@@ -265,9 +279,7 @@ proc wireEvents(app: App) =
     let index = cell.dataInt("card")
     let symbolIndex = cell.dataInt("symbol")
     if index < 0 or symbolIndex < 0: return
-    let symbol = Symbol(symbolIndex)
-    if symbol in app.deck[index]: app.deck[index].excl symbol
-    else: app.deck[index].incl symbol
+    app.deck.toggle(CardIndex(index), Symbol(symbolIndex))
     saveDeck(app.deck)
     app.renderAll()
 
@@ -294,7 +306,9 @@ proc wireEvents(app: App) =
   proc onReset(ev: Event) =
     ## Clears the current question; settings and matrix edits are kept.
     app.selected = {}
-    app.observation = Observation()
+    app.played = 0
+    app.safePlayed = none(Natural)
+    app.symbolPlayed = default(array[Symbol, Option[Natural]])
     element("played").value = "0"
     element("safePlayed").value = ""
     element("draw").value = "1"
