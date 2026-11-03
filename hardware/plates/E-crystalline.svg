@@ -1,58 +1,47 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="110.000mm" height="110.000mm" viewBox="0 0 110.000 110.000">
+<svg xmlns="http://www.w3.org/2000/svg" width="94.591mm" height="94.591mm" viewBox="0 0 94.591 94.591">
+<title>Crystalline (E)</title>
 <style>
   .cut { fill: none; stroke: #ff0000; stroke-width: 0.1; }
-  .engrave { fill: #000; font-family: sans-serif; text-anchor: middle; }
 </style>
-<circle cx="55.000" cy="55.000" r="50.000" class="cut"/>
-<circle cx="55.000" cy="55.000" r="4.100" class="cut"/>
-<circle cx="62.524" cy="34.327" r="1.550" class="cut"/>
-<circle cx="55.000" cy="15.000" r="1.500" class="cut"/>
-<text x="55.000" y="11.000" font-size="2.800" class="engrave">0</text>
-<circle cx="61.257" cy="15.492" r="1.500" class="cut"/>
-<circle cx="67.361" cy="16.958" r="1.500" class="cut"/>
-<circle cx="78.511" cy="22.639" r="1.500" class="cut"/>
-<circle cx="83.284" cy="26.716" r="1.500" class="cut"/>
-<text x="86.820" y="24.180" font-size="2.800" class="engrave">5</text>
-<circle cx="87.361" cy="31.489" r="1.500" class="cut"/>
-<circle cx="90.640" cy="36.840" r="1.500" class="cut"/>
-<circle cx="93.042" cy="42.639" r="1.500" class="cut"/>
-<circle cx="94.508" cy="48.743" r="1.500" class="cut"/>
-<circle cx="95.000" cy="55.000" r="1.500" class="cut"/>
-<text x="100.000" y="56.000" font-size="2.800" class="engrave">10</text>
-<circle cx="94.508" cy="61.257" r="1.500" class="cut"/>
-<circle cx="93.042" cy="67.361" r="1.500" class="cut"/>
-<circle cx="87.361" cy="78.511" r="1.500" class="cut"/>
-<circle cx="83.284" cy="83.284" r="1.500" class="cut"/>
-<text x="86.820" y="87.820" font-size="2.800" class="engrave">15</text>
-<circle cx="78.511" cy="87.361" r="1.500" class="cut"/>
-<circle cx="73.160" cy="90.640" r="1.500" class="cut"/>
-<circle cx="67.361" cy="93.042" r="1.500" class="cut"/>
-<circle cx="61.257" cy="94.508" r="1.500" class="cut"/>
-<circle cx="55.000" cy="95.000" r="1.500" class="cut"/>
-<text x="55.000" y="101.000" font-size="2.800" class="engrave">20</text>
-<circle cx="48.743" cy="94.508" r="1.500" class="cut"/>
-<circle cx="42.639" cy="93.042" r="1.500" class="cut"/>
-<circle cx="36.840" cy="90.640" r="1.500" class="cut"/>
-<circle cx="26.716" cy="83.284" r="1.500" class="cut"/>
-<text x="23.180" y="87.820" font-size="2.800" class="engrave">25</text>
-<circle cx="22.639" cy="78.511" r="1.500" class="cut"/>
-<circle cx="19.360" cy="73.160" r="1.500" class="cut"/>
-<circle cx="16.958" cy="67.361" r="1.500" class="cut"/>
-<circle cx="15.492" cy="61.257" r="1.500" class="cut"/>
-<circle cx="15.000" cy="55.000" r="1.500" class="cut"/>
-<text x="10.000" y="56.000" font-size="2.800" class="engrave">30</text>
-<circle cx="15.492" cy="48.743" r="1.500" class="cut"/>
-<circle cx="16.958" cy="42.639" r="1.500" class="cut"/>
-<circle cx="19.360" cy="36.840" r="1.500" class="cut"/>
-<circle cx="22.639" cy="31.489" r="1.500" class="cut"/>
-<circle cx="26.716" cy="26.716" r="1.500" class="cut"/>
-<text x="23.180" y="24.180" font-size="2.800" class="engrave">35</text>
-<circle cx="31.489" cy="22.639" r="1.500" class="cut"/>
-<circle cx="36.840" cy="19.360" r="1.500" class="cut"/>
-<circle cx="48.743" cy="15.492" r="1.500" class="cut"/>
-<text x="55.000" y="28.000" font-size="2.600" class="engrave">E · 4 blocked</text>
-<text x="55.000" y="43.000" font-size="6.000" class="engrave">Crystalline</text>
-<svg x="43.000" y="63.000" width="24.000" height="24.000" viewBox="0 0 528.000000 528.000000"><g transform="translate(0.000000,528.000000) scale(0.100000,-0.100000)"
+<g id="E-crystalline"><title>Crystalline (E), 36 slots</title>
+<polygon points="30.727,7.296 63.864,7.296 87.296,30.727 87.296,63.864 63.864,87.296 30.727,87.296 7.296,63.864 7.296,30.727 25.070,12.953 26.131,14.013 29.666,10.478 28.606,9.417" class="cut"/>
+<polygon points="34.797,16.796 36.997,16.796 39.795,10.796 37.595,10.796" class="cut"/>
+<polygon points="39.797,16.796 41.997,16.796 44.795,10.796 42.595,10.796" class="cut"/>
+<polygon points="44.797,16.796 46.997,16.796 49.795,10.796 47.595,10.796" class="cut"/>
+<polygon points="54.797,16.796 56.997,16.796 59.795,10.796 57.595,10.796" class="cut"/>
+<polygon points="60.024,16.891 61.580,18.446 67.801,16.182 66.245,14.627" class="cut"/>
+<polygon points="63.560,20.426 65.116,21.982 71.337,19.718 69.781,18.162" class="cut"/>
+<polygon points="67.095,23.962 68.651,25.518 74.872,23.253 73.316,21.698" class="cut"/>
+<polygon points="70.631,27.497 72.187,29.053 78.408,26.789 76.852,25.233" class="cut"/>
+<polygon points="74.167,31.033 75.722,32.589 81.943,30.324 80.388,28.769" class="cut"/>
+<polygon points="77.796,34.797 77.796,36.997 83.796,39.795 83.796,37.595" class="cut"/>
+<polygon points="77.796,39.797 77.796,41.997 83.796,44.795 83.796,42.595" class="cut"/>
+<polygon points="77.796,44.797 77.796,46.997 83.796,49.795 83.796,47.595" class="cut"/>
+<polygon points="77.796,54.797 77.796,56.997 83.796,59.795 83.796,57.595" class="cut"/>
+<polygon points="77.701,60.024 76.145,61.580 78.409,67.801 79.965,66.245" class="cut"/>
+<polygon points="74.165,63.560 72.609,65.116 74.874,71.337 76.429,69.781" class="cut"/>
+<polygon points="70.629,67.095 69.074,68.651 71.338,74.872 72.894,73.316" class="cut"/>
+<polygon points="67.094,70.631 65.538,72.187 67.803,78.408 69.358,76.852" class="cut"/>
+<polygon points="63.558,74.167 62.003,75.722 64.267,81.943 65.823,80.388" class="cut"/>
+<polygon points="59.795,77.796 57.595,77.796 54.797,83.796 56.997,83.796" class="cut"/>
+<polygon points="54.795,77.796 52.595,77.796 49.797,83.796 51.997,83.796" class="cut"/>
+<polygon points="49.795,77.796 47.595,77.796 44.797,83.796 46.997,83.796" class="cut"/>
+<polygon points="44.795,77.796 42.595,77.796 39.797,83.796 41.997,83.796" class="cut"/>
+<polygon points="34.567,77.701 33.011,76.145 26.790,78.409 28.346,79.965" class="cut"/>
+<polygon points="31.031,74.165 29.476,72.609 23.255,74.874 24.810,76.429" class="cut"/>
+<polygon points="27.496,70.629 25.940,69.074 19.719,71.338 21.275,72.894" class="cut"/>
+<polygon points="23.960,67.094 22.405,65.538 16.184,67.803 17.739,69.358" class="cut"/>
+<polygon points="20.425,63.558 18.869,62.003 12.648,64.267 14.204,65.823" class="cut"/>
+<polygon points="16.796,59.795 16.796,57.595 10.796,54.797 10.796,56.997" class="cut"/>
+<polygon points="16.796,54.795 16.796,52.595 10.796,49.797 10.796,51.997" class="cut"/>
+<polygon points="16.796,49.795 16.796,47.595 10.796,44.797 10.796,46.997" class="cut"/>
+<polygon points="16.796,44.795 16.796,42.595 10.796,39.797 10.796,41.997" class="cut"/>
+<polygon points="16.796,39.795 16.796,37.595 10.796,34.797 10.796,36.997" class="cut"/>
+<polygon points="16.891,34.567 18.446,33.011 16.182,26.790 14.627,28.346" class="cut"/>
+<polygon points="20.426,31.031 21.982,29.476 19.718,23.255 18.162,24.810" class="cut"/>
+<polygon points="23.962,27.496 25.518,25.940 23.253,19.719 21.698,21.275" class="cut"/>
+<polygon points="31.033,20.425 32.589,18.869 30.324,12.648 28.769,14.204" class="cut"/>
+<svg x="27.296" y="27.296" width="40.000" height="40.000" viewBox="0 0 528.000000 528.000000"><g transform="translate(0.000000,528.000000) scale(0.100000,-0.100000)"
 fill="#000000" stroke="none">
 <path d="M2245 5186 c-322 -53 -545 -121 -780 -238 -235 -118 -411 -238 -580
 -396 -287 -268 -414 -427 -554 -692 -56 -106 -151 -319 -151 -341 0 -6 -17
@@ -92,4 +81,5 @@ fill="#000000" stroke="none">
 33 23 130 35 215 34 251 37 255 375 526 94 74 212 169 263 210 151 122 197
 147 231 125z"/>
 </g></svg>
+</g>
 </svg>

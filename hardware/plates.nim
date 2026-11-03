@@ -1,40 +1,56 @@
-## Laser-cutting artwork for the symbol plates, generated from the same
+## Laser-cutting artwork for the symbol tokens, generated from the same
 ## `NotebookDeck` the app uses.
 ##
-## Each plate is a disc of opaque material with 40 aperture positions on a
-## ring, one per card. A plate for symbol S has a hole at card i when card i
-## does NOT show S. Stacking plates lets light through position i only if every
-## plate in the stack has a hole there, i.e. card i shows none of the stacked
-## symbols: the lit positions are exactly the danger cards.
+## Each token is a regular octagon of opaque sheet (black acrylic or black
+## card) with 40 slot positions, five along each side, one per card. A token
+## for symbol S has a slot cut at card i when card i does NOT show S. Stacking
+## tokens lets light through position i only if every token has a slot there,
+## i.e. card i shows none of the stacked symbols: the lit positions are exactly
+## the danger cards.
 ##
-## Conventions: units are mm. Red hairlines (#ff0000, 0.1 mm) are cuts; black
-## fills are engraving.
+## Registration: tokens sit in an octagonal pocket. One small notch near one end
+## of one side matches a tab in the pocket. A notch at a corner would not do,
+## because every corner lies on a mirror axis, so a flipped token would still
+## fit. Offset along a side, the notch has no mirror image anywhere: only the
+## right-way-up orientation seats.
+##
+## The icon is engraved in the middle; there is no text on the token. Names
+## live in the file name and the SVG <title>.
+##
+## Units are mm. Red hairlines (#ff0000, 0.1 mm) are cuts; black fills are engraving.
 
-import std/[math, strutils]
+import std/[math, strutils, strformat]
 import ../src/model
 
 const
-  PlateDiameter* = 100.0
-  ApertureRingRadius* = 40.0     ## centre of the aperture ring
-  ApertureDiameter* = 3.0        ## ~6.3 mm pitch at this radius
-  SpindleDiameter* = 8.2         ## clearance on an 8 mm spindle
-  PinDiameter* = 3.1             ## clearance on a 3 mm locating pin
-  PinRadius* = 22.0
-  PinAngle* = 20.0
-    ## Degrees clockwise from the top. Not 0 or 180, so a plate placed upside
-    ## down has its pin hole at -20° and won't seat: one orientation only.
-  Margin = 5.0
+  AcrossFlats* = 80.0                 ## octagon size, flat to flat
+  Apothem* = AcrossFlats / 2
+  SideLength* = AcrossFlats * tan(PI / 8)
+  SlotsPerSide* = 5
+  SlotPitch* = 5.0                    ## along the side
+  SlotLength* = 6.0                   ## radial
+  SlotWidth* = 2.2                    ## along the side (area = length × width, same for every slot)
+  SlotLean* = 25.0                    ## degrees: slots are leaning parallelograms
+  SlotDepth* = 6.5                    ## slot centre, measured in from the edge
+  NotchSide* = 7                      ## the upper-left side
+  NotchFrom* = SideLength / 2 - 8.0   ## along the side from its centre; never 0, so no mirror symmetry
+  NotchTo* = SideLength / 2 - 3.0
+  NotchDepth* = 1.5
+  IconSize* = 40.0                    ## square, centred
+  Margin = 4.0
+
+static: doAssert DeckSize == 8 * SlotsPerSide
 
 type
   PlateKind* = enum
-    symbolPlate   ## holes where the card lacks the symbol
-    blankSafe     ## holes everywhere except the blank card(s): stack it to count blanks as safe
-    baffle        ## all 40 holes; sits permanently over the detectors
+    symbolPlate   ## slots where the card lacks the symbol
+    blankSafe     ## slots everywhere except the blank card(s): stack it to count blanks as safe
+    baffle        ## all 40 slots; sits permanently over the detector
 
   Plate* = object
     kind*: PlateKind
     symbol*: Symbol      ## for symbolPlate only
-    holes*: Cards        ## card positions with an aperture
+    holes*: Cards        ## card positions with a slot
 
 proc plateFor*(symbol: Symbol, deck = NotebookDeck): Plate =
   Plate(kind: symbolPlate, symbol: symbol, holes: AllCards - deck[symbol])
@@ -46,7 +62,7 @@ proc bafflePlate*(): Plate = Plate(kind: baffle, holes: AllCards)
 
 proc title*(plate: Plate): string =
   case plate.kind
-  of symbolPlate: $plate.symbol
+  of symbolPlate: $plate.symbol & " (" & Letter[plate.symbol] & ")"
   of blankSafe: "Blank safe"
   of baffle: "Baffle"
 
@@ -58,31 +74,54 @@ proc fileName*(plate: Plate): string =
 
 # ---------------------------------------------------------------- geometry
 
-proc polar(radius, degreesClockwiseFromTop: float): (float, float) =
-  ## Offset from the plate centre; SVG y grows downwards.
-  let a = degToRad(degreesClockwiseFromTop)
-  (radius * sin(a), -radius * cos(a))
+type Point* = tuple[x, y: float]
 
-proc cardAngle*(index: CardIndex): float = float(index) * 360.0 / DeckSize
+proc `+`(a, b: Point): Point = (a.x + b.x, a.y + b.y)
+proc `*`(k: float, a: Point): Point = (k * a.x, k * a.y)
 
-proc mm(x: float): string = formatFloat(x, ffDecimal, 3)
+proc normal(side: int): Point =
+  ## Outward unit normal of side 0..7 (0 = top, clockwise); SVG y grows down.
+  let a = float(side) * PI / 4
+  (sin(a), -cos(a))
 
-proc cutCircle(cx, cy, diameter: float): string =
-  "<circle cx=\"" & mm(cx) & "\" cy=\"" & mm(cy) & "\" r=\"" & mm(diameter / 2) &
-    "\" class=\"cut\"/>\n"
+proc tangent(side: int): Point =
+  ## Unit vector along the side, clockwise.
+  let a = float(side) * PI / 4
+  (cos(a), sin(a))
 
-proc engraveText(cx, cy, size: float, text: string): string =
-  "<text x=\"" & mm(cx) & "\" y=\"" & mm(cy) & "\" font-size=\"" & mm(size) &
-    "\" class=\"engrave\">" & text & "</text>\n"
+proc slotCentre*(index: CardIndex): Point =
+  ## Card i is slot (i mod 5) on side (i div 5), going clockwise from the
+  ## top-left of the top side.
+  let side = index div SlotsPerSide
+  let along = (float(index mod SlotsPerSide) - float(SlotsPerSide - 1) / 2) * SlotPitch
+  (Apothem - SlotDepth) * normal(side) + along * tangent(side)
+
+proc slotCorners*(index: CardIndex): array[4, Point] =
+  let side = index div SlotsPerSide
+  let (n, t) = (normal(side), tangent(side))
+  let c = slotCentre(index)
+  let lean = SlotLength / 2 * tan(degToRad(SlotLean))
+  [c + (-SlotLength / 2) * n + (-SlotWidth / 2 - lean) * t,
+   c + (-SlotLength / 2) * n + (SlotWidth / 2 - lean) * t,
+   c + (SlotLength / 2) * n + (SlotWidth / 2 + lean) * t,
+   c + (SlotLength / 2) * n + (-SlotWidth / 2 + lean) * t]
+
+proc outline*(): seq[Point] =
+  ## The octagon, clockwise, with the registration notch on side NotchSide.
+  for side in 0 .. 7:
+    let (n, t) = (normal(side), tangent(side))
+    result.add Apothem * n + (-SideLength / 2) * t
+    if side == NotchSide:
+      result.add Apothem * n + NotchFrom * t
+      result.add (Apothem - NotchDepth) * n + NotchFrom * t
+      result.add (Apothem - NotchDepth) * n + NotchTo * t
+      result.add Apothem * n + NotchTo * t
 
 # ---------------------------------------------------------------- icons
 # Traced from the rulebook's Biome Icons page by `nim icons` (potrace output in
 # hardware/icons/). Embedded at compile time; black fill = engrave.
 
-const IconSize* = 24.0   ## mm, square
-
 proc iconFile(symbol: Symbol): string =
-  ## potrace's SVG: keep its viewBox and the <g>…</g> holding the paths.
   const files: array[Symbol, string] = [
     staticRead("icons/void.svg"), staticRead("icons/caves.svg"),
     staticRead("icons/volcanic.svg"), staticRead("icons/hostile.svg"),
@@ -92,64 +131,51 @@ proc iconFile(symbol: Symbol): string =
     staticRead("icons/rocky.svg"), staticRead("icons/desert.svg")]
   files[symbol]
 
-proc between(text, first, last: string): string =
-  ## The text from the start of `first` to the end of `last`.
-  let a = text.find(first)
-  let b = text.rfind(last)
-  doAssert a >= 0 and b > a, "unexpected icon SVG"
-  text[a ..< b + last.len]
+proc mm(x: float): string = formatFloat(x, ffDecimal, 3)
 
-proc iconAt*(symbol: Symbol, cx, cy, size: float): string =
-  ## The icon as a nested <svg>, `size` mm square, centred at (cx, cy).
+proc iconAt(symbol: Symbol, cx, cy, size: float): string =
+  ## potrace's <g>…</g> in a nested <svg> with potrace's viewBox, `size` mm square.
   let file = iconFile(symbol)
   const key = "viewBox=\""
   let start = file.find(key) + key.len
-  let viewBoxAttr = file[start ..< file.find('"', start)]
-  "<svg x=\"" & mm(cx - size / 2) & "\" y=\"" & mm(cy - size / 2) &
-    "\" width=\"" & mm(size) & "\" height=\"" & mm(size) & "\" viewBox=\"" &
-    viewBoxAttr & "\">" & file.between("<g", "</g>") & "</svg>\n"
+  let viewBox = file[start ..< file.find('"', start)]
+  let paths = file[file.find("<g") .. file.rfind("</g>") + 3]
+  &"<svg x=\"{mm(cx - size / 2)}\" y=\"{mm(cy - size / 2)}\" width=\"{mm(size)}\" " &
+    &"height=\"{mm(size)}\" viewBox=\"{viewBox}\">{paths}</svg>\n"
+
+# ---------------------------------------------------------------- SVG
+
+proc polygon(points: openArray[Point], cx, cy: float): string =
+  var coords: seq[string]
+  for p in points: coords.add mm(cx + p.x) & "," & mm(cy + p.y)
+  "<polygon points=\"" & coords.join(" ") & "\" class=\"cut\"/>\n"
 
 proc plateBody*(plate: Plate, cx, cy: float): string =
-  ## The plate's cut and engrave elements, centred at (cx, cy).
-  result.add cutCircle(cx, cy, PlateDiameter)
-  result.add cutCircle(cx, cy, SpindleDiameter)
-  let (px, py) = polar(PinRadius, PinAngle)
-  result.add cutCircle(cx + px, cy + py, PinDiameter)
+  ## The token's cut and engrave elements, centred at (cx, cy).
+  result.add "<g id=\"" & plate.fileName.replace(".svg", "") & "\"><title>" &
+    plate.title & ", " & $card(plate.holes) & " slots</title>\n"
+  result.add polygon(outline(), cx, cy)
   for index in CardIndex:
-    let (x, y) = polar(ApertureRingRadius, cardAngle(index))
     if index in plate.holes:
-      result.add cutCircle(cx + x, cy + y, ApertureDiameter)
-    if index mod 5 == 0:
-      # engraved tick and card number every 5 cards, outside the ring
-      let (tx, ty) = polar(ApertureRingRadius + 5.0, cardAngle(index))
-      result.add engraveText(cx + tx, cy + ty + 1.0, 2.8, $index)
-  # Layout inside the ring, avoiding the spindle (centre) and the locating pin
-  # (upper right, r = 22 mm at 20°):
-  #   small print (notebook letter, cards blocked)  y = -27
-  #   name                                          y = -12
-  #   spindle                                       y =   0
-  #   icon, 24 mm                                   y = +8 .. +32 (corner r = 34 < ring)
-  let blocked = $(DeckSize - card(plate.holes)) & " blocked"
-  result.add engraveText(cx, cy - 27.0, 2.6,
-    (if plate.kind == symbolPlate: Letter[plate.symbol] & " · " & blocked else: blocked))
-  result.add engraveText(cx, cy - 12.0, 6.0, plate.title)
+      result.add polygon(slotCorners(index), cx, cy)
   if plate.kind == symbolPlate:
-    result.add iconAt(plate.symbol, cx, cy + 20.0, IconSize)
+    result.add iconAt(plate.symbol, cx, cy, IconSize)
+  result.add "</g>\n"
 
 const Style = """<style>
   .cut { fill: none; stroke: #ff0000; stroke-width: 0.1; }
-  .engrave { fill: #000; font-family: sans-serif; text-anchor: middle; }
 </style>
 """
 
-proc svgDocument(width, height: float, body: string): string =
-  "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"" & mm(width) & "mm\" height=\"" &
-    mm(height) & "mm\" viewBox=\"0 0 " & mm(width) & " " & mm(height) & "\">\n" &
-    Style & body & "</svg>\n"
+proc cellSize(): float = 2 * Apothem / cos(PI / 8) + 2 * Margin
+
+proc svgDocument(width, height: float, title, body: string): string =
+  &"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"{mm(width)}mm\" height=\"{mm(height)}mm\" " &
+    &"viewBox=\"0 0 {mm(width)} {mm(height)}\">\n<title>{title}</title>\n" & Style & body & "</svg>\n"
 
 proc plateSvg*(plate: Plate): string =
-  let size = PlateDiameter + 2 * Margin
-  svgDocument(size, size, plateBody(plate, size / 2, size / 2))
+  let size = cellSize()
+  svgDocument(size, size, plate.title, plateBody(plate, size / 2, size / 2))
 
 proc allPlates*(deck = NotebookDeck): seq[Plate] =
   for symbol in Symbol: result.add plateFor(symbol, deck)
@@ -157,11 +183,11 @@ proc allPlates*(deck = NotebookDeck): seq[Plate] =
   result.add bafflePlate()
 
 proc sheetSvg*(plates: seq[Plate], columns = 4): string =
-  ## All plates on one sheet, for a single laser job.
-  let cell = PlateDiameter + 2 * Margin
+  ## All tokens on one sheet, for a single laser job.
+  let cell = cellSize()
   let rows = (plates.len + columns - 1) div columns
   var body = ""
   for i, plate in plates:
     body.add plateBody(plate, cell * (float(i mod columns) + 0.5),
                               cell * (float(i div columns) + 0.5))
-  svgDocument(cell * float(columns), cell * float(rows), body)
+  svgDocument(cell * float(columns), cell * float(rows), "All tokens", body)

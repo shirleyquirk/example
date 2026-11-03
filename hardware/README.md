@@ -22,6 +22,78 @@ Nixie bargraph: **what is the chance the next card is danger?**
 
 Scale everywhere: **0.25 V per card, 40 cards = 10 V.**
 
+## Simplified design (proposed, replaces the precision path below)
+
+Accuracy traded for simplicity: about ±1 card instead of ±0.2.
+
+| | Precision path (M3–M7 below) | Simplified |
+|---|---|---|
+| Tokens | — | Octagonal, black card or acrylic, icon centred, 40 leaning slots |
+| Detection | 40 detectors + 40 Schmitt triggers | **40 detectors on a factory-assembled board** *or* **1 photodiode** in a white chamber (needs a test first) |
+| Inputs | BCD thumbwheels + DACs | **Two pots with printed 0–40 dials** |
+| Maths | Difference amps + duty-cycle divider (5 ICs, matched networks) | **Pot divider: one quad op-amp** ([schematic](schematics/rheostat-divider.svg)) |
+| Supplies | ±15 V, precision 5 V reference | ±12 V, simple 10 V reference |
+
+**The pot divider.** An inverting amplifier's gain is R_f / R_in. If R_in *is*
+the "cards played" pot, wired as a rheostat so its resistance is proportional to
+the cards **left**, the amplifier divides by cards left. No divider circuit at all:
+the knob is the divider. The "danger played" pot is a plain voltage divider
+feeding a difference amp. That's the whole calculation on one TL074:
+
+    V_P = 10 V · (D − d) / (40 − n)
+
+Accuracy is the pots' own: track linearity (carbon ±5–10 %, conductive plastic
+±1–2 %) and how precisely you set them. It's worst late in the game, where an
+error of half a card in "cards played" is large next to a few cards left. A
+mechanical stop at n = 39 keeps R_in above zero.
+
+**Single photodiode (unproven).** Light through the open slots falls into a
+white-lined chamber; one photodiode measures the total. With every slot the
+same area, total light ∝ number of open slots. A second photodiode watching the
+LED holds its brightness constant (a one-op-amp feedback loop), so LED drift
+cancels. Risk: the detector sees some slots better than others. My guess is
+±1 card, but that's speculation until measured. If the test shows a fixed
+pattern, the token generator can resize each slot to compensate.
+
+## Tokens *(done, `nim plates`)*
+
+- Regular octagon, 80 mm across flats. 40 slots, 5 per side, card i = slot
+  (i mod 5) on side (i div 5), clockwise from the top. Every slot is the same
+  leaning parallelogram (6 × 2.2 mm, 25° lean), so every card position lets
+  through the same amount of light.
+- Icon engraved in the centre (40 mm). No text: names are in the file names
+  and the SVG titles.
+- Registration: an octagonal pocket in the enclosure with one tab matching a
+  notch near one end of the upper-left side. Off-centre along a side, the notch
+  has no mirror image, so a token turned over doesn't seat.
+- **Card works** as well as acrylic: black card of 300 gsm or more,
+  laser-cut. Thinner tokens are better optically (less depth for light to spread
+  through). Engraving barely shows on black card; use card with a white core,
+  or print the icon on a white sticker.
+- ⚠️ Check the material blocks the light the detector sees (see M1's infrared
+  note).
+
+## Enclosure and stack (proposed)
+
+```
+   ┌──────────── hinged lid ─────────────┐
+   │ LED panel + diffuser, foam gasket   │
+   ├──── octagonal pocket, keyed tab ────┤ ← tokens stack here (up to 13)
+   │ baffle token (fixed)                │
+   │ detector: 40-sensor board, or a     │
+   │ white chamber + 1 photodiode        │
+   │ main board                          │
+   └─────────────────────────────────────┘
+ front panel: P1 "danger played" 0–40 · P2 "cards played" 0–40 · IN-13 + 0–100 % scale
+```
+
+- About 120 × 120 × 70 mm: laser-cut finger-joint box, or 3D-printed.
+- The pocket is cut through a stack of layers: 6 mm deep for 13 card tokens,
+  26 mm for 2 mm acrylic. Clearance 0.3 mm: misregistration narrows a slot by up
+  to 0.3 of its 2.2 mm, which matters for the single-photodiode detector and
+  not at all for 40 detectors.
+- A token rack beside the pocket holds the unused tokens.
+
 ## Four changes to the original idea
 
 1. **Plates are negatives.** Stacked plates pass light only where *every* plate has
@@ -38,9 +110,10 @@ Scale everywhere: **0.25 V per card, 40 cards = 10 V.**
    go into 40 equal resistors to one node. That node sits at 5 V × (lit count)/40,
    linear by construction, and the accuracy comes from resistor matching, not
    from optics. Static, no motor, as you wanted.
-3. **Thumbwheels, not pots.** A pot doesn't show you that it's on 17 rather than
-   16, and one card is 2.5 %. Two-digit BCD thumbwheel switches show their own
-   value and give exact voltages through a resistor DAC.
+3. **Thumbwheels or pots.** A pot doesn't show you that it's on 17 rather than
+   16, and one card is 2.5 %. Thumbwheels are exact. Pots with a printed dial
+   are about ±1 card, and they make the pot divider possible (see the
+   simplified design above).
 4. **The divider is a duty-cycle servo, not an analog multiplier IC.** An AD633
    used as a divider loses accuracy as the denominator gets small, which is
    exactly the end of the deck. The duty-cycle divider (M7) simulates within
@@ -73,7 +146,7 @@ graphs, CSVs and a report to [`results/`](results/README.md).**
 
 ---
 
-## M1 — Plates *(done)*
+## M1 — Plates *(superseded by the octagonal tokens above; the infrared note still applies)*
 
 Generated by `hardware/plates.nim` from `NotebookDeck`, so they can't drift
 from the app: `nim plates` writes `hardware/plates/*.svg` and `sheet.svg` (all 14).
@@ -148,7 +221,7 @@ detector, or use a visible-only detector (M3) and green light (M2).
 - The 10 V is the 5.000 V reference ×2, so the whole chain is ratiometric: the
   answer V_num / V_den doesn't depend on the reference's absolute accuracy.
 
-## M7 — Duty-cycle divider *(simulated: `sim/divider.cir`)*
+## M7 — Duty-cycle divider *(simulated: `sim/divider.cir`; [schematic](schematics/duty-cycle-divider.svg))*
 
 How it works: a PWM switch subtracts V_den at an integrator's input for a
 fraction δ of each period. The integrator drives δ until δ·V_den = V_num on
@@ -248,7 +321,8 @@ simpler.
 
 ## Files
 
-- `plates.nim`: plate geometry and SVG output; `genplates.nim` writes them (`nim plates`).
+- `plates.nim`: token geometry and SVG output; `genplates.nim` writes them (`nim plates`).
+- `schematics/`: divider schematics (SVG), drawn by `draw.py` (schemdraw).
 - `icons/`: traced biome icons (`nim icons`) and their source image.
 - `simgen.nim`, `experiments.nim`: netlist generators for the chain, divider and Monte Carlo.
 - `results.nim`: runs ngspice in parallel, writes `results/*.csv` and the report

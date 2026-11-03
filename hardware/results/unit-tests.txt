@@ -14,4 +14,6 @@
   [OK] binomial
 [Suite] plates
   [OK] every combination of symbols, both blank rules (8190 stacks)
-  [OK] upside-down plate can't seat
+  [OK] registration notch has no mirror image
+  [OK] every slot has the same area
+  [OK] slots stay inside the token and clear the icon
