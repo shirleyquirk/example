@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="116.239mm" height="116.239mm" viewBox="0 0 116.239 116.239">
+<title>Lid (rests on the strip tops; LED board underneath) ×1</title>
+<style>
+  .cut { fill: none; stroke: #ff0000; stroke-width: 0.1; }
+  .mark { fill: none; stroke: #0000ff; stroke-width: 0.1; }
+</style>
+<polygon points="37.409,8.120 78.830,8.120 108.120,37.409 108.120,78.830 78.830,108.120 37.409,108.120 8.120,78.830 8.120,37.409" class="cut"/>
+<polygon points="66.088,17.920 66.088,14.720 71.288,14.720 71.288,17.920" class="cut"/>
+<polygon points="77.234,20.382 79.496,18.120 83.173,21.797 80.911,24.059" class="cut"/>
+<polygon points="98.320,66.088 101.520,66.088 101.520,71.288 98.320,71.288" class="cut"/>
+<polygon points="95.857,77.234 98.120,79.496 94.443,83.173 92.180,80.911" class="cut"/>
+<polygon points="50.151,98.320 50.151,101.520 44.951,101.520 44.951,98.320" class="cut"/>
+<polygon points="39.005,95.857 36.743,98.120 33.066,94.443 35.329,92.180" class="cut"/>
+<polygon points="17.920,50.151 14.720,50.151 14.720,44.951 17.920,44.951" class="cut"/>
+<polygon points="20.382,39.005 18.120,36.743 21.797,33.066 24.059,35.329" class="cut"/>
+</svg>

@@ -22,27 +22,24 @@ Nixie bargraph: **what is the chance the next card is danger?**
 
 Scale everywhere: **0.25 V per card, 40 cards = 10 V.**
 
-## Current design: the cup
+## Current design: the stand
 
 ```
-          ┌─────────── lid (battery powered) ───────────┐
-          │ batteries + switch on top                   │
-          │ LED board: 40 LEDs, one above each slot     │
-          │ skirt slides down over the cup and covers   │
-          │ the finger slots, so room light stays out   │
-          └──────────────────────────────────────────────┘
-   ┃▮┃    ┌── pocket: up to 6 plywood tokens, keyed ──┐   finger slots
-   ┃▮┃    │   (likely 2–3)                             │   left and right
- IN-13    ├── floor = baffle: 40 slots ─────────────────┤
- on the   │ sensor board: 40 visible-light detectors,   │
- side     │ 74HC14s, resistors; in from below           │
-   ┃▮┃    └── base (screwed on) ── cable gap → driver ──┘
+            lid: plate on the strip tops, LED board underneath
+            (40 LEDs over the 40 slots), batteries on top
+        ┃   ┃                                   ┃   ┃
+        ┃   ┃   up to 6 plywood tokens          ┃   ┃   8 guide strips in pairs
+        ┃   ┃   (likely 2–3), keyed by a fin    ┃   ┃   at 4 corners; open corners
+        ┃   ┣━━ floor = baffle: 40 slots ━━━━━━━┫   ┃   between them for fingers
+        ┃   ┃   sensor board on spacers          ┃   ┃
+        ┗━━━┻━━ base ━━━━━━━━━━━━━━━━━━━━━━━━━━━┻━━━┛
+   IN-13 bargraph beside it, or on a strip
 ```
 
 | Part | Choice |
 |---|---|
 | Tokens | 3 mm plywood octagons, icon engraved in the centre, 40 leaning slots (`nim plates`) |
-| Cup | Glued plywood layers: base, 2 board-zone rings, floor/baffle, 6 pocket rings with finger slots (`nim cup`) |
+| Stand | Tab-and-slot plywood: base, floor/baffle, 8 guide strips, key fin, lid (`nim cup`) |
 | Light | Lid with 40 LEDs over the 40 slots, own batteries |
 | Detection | Factory-assembled octagonal sensor board, 40 visible-light detectors + Schmitt triggers + 40 resistors (M3, M4) |
 | Inputs | Two pots with printed 0–40 dials |
@@ -73,10 +70,23 @@ one end of the upper-left side matches a tab on every ring's inner wall.
 Off-centre along a side, the notch has no mirror image, so a token turned
 over doesn't seat. On plywood the engraved icon burns dark, which suits it.
 
-**Cup** (`hardware/cup/`): 96.6 mm across flats, 30 mm tall in 3 mm plywood.
-The board outline files are for importing into KiCad, with the 40 sensor/LED
-positions marked in blue. The LED board's positions are mirrored because it
-faces down.
+**Stand** (`hardware/cup/`), all 3 mm plywood, tab and slot:
+- *Base* and *lid*: 100 mm octagons with slots for the strip tabs.
+- *Floor*: the 40 slots (it's the baffle), plus slots the strips pass through.
+  It rests on a shoulder on each strip, 6 mm above the base, leaving room for
+  the sensor board on spacers.
+- *8 guide strips*, in pairs at 4 of the 8 corners: each side of the octagon gets
+  one strip near one end, so a token is held on all sides, and the open corners
+  are finger access. All 8 are the same shape; flip it for the other strip of a pair,
+  so its shoulder is on the end away from the corner.
+- *Key fin*: a small upright piece tabbed into the floor, sitting in the tokens'
+  notch. A flat strip can't reach into the notch, so the key is its own piece.
+  Off-centre along a side, the notch has no mirror image: only right way up fits.
+- Slots are cut 0.1 mm oversize per side. Change `Fit` after a test cut, because
+  plywood thickness and laser kerf vary.
+- `top-view.svg` is a plan view for checking the fit, not a cut file.
+- The board outline files are for importing into KiCad, with the 40 positions
+  marked in blue. The LED board's are mirrored because it faces down.
 
 **Display alternatives**, if the IN-13 turns out to be a pain:
 - *Edgewise analog panel meter*: a tall, thin needle meter that sits upright on
@@ -319,7 +329,7 @@ simpler.
 
 - `plates.nim`: token geometry and SVG output; `genplates.nim` writes them (`nim plates`).
 - `schematics/`: divider schematics (SVG), drawn by `draw.py` (schemdraw).
-- `receptacle.nim`, `gencup.nim`: the plywood cup, lid and board outlines (`nim cup`).
+- `receptacle.nim`, `gencup.nim`: the plywood stand, lid and board outlines (`nim cup`).
 - `icons/`: traced biome icons (`nim icons`) and their source image.
 - `simgen.nim`, `experiments.nim`: netlist generators for the chain, divider and Monte Carlo.
 - `results.nim`: runs ngspice in parallel, writes `results/*.csv` and the report

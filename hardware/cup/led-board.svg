@@ -1,48 +1,48 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="124.249mm" height="124.249mm" viewBox="0 0 124.249 124.249">
+<svg xmlns="http://www.w3.org/2000/svg" width="116.239mm" height="116.239mm" viewBox="0 0 116.239 116.239">
 <title>LED board outline (faces down; blue = LED positions, mirrored) ×1</title>
 <style>
   .cut { fill: none; stroke: #ff0000; stroke-width: 0.1; }
   .mark { fill: none; stroke: #0000ff; stroke-width: 0.1; }
 </style>
-<polygon points="42.532,14.824 81.717,14.824 109.424,42.532 109.424,81.717 81.717,109.424 42.532,109.424 14.824,81.717 14.824,42.532" class="cut"/>
-<circle cx="72.124" cy="28.624" r="0.8" class="mark"/>
-<circle cx="67.124" cy="28.624" r="0.8" class="mark"/>
-<circle cx="62.124" cy="28.624" r="0.8" class="mark"/>
-<circle cx="57.124" cy="28.624" r="0.8" class="mark"/>
-<circle cx="52.124" cy="28.624" r="0.8" class="mark"/>
-<circle cx="45.507" cy="31.365" r="0.8" class="mark"/>
-<circle cx="41.972" cy="34.901" r="0.8" class="mark"/>
-<circle cx="38.436" cy="38.436" r="0.8" class="mark"/>
-<circle cx="34.901" cy="41.972" r="0.8" class="mark"/>
-<circle cx="31.365" cy="45.507" r="0.8" class="mark"/>
-<circle cx="28.624" cy="52.124" r="0.8" class="mark"/>
-<circle cx="28.624" cy="57.124" r="0.8" class="mark"/>
-<circle cx="28.624" cy="62.124" r="0.8" class="mark"/>
-<circle cx="28.624" cy="67.124" r="0.8" class="mark"/>
-<circle cx="28.624" cy="72.124" r="0.8" class="mark"/>
-<circle cx="31.365" cy="78.741" r="0.8" class="mark"/>
-<circle cx="34.901" cy="82.277" r="0.8" class="mark"/>
-<circle cx="38.436" cy="85.813" r="0.8" class="mark"/>
-<circle cx="41.972" cy="89.348" r="0.8" class="mark"/>
-<circle cx="45.507" cy="92.884" r="0.8" class="mark"/>
-<circle cx="52.124" cy="95.624" r="0.8" class="mark"/>
-<circle cx="57.124" cy="95.624" r="0.8" class="mark"/>
-<circle cx="62.124" cy="95.624" r="0.8" class="mark"/>
-<circle cx="67.124" cy="95.624" r="0.8" class="mark"/>
-<circle cx="72.124" cy="95.624" r="0.8" class="mark"/>
-<circle cx="78.741" cy="92.884" r="0.8" class="mark"/>
-<circle cx="82.277" cy="89.348" r="0.8" class="mark"/>
-<circle cx="85.813" cy="85.813" r="0.8" class="mark"/>
-<circle cx="89.348" cy="82.277" r="0.8" class="mark"/>
-<circle cx="92.884" cy="78.741" r="0.8" class="mark"/>
-<circle cx="95.624" cy="72.124" r="0.8" class="mark"/>
-<circle cx="95.624" cy="67.124" r="0.8" class="mark"/>
-<circle cx="95.624" cy="62.124" r="0.8" class="mark"/>
-<circle cx="95.624" cy="57.124" r="0.8" class="mark"/>
-<circle cx="95.624" cy="52.124" r="0.8" class="mark"/>
-<circle cx="92.884" cy="45.507" r="0.8" class="mark"/>
-<circle cx="89.348" cy="41.972" r="0.8" class="mark"/>
-<circle cx="85.813" cy="38.436" r="0.8" class="mark"/>
-<circle cx="82.277" cy="34.901" r="0.8" class="mark"/>
-<circle cx="78.741" cy="31.365" r="0.8" class="mark"/>
+<polygon points="41.551,18.120 74.688,18.120 98.120,41.551 98.120,74.688 74.688,98.120 41.551,98.120 18.120,74.688 18.120,41.551" class="cut"/>
+<circle cx="68.120" cy="27.120" r="0.8" class="mark"/>
+<circle cx="63.120" cy="27.120" r="0.8" class="mark"/>
+<circle cx="58.120" cy="27.120" r="0.8" class="mark"/>
+<circle cx="53.120" cy="27.120" r="0.8" class="mark"/>
+<circle cx="48.120" cy="27.120" r="0.8" class="mark"/>
+<circle cx="43.270" cy="29.128" r="0.8" class="mark"/>
+<circle cx="39.735" cy="32.664" r="0.8" class="mark"/>
+<circle cx="36.199" cy="36.199" r="0.8" class="mark"/>
+<circle cx="32.664" cy="39.735" r="0.8" class="mark"/>
+<circle cx="29.128" cy="43.270" r="0.8" class="mark"/>
+<circle cx="27.120" cy="48.120" r="0.8" class="mark"/>
+<circle cx="27.120" cy="53.120" r="0.8" class="mark"/>
+<circle cx="27.120" cy="58.120" r="0.8" class="mark"/>
+<circle cx="27.120" cy="63.120" r="0.8" class="mark"/>
+<circle cx="27.120" cy="68.120" r="0.8" class="mark"/>
+<circle cx="29.128" cy="72.969" r="0.8" class="mark"/>
+<circle cx="32.664" cy="76.504" r="0.8" class="mark"/>
+<circle cx="36.199" cy="80.040" r="0.8" class="mark"/>
+<circle cx="39.735" cy="83.575" r="0.8" class="mark"/>
+<circle cx="43.270" cy="87.111" r="0.8" class="mark"/>
+<circle cx="48.120" cy="89.120" r="0.8" class="mark"/>
+<circle cx="53.120" cy="89.120" r="0.8" class="mark"/>
+<circle cx="58.120" cy="89.120" r="0.8" class="mark"/>
+<circle cx="63.120" cy="89.120" r="0.8" class="mark"/>
+<circle cx="68.120" cy="89.120" r="0.8" class="mark"/>
+<circle cx="72.969" cy="87.111" r="0.8" class="mark"/>
+<circle cx="76.504" cy="83.575" r="0.8" class="mark"/>
+<circle cx="80.040" cy="80.040" r="0.8" class="mark"/>
+<circle cx="83.575" cy="76.504" r="0.8" class="mark"/>
+<circle cx="87.111" cy="72.969" r="0.8" class="mark"/>
+<circle cx="89.120" cy="68.120" r="0.8" class="mark"/>
+<circle cx="89.120" cy="63.120" r="0.8" class="mark"/>
+<circle cx="89.120" cy="58.120" r="0.8" class="mark"/>
+<circle cx="89.120" cy="53.120" r="0.8" class="mark"/>
+<circle cx="89.120" cy="48.120" r="0.8" class="mark"/>
+<circle cx="87.111" cy="43.270" r="0.8" class="mark"/>
+<circle cx="83.575" cy="39.735" r="0.8" class="mark"/>
+<circle cx="80.040" cy="36.199" r="0.8" class="mark"/>
+<circle cx="76.504" cy="32.664" r="0.8" class="mark"/>
+<circle cx="72.969" cy="29.128" r="0.8" class="mark"/>
 </svg>

@@ -31,12 +31,12 @@ const
   SlotLength* = 6.0                   ## radial
   SlotWidth* = 2.2                    ## along the side (area = length × width, same for every slot)
   SlotLean* = 25.0                    ## degrees: slots are leaning parallelograms
-  SlotDepth* = 6.5                    ## slot centre, measured in from the edge
+  SlotDepth* = 9.0                    ## slot centre, measured in from the edge (clear of the key notch)
   NotchSide* = 7                      ## the upper-left side
-  NotchFrom* = SideLength / 2 - 8.0   ## along the side from its centre; never 0, so no mirror symmetry
-  NotchTo* = SideLength / 2 - 3.0
-  NotchDepth* = 1.5
-  IconSize* = 40.0                    ## square, centred
+  NotchFrom* = 8.0                    ## along the side from its centre; never 0, so no mirror symmetry
+  NotchTo* = 13.0                     ## 5 mm wide: the 4.4 mm key fin + clearance
+  NotchDepth* = 4.0                   ## the 3 mm key fin + clearance
+  IconSize* = 36.0                    ## square, centred
   Margin = 4.0
 
 static: doAssert DeckSize == 8 * SlotsPerSide
