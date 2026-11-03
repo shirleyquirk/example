@@ -1,56 +1,251 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 440" width="760" height="440" role="img">
-<style>
-  .surface { fill: #fcfcfb; }
-  .title { fill: #0b0b0b; font: 600 16px sans-serif; }
-  .subtitle, .label { fill: #52514e; font: 12px sans-serif; }
-  .tick { fill: #898781; font: 11px sans-serif; }
-  .grid { stroke: #e1e0d9; stroke-width: 1; }
-  .baseline { stroke: #c3c2b7; stroke-width: 1; }
-  .ref { stroke: #898781; stroke-width: 1; stroke-dasharray: 4 4; fill: none; }
-  .s0 { stroke: #2a78d6; fill: #2a78d6; } .s1 { stroke: #eb6834; fill: #eb6834; }
-  .s2 { stroke: #1baf7a; fill: #1baf7a; } .s3 { stroke: #eda100; fill: #eda100; }
-  .line { fill: none; stroke-width: 2; stroke-linejoin: round; }
-  .dot { stroke: #fcfcfb; stroke-width: 2; }
-  @media (prefers-color-scheme: dark) {
-    .surface { fill: #1a1a19; }
-    .title { fill: #f0efec; } .subtitle, .label { fill: #c3c2b7; }
-    .grid { stroke: #2c2c2a; } .baseline { stroke: #383835; }
-    .dot { stroke: #1a1a19; }
-    .s0 { stroke: #3987e5; fill: #3987e5; } .s1 { stroke: #d95926; fill: #d95926; }
-    .s2 { stroke: #199e70; fill: #199e70; } .s3 { stroke: #c98500; fill: #c98500; }
-  }
-</style>
-<title>Whole analog chain vs the app</title>
-<rect class="surface" width="100%" height="100%"/>
-<text class="title" x="72.0" y="28">Whole analog chain vs the app</text>
-<text class="subtitle" x="72.0" y="48">Plates → 40 detector bits → popcount → DACs → subtractors → divider, in ngspice.</text>
-<rect class="s0" x="72.0" y="60" width="10" height="10" rx="2"/><text class="label" x="86.0" y="69">app (odds.nim)</text>
-<rect class="s1" x="194.0" y="60" width="10" height="10" rx="2"/><text class="label" x="208.0" y="69">circuit (ngspice)</text>
-<line class="baseline" x1="72.0" x2="610.0" y1="384.0" y2="384.0"/><text class="tick" x="64.0" y="388.0" text-anchor="end">0</text>
-<line class="grid" x1="72.0" x2="610.0" y1="324.0" y2="324.0"/><text class="tick" x="64.0" y="328.0" text-anchor="end">20</text>
-<line class="grid" x1="72.0" x2="610.0" y1="264.0" y2="264.0"/><text class="tick" x="64.0" y="268.0" text-anchor="end">40</text>
-<line class="grid" x1="72.0" x2="610.0" y1="204.0" y2="204.0"/><text class="tick" x="64.0" y="208.0" text-anchor="end">60</text>
-<line class="grid" x1="72.0" x2="610.0" y1="144.0" y2="144.0"/><text class="tick" x="64.0" y="148.0" text-anchor="end">80</text>
-<line class="grid" x1="72.0" x2="610.0" y1="84.0" y2="84.0"/><text class="tick" x="64.0" y="88.0" text-anchor="end">100</text>
-<text class="label" transform="translate(18 234.0) rotate(-90)" text-anchor="middle">danger chance, next card (%)</text>
-<rect class="s0" x="80.97" y="144.00" width="34.87" height="240.00" rx="2"><title>app (odds.nim), #1: 80.000%</title></rect>
-<rect class="s1" x="117.83" y="144.01" width="34.87" height="239.99" rx="2"><title>circuit (ngspice), #1: 79.997%</title></rect>
-<text class="tick" x="116.8" y="402.0" text-anchor="middle">#1</text>
-<rect class="s0" x="170.63" y="234.00" width="34.87" height="150.00" rx="2"><title>app (odds.nim), #2: 50.000%</title></rect>
-<rect class="s1" x="207.50" y="234.00" width="34.87" height="150.00" rx="2"><title>circuit (ngspice), #2: 50.000%</title></rect>
-<text class="tick" x="206.5" y="402.0" text-anchor="middle">#2</text>
-<rect class="s0" x="260.30" y="204.00" width="34.87" height="180.00" rx="2"><title>app (odds.nim), #3: 60.000%</title></rect>
-<rect class="s1" x="297.17" y="204.00" width="34.87" height="180.00" rx="2"><title>circuit (ngspice), #3: 59.999%</title></rect>
-<text class="tick" x="296.2" y="402.0" text-anchor="middle">#3</text>
-<rect class="s0" x="349.97" y="84.00" width="34.87" height="300.00" rx="2"><title>app (odds.nim), #4: 100.000%</title></rect>
-<rect class="s1" x="386.83" y="84.01" width="34.87" height="299.99" rx="2"><title>circuit (ngspice), #4: 99.996%</title></rect>
-<text class="tick" x="385.8" y="402.0" text-anchor="middle">#4</text>
-<rect class="s0" x="439.63" y="376.50" width="34.87" height="7.50" rx="2"><title>app (odds.nim), #5: 2.500%</title></rect>
-<rect class="s1" x="476.50" y="376.49" width="34.87" height="7.51" rx="2"><title>circuit (ngspice), #5: 2.502%</title></rect>
-<text class="tick" x="475.5" y="402.0" text-anchor="middle">#5</text>
-<rect class="s0" x="529.30" y="264.00" width="34.87" height="120.00" rx="2"><title>app (odds.nim), #6: 40.000%</title></rect>
-<rect class="s1" x="566.17" y="263.99" width="34.87" height="120.01" rx="2"><title>circuit (ngspice), #6: 40.004%</title></rect>
-<text class="tick" x="565.2" y="402.0" text-anchor="middle">#6</text>
-<line class="baseline" x1="72.0" x2="610.0" y1="384.0" y2="384.0"/>
-<text class="label" x="341.0" y="426.0" text-anchor="middle">scenario (see table)</text>
+<?xml version="1.0" encoding="utf-8"  standalone="no"?>
+<svg 
+ viewBox="0 0 760 440"
+ xmlns="http://www.w3.org/2000/svg"
+ xmlns:xlink="http://www.w3.org/1999/xlink"
+>
+
+<title>Gnuplot</title>
+<desc>Produced by GNUPLOT 6.0 patchlevel 0 </desc>
+
+<g id="gnuplot_canvas">
+
+<rect x="0" y="0" width="760" height="440" fill="#fcfcfb"/>
+<defs>
+
+	<circle id='gpDot' r='0.5' stroke-width='0.5' stroke='currentColor'/>
+	<path id='gpPt0' stroke-width='0.222' stroke='currentColor' d='M-1,0 h2 M0,-1 v2'/>
+	<path id='gpPt1' stroke-width='0.222' stroke='currentColor' d='M-1,-1 L1,1 M1,-1 L-1,1'/>
+	<path id='gpPt2' stroke-width='0.222' stroke='currentColor' d='M-1,0 L1,0 M0,-1 L0,1 M-1,-1 L1,1 M-1,1 L1,-1'/>
+	<rect id='gpPt3' stroke-width='0.222' stroke='currentColor' x='-1' y='-1' width='2' height='2'/>
+	<rect id='gpPt4' stroke-width='0.222' stroke='currentColor' fill='currentColor' x='-1' y='-1' width='2' height='2'/>
+	<circle id='gpPt5' stroke-width='0.222' stroke='currentColor' cx='0' cy='0' r='1'/>
+	<use xlink:href='#gpPt5' id='gpPt6' fill='currentColor' stroke='none'/>
+	<path id='gpPt7' stroke-width='0.222' stroke='currentColor' d='M0,-1.33 L-1.33,0.67 L1.33,0.67 z'/>
+	<use xlink:href='#gpPt7' id='gpPt8' fill='currentColor' stroke='none'/>
+	<use xlink:href='#gpPt7' id='gpPt9' stroke='currentColor' transform='rotate(180)'/>
+	<use xlink:href='#gpPt9' id='gpPt10' fill='currentColor' stroke='none'/>
+	<use xlink:href='#gpPt3' id='gpPt11' stroke='currentColor' transform='rotate(45)'/>
+	<use xlink:href='#gpPt11' id='gpPt12' fill='currentColor' stroke='none'/>
+	<path id='gpPt13' stroke-width='0.222' stroke='currentColor' d='M0,1.330 L1.265,0.411 L0.782,-1.067 L-0.782,-1.076 L-1.265,0.411 z'/>
+	<use xlink:href='#gpPt13' id='gpPt14' fill='currentColor' stroke='none'/>
+	<filter id='textbox' filterUnits='objectBoundingBox' x='0' y='0' height='1' width='1'>
+	  <feFlood flood-color='#FCFCFB' flood-opacity='1' result='bgnd'/>
+	  <feComposite in='SourceGraphic' in2='bgnd' operator='atop'/>
+	</filter>
+	<filter id='greybox' filterUnits='objectBoundingBox' x='0' y='0' height='1' width='1'>
+	  <feFlood flood-color='lightgrey' flood-opacity='1' result='grey'/>
+	  <feComposite in='SourceGraphic' in2='grey' operator='atop'/>
+	</filter>
+</defs>
+<g fill="none" color="#FCFCFB" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="gray" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(225, 224, 217)' stroke-dasharray='2,4' class="gridline"  d='M72.53,382.40 L734.82,382.40  '/></g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(195, 194, 183)'  d='M72.53,382.40 L81.53,382.40  '/>	<g transform="translate(64.14,386.30)" stroke="none" fill="rgb(137,135,129)" font-family="sans" font-size="12.00"  text-anchor="end">
+		<text><tspan font-family="sans" > 0</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="gray" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(225, 224, 217)' stroke-dasharray='2,4' class="gridline"  d='M72.53,332.17 L734.82,332.17  '/></g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(195, 194, 183)'  d='M72.53,332.17 L81.53,332.17  '/>	<g transform="translate(64.14,336.07)" stroke="none" fill="rgb(137,135,129)" font-family="sans" font-size="12.00"  text-anchor="end">
+		<text><tspan font-family="sans" > 20</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="gray" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(225, 224, 217)' stroke-dasharray='2,4' class="gridline"  d='M72.53,281.94 L734.82,281.94  '/></g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(195, 194, 183)'  d='M72.53,281.94 L81.53,281.94  '/>	<g transform="translate(64.14,285.84)" stroke="none" fill="rgb(137,135,129)" font-family="sans" font-size="12.00"  text-anchor="end">
+		<text><tspan font-family="sans" > 40</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="gray" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(225, 224, 217)' stroke-dasharray='2,4' class="gridline"  d='M72.53,231.70 L734.82,231.70  '/></g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(195, 194, 183)'  d='M72.53,231.70 L81.53,231.70  '/>	<g transform="translate(64.14,235.60)" stroke="none" fill="rgb(137,135,129)" font-family="sans" font-size="12.00"  text-anchor="end">
+		<text><tspan font-family="sans" > 60</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="gray" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(225, 224, 217)' stroke-dasharray='2,4' class="gridline"  d='M72.53,181.47 L734.82,181.47  '/></g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(195, 194, 183)'  d='M72.53,181.47 L81.53,181.47  '/>	<g transform="translate(64.14,185.37)" stroke="none" fill="rgb(137,135,129)" font-family="sans" font-size="12.00"  text-anchor="end">
+		<text><tspan font-family="sans" > 80</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="gray" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(225, 224, 217)' stroke-dasharray='2,4' class="gridline"  d='M72.53,131.24 L734.82,131.24  '/></g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(195, 194, 183)'  d='M72.53,131.24 L81.53,131.24  '/>	<g transform="translate(64.14,135.14)" stroke="none" fill="rgb(137,135,129)" font-family="sans" font-size="12.00"  text-anchor="end">
+		<text><tspan font-family="sans" > 100</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(195, 194, 183)'  d='M167.14,382.40 L167.14,373.40  '/>	<g transform="translate(167.14,404.30)" stroke="none" fill="rgb(137,135,129)" font-family="sans" font-size="12.00"  text-anchor="middle">
+		<text><tspan font-family="sans" >1</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(195, 194, 183)'  d='M261.76,382.40 L261.76,373.40  '/>	<g transform="translate(261.76,404.30)" stroke="none" fill="rgb(137,135,129)" font-family="sans" font-size="12.00"  text-anchor="middle">
+		<text><tspan font-family="sans" >2</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(195, 194, 183)'  d='M356.37,382.40 L356.37,373.40  '/>	<g transform="translate(356.37,404.30)" stroke="none" fill="rgb(137,135,129)" font-family="sans" font-size="12.00"  text-anchor="middle">
+		<text><tspan font-family="sans" >3</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(195, 194, 183)'  d='M450.98,382.40 L450.98,373.40  '/>	<g transform="translate(450.98,404.30)" stroke="none" fill="rgb(137,135,129)" font-family="sans" font-size="12.00"  text-anchor="middle">
+		<text><tspan font-family="sans" >4</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(195, 194, 183)'  d='M545.59,382.40 L545.59,373.40  '/>	<g transform="translate(545.59,404.30)" stroke="none" fill="rgb(137,135,129)" font-family="sans" font-size="12.00"  text-anchor="middle">
+		<text><tspan font-family="sans" >5</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(195, 194, 183)'  d='M640.21,382.40 L640.21,373.40  '/>	<g transform="translate(640.21,404.30)" stroke="none" fill="rgb(137,135,129)" font-family="sans" font-size="12.00"  text-anchor="middle">
+		<text><tspan font-family="sans" >6</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(195, 194, 183)'  d='M72.53,81.01 L72.53,382.40 L734.82,382.40 M734.82,81.01 M72.53,81.01  '/></g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+	<g id="gnuplot_plot_1" ><title>app (odds.nim)</title>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g transform="translate(223.55,102.91)" stroke="none" fill="rgb(82,81,78)" font-family="sans" font-size="12.00"  text-anchor="end">
+		<text><tspan font-family="sans" >app (odds.nim)</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g stroke='none' shape-rendering='crispEdges'>
+		<polygon fill = 'rgb( 42, 120, 214)' points = '231.94,103.51 257.72,103.51 257.72,94.51 231.94,94.51 '/>
+	</g>
+	<path stroke='rgb(252, 252, 251)'  d='M231.94,103.51 L257.72,103.51 L257.72,94.51 L231.94,94.51 L231.94,103.51 Z  '/></g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g stroke='none' shape-rendering='crispEdges'>
+		<polygon fill = 'rgb( 42, 120, 214)' points = '137.18,382.40 165.58,382.40 165.58,181.46 137.18,181.46 '/>
+	</g>
+	<path stroke='rgb(252, 252, 251)'  d='M137.18,382.40 L137.18,181.47 L165.57,181.47 L165.57,382.40 L137.18,382.40 Z  '/></g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g stroke='none' shape-rendering='crispEdges'>
+		<polygon fill = 'rgb( 42, 120, 214)' points = '231.79,382.40 260.19,382.40 260.19,256.81 231.79,256.81 '/>
+	</g>
+	<path stroke='rgb(252, 252, 251)'  d='M231.79,382.40 L231.79,256.82 L260.18,256.82 L260.18,382.40 L231.79,382.40 Z  '/></g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g stroke='none' shape-rendering='crispEdges'>
+		<polygon fill = 'rgb( 42, 120, 214)' points = '326.41,382.40 354.80,382.40 354.80,231.69 326.41,231.69 '/>
+	</g>
+	<path stroke='rgb(252, 252, 251)'  d='M326.41,382.40 L326.41,231.70 L354.79,231.70 L354.79,382.40 L326.41,382.40 Z  '/></g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g stroke='none' shape-rendering='crispEdges'>
+		<polygon fill = 'rgb( 42, 120, 214)' points = '421.02,382.40 449.41,382.40 449.41,131.23 421.02,131.23 '/>
+	</g>
+	<path stroke='rgb(252, 252, 251)'  d='M421.02,382.40 L421.02,131.24 L449.40,131.24 L449.40,382.40 L421.02,382.40 Z  '/></g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g stroke='none' shape-rendering='crispEdges'>
+		<polygon fill = 'rgb( 42, 120, 214)' points = '515.63,382.40 544.03,382.40 544.03,376.11 515.63,376.11 '/>
+	</g>
+	<path stroke='rgb(252, 252, 251)'  d='M515.63,382.40 L515.63,376.12 L544.02,376.12 L544.02,382.40 L515.63,382.40 Z  '/></g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g stroke='none' shape-rendering='crispEdges'>
+		<polygon fill = 'rgb( 42, 120, 214)' points = '610.25,382.40 638.64,382.40 638.64,281.93 610.25,281.93 '/>
+	</g>
+	<path stroke='rgb(252, 252, 251)'  d='M610.25,382.40 L610.25,281.94 L638.63,281.94 L638.63,382.40 L610.25,382.40 Z  '/></g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+	</g>
+	<g id="gnuplot_plot_2" ><title>circuit (ngspice)</title>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g transform="translate(408.74,102.91)" stroke="none" fill="rgb(82,81,78)" font-family="sans" font-size="12.00"  text-anchor="end">
+		<text><tspan font-family="sans" >circuit (ngspice)</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g stroke='none' shape-rendering='crispEdges'>
+		<polygon fill = 'rgb(235, 104,  52)' points = '417.13,103.51 442.91,103.51 442.91,94.51 417.13,94.51 '/>
+	</g>
+	<path stroke='rgb(252, 252, 251)'  d='M417.13,103.51 L442.91,103.51 L442.91,94.51 L417.13,94.51 L417.13,103.51 Z  '/></g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g stroke='none' shape-rendering='crispEdges'>
+		<polygon fill = 'rgb(235, 104,  52)' points = '168.72,382.40 197.11,382.40 197.11,181.47 168.72,181.47 '/>
+	</g>
+	<path stroke='rgb(252, 252, 251)'  d='M168.72,382.40 L168.72,181.48 L197.10,181.48 L197.10,382.40 L168.72,382.40 Z  '/></g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g stroke='none' shape-rendering='crispEdges'>
+		<polygon fill = 'rgb(235, 104,  52)' points = '263.33,382.40 291.73,382.40 291.73,256.81 263.33,256.81 '/>
+	</g>
+	<path stroke='rgb(252, 252, 251)'  d='M263.33,382.40 L263.33,256.82 L291.72,256.82 L291.72,382.40 L263.33,382.40 Z  '/></g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g stroke='none' shape-rendering='crispEdges'>
+		<polygon fill = 'rgb(235, 104,  52)' points = '357.95,382.40 386.34,382.40 386.34,231.70 357.95,231.70 '/>
+	</g>
+	<path stroke='rgb(252, 252, 251)'  d='M357.95,382.40 L357.95,231.71 L386.33,231.71 L386.33,382.40 L357.95,382.40 Z  '/></g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g stroke='none' shape-rendering='crispEdges'>
+		<polygon fill = 'rgb(235, 104,  52)' points = '452.56,382.40 480.95,382.40 480.95,131.24 452.56,131.24 '/>
+	</g>
+	<path stroke='rgb(252, 252, 251)'  d='M452.56,382.40 L452.56,131.25 L480.94,131.25 L480.94,382.40 L452.56,382.40 Z  '/></g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g stroke='none' shape-rendering='crispEdges'>
+		<polygon fill = 'rgb(235, 104,  52)' points = '547.17,382.40 575.57,382.40 575.57,376.11 547.17,376.11 '/>
+	</g>
+	<path stroke='rgb(252, 252, 251)'  d='M547.17,382.40 L547.17,376.12 L575.56,376.12 L575.56,382.40 L547.17,382.40 Z  '/></g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g stroke='none' shape-rendering='crispEdges'>
+		<polygon fill = 'rgb(235, 104,  52)' points = '641.78,382.40 670.18,382.40 670.18,281.92 641.78,281.92 '/>
+	</g>
+	<path stroke='rgb(252, 252, 251)'  d='M641.78,382.40 L641.78,281.93 L670.17,281.93 L670.17,382.40 L641.78,382.40 Z  '/></g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+	</g>
+<g fill="none" color="#FCFCFB" stroke="rgb(235, 104,  52)" stroke-width="2.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="2.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="black" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(195, 194, 183)'  d='M72.53,81.01 L72.53,382.40 L734.82,382.40 M734.82,81.01 M72.53,81.01  '/>	<g transform="translate(19.18,231.71) rotate(270.00)" stroke="none" fill="rgb(82,81,78)" font-family="sans" font-size="12.00"  text-anchor="middle">
+		<text><tspan font-family="sans" >danger chance, next card (%)</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g transform="translate(403.67,431.30)" stroke="none" fill="rgb(82,81,78)" font-family="sans" font-size="12.00"  text-anchor="middle">
+		<text><tspan font-family="sans" >scenario (see table in README)</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g transform="translate(403.67,31.89)" stroke="none" fill="rgb(11,11,11)" font-family="sans" font-size="15.00"  text-anchor="middle">
+		<text><tspan font-family="sans" >Whole analog chain vs the app</tspan></text>
+	</g>
+	<g transform="translate(403.67,54.39)" stroke="none" fill="rgb(11,11,11)" font-family="sans" font-size="15.00"  text-anchor="middle">
+		<text><tspan font-family="sans"  font-size="12.0">Plates → 40 detector bits → popcount → DACs → subtractors → divider, in ngspice</tspan><tspan font-size="15.0" dy="0.00"></tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+</g>
 </svg>
+

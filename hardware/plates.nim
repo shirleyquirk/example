@@ -65,12 +65,7 @@ proc polar(radius, degreesClockwiseFromTop: float): (float, float) =
 
 proc cardAngle*(index: CardIndex): float = float(index) * 360.0 / DeckSize
 
-proc mm(x: float): string =
-  ## Fixed 3 decimals. (strutils.formatFloat calls C sprintf, which the
-  ## NimScript VM that runs `nim plates` can't use.)
-  let thousandths = int(round(abs(x) * 1000))
-  (if x < 0 and thousandths != 0: "-" else: "") & $(thousandths div 1000) & "." &
-    align($(thousandths mod 1000), 3, '0')
+proc mm(x: float): string = formatFloat(x, ffDecimal, 3)
 
 proc cutCircle(cx, cy, diameter: float): string =
   "<circle cx=\"" & mm(cx) & "\" cy=\"" & mm(cy) & "\" r=\"" & mm(diameter / 2) &

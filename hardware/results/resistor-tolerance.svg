@@ -1,105 +1,229 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 440" width="760" height="440" role="img">
-<style>
-  .surface { fill: #fcfcfb; }
-  .title { fill: #0b0b0b; font: 600 16px sans-serif; }
-  .subtitle, .label { fill: #52514e; font: 12px sans-serif; }
-  .tick { fill: #898781; font: 11px sans-serif; }
-  .grid { stroke: #e1e0d9; stroke-width: 1; }
-  .baseline { stroke: #c3c2b7; stroke-width: 1; }
-  .ref { stroke: #898781; stroke-width: 1; stroke-dasharray: 4 4; fill: none; }
-  .s0 { stroke: #2a78d6; fill: #2a78d6; } .s1 { stroke: #eb6834; fill: #eb6834; }
-  .s2 { stroke: #1baf7a; fill: #1baf7a; } .s3 { stroke: #eda100; fill: #eda100; }
-  .line { fill: none; stroke-width: 2; stroke-linejoin: round; }
-  .dot { stroke: #fcfcfb; stroke-width: 2; }
-  @media (prefers-color-scheme: dark) {
-    .surface { fill: #1a1a19; }
-    .title { fill: #f0efec; } .subtitle, .label { fill: #c3c2b7; }
-    .grid { stroke: #2c2c2a; } .baseline { stroke: #383835; }
-    .dot { stroke: #1a1a19; }
-    .s0 { stroke: #3987e5; fill: #3987e5; } .s1 { stroke: #d95926; fill: #d95926; }
-    .s2 { stroke: #199e70; fill: #199e70; } .s3 { stroke: #c98500; fill: #c98500; }
-  }
-</style>
-<title>Resistor tolerance late in the game</title>
-<rect class="surface" width="100%" height="100%"/>
-<text class="title" x="72.0" y="28">Resistor tolerance late in the game</text>
-<text class="subtitle" x="72.0" y="48">500 random builds each. Void stacked, 30 played, 24 danger played: 8 of 10 left = 80 %.</text>
-<rect class="s0" x="72.0" y="60" width="10" height="10" rx="2"/><text class="label" x="86.0" y="69">0.1 % everywhere</text>
-<rect class="s1" x="208.0" y="60" width="10" height="10" rx="2"/><text class="label" x="222.0" y="69">0.1 % + 0.01 % matched pairs</text>
-<line class="baseline" x1="72.0" x2="610.0" y1="384.0" y2="384.0"/><text class="tick" x="64.0" y="388.0" text-anchor="end">0</text>
-<line class="grid" x1="72.0" x2="610.0" y1="284.0" y2="284.0"/><text class="tick" x="64.0" y="288.0" text-anchor="end">50</text>
-<line class="grid" x1="72.0" x2="610.0" y1="184.0" y2="184.0"/><text class="tick" x="64.0" y="188.0" text-anchor="end">100</text>
-<line class="grid" x1="72.0" x2="610.0" y1="84.0" y2="84.0"/><text class="tick" x="64.0" y="88.0" text-anchor="end">150</text>
-<text class="label" transform="translate(18 234.0) rotate(-90)" text-anchor="middle">builds</text>
-<rect class="s0" x="73.74" y="384.00" width="5.94" height="0.50" rx="0"><title>0.1 % everywhere, -1.5: 0.000</title></rect>
-<rect class="s1" x="81.68" y="384.00" width="5.94" height="0.50" rx="0"><title>0.1 % + 0.01 % matched pairs, -1.5: 0.000</title></rect>
-<text class="tick" x="80.7" y="402.0" text-anchor="middle">-1.5</text>
-<rect class="s0" x="91.09" y="384.00" width="5.94" height="0.50" rx="0"><title>0.1 % everywhere, -1.4: 0.000</title></rect>
-<rect class="s1" x="99.03" y="384.00" width="5.94" height="0.50" rx="0"><title>0.1 % + 0.01 % matched pairs, -1.4: 0.000</title></rect>
-<rect class="s0" x="108.45" y="382.00" width="5.94" height="2.00" rx="0"><title>0.1 % everywhere, -1.3: 1.000</title></rect>
-<rect class="s1" x="116.39" y="384.00" width="5.94" height="0.50" rx="0"><title>0.1 % + 0.01 % matched pairs, -1.3: 0.000</title></rect>
-<rect class="s0" x="125.80" y="382.00" width="5.94" height="2.00" rx="0"><title>0.1 % everywhere, -1.2: 1.000</title></rect>
-<rect class="s1" x="133.74" y="384.00" width="5.94" height="0.50" rx="0"><title>0.1 % + 0.01 % matched pairs, -1.2: 0.000</title></rect>
-<rect class="s0" x="143.15" y="378.00" width="5.94" height="6.00" rx="0"><title>0.1 % everywhere, -1.1: 3.000</title></rect>
-<rect class="s1" x="151.10" y="384.00" width="5.94" height="0.50" rx="0"><title>0.1 % + 0.01 % matched pairs, -1.1: 0.000</title></rect>
-<rect class="s0" x="160.51" y="380.00" width="5.94" height="4.00" rx="0"><title>0.1 % everywhere, -1.0: 2.000</title></rect>
-<rect class="s1" x="168.45" y="384.00" width="5.94" height="0.50" rx="0"><title>0.1 % + 0.01 % matched pairs, -1.0: 0.000</title></rect>
-<text class="tick" x="167.5" y="402.0" text-anchor="middle">-1.0</text>
-<rect class="s0" x="177.86" y="362.00" width="5.94" height="22.00" rx="0"><title>0.1 % everywhere, -0.9: 11.000</title></rect>
-<rect class="s1" x="185.81" y="384.00" width="5.94" height="0.50" rx="0"><title>0.1 % + 0.01 % matched pairs, -0.9: 0.000</title></rect>
-<rect class="s0" x="195.22" y="364.00" width="5.94" height="20.00" rx="0"><title>0.1 % everywhere, -0.8: 10.000</title></rect>
-<rect class="s1" x="203.16" y="384.00" width="5.94" height="0.50" rx="0"><title>0.1 % + 0.01 % matched pairs, -0.8: 0.000</title></rect>
-<rect class="s0" x="212.57" y="358.00" width="5.94" height="26.00" rx="0"><title>0.1 % everywhere, -0.7: 13.000</title></rect>
-<rect class="s1" x="220.52" y="384.00" width="5.94" height="0.50" rx="0"><title>0.1 % + 0.01 % matched pairs, -0.7: 0.000</title></rect>
-<rect class="s0" x="229.93" y="350.00" width="5.94" height="34.00" rx="0"><title>0.1 % everywhere, -0.6: 17.000</title></rect>
-<rect class="s1" x="237.87" y="384.00" width="5.94" height="0.50" rx="0"><title>0.1 % + 0.01 % matched pairs, -0.6: 0.000</title></rect>
-<rect class="s0" x="247.28" y="348.00" width="5.94" height="36.00" rx="0"><title>0.1 % everywhere, -0.5: 18.000</title></rect>
-<rect class="s1" x="255.23" y="384.00" width="5.94" height="0.50" rx="0"><title>0.1 % + 0.01 % matched pairs, -0.5: 0.000</title></rect>
-<text class="tick" x="254.2" y="402.0" text-anchor="middle">-0.5</text>
-<rect class="s0" x="264.64" y="336.00" width="5.94" height="48.00" rx="0"><title>0.1 % everywhere, -0.4: 24.000</title></rect>
-<rect class="s1" x="272.58" y="374.00" width="5.94" height="10.00" rx="0"><title>0.1 % + 0.01 % matched pairs, -0.4: 5.000</title></rect>
-<rect class="s0" x="281.99" y="300.00" width="5.94" height="84.00" rx="0"><title>0.1 % everywhere, -0.3: 42.000</title></rect>
-<rect class="s1" x="289.94" y="324.00" width="5.94" height="60.00" rx="0"><title>0.1 % + 0.01 % matched pairs, -0.3: 30.000</title></rect>
-<rect class="s0" x="299.35" y="294.00" width="5.94" height="90.00" rx="0"><title>0.1 % everywhere, -0.2: 45.000</title></rect>
-<rect class="s1" x="307.29" y="274.00" width="5.94" height="110.00" rx="0"><title>0.1 % + 0.01 % matched pairs, -0.2: 55.000</title></rect>
-<rect class="s0" x="316.70" y="300.00" width="5.94" height="84.00" rx="0"><title>0.1 % everywhere, -0.1: 42.000</title></rect>
-<rect class="s1" x="324.65" y="178.00" width="5.94" height="206.00" rx="0"><title>0.1 % + 0.01 % matched pairs, -0.1: 103.000</title></rect>
-<rect class="s0" x="334.06" y="306.00" width="5.94" height="78.00" rx="0"><title>0.1 % everywhere, 0.0: 39.000</title></rect>
-<rect class="s1" x="342.00" y="152.00" width="5.94" height="232.00" rx="0"><title>0.1 % + 0.01 % matched pairs, 0.0: 116.000</title></rect>
-<text class="tick" x="341.0" y="402.0" text-anchor="middle">0.0</text>
-<rect class="s0" x="351.41" y="300.00" width="5.94" height="84.00" rx="0"><title>0.1 % everywhere, 0.1: 42.000</title></rect>
-<rect class="s1" x="359.35" y="174.00" width="5.94" height="210.00" rx="0"><title>0.1 % + 0.01 % matched pairs, 0.1: 105.000</title></rect>
-<rect class="s0" x="368.77" y="308.00" width="5.94" height="76.00" rx="0"><title>0.1 % everywhere, 0.2: 38.000</title></rect>
-<rect class="s1" x="376.71" y="262.00" width="5.94" height="122.00" rx="0"><title>0.1 % + 0.01 % matched pairs, 0.2: 61.000</title></rect>
-<rect class="s0" x="386.12" y="320.00" width="5.94" height="64.00" rx="0"><title>0.1 % everywhere, 0.3: 32.000</title></rect>
-<rect class="s1" x="394.06" y="340.00" width="5.94" height="44.00" rx="0"><title>0.1 % + 0.01 % matched pairs, 0.3: 22.000</title></rect>
-<rect class="s0" x="403.48" y="306.00" width="5.94" height="78.00" rx="0"><title>0.1 % everywhere, 0.4: 39.000</title></rect>
-<rect class="s1" x="411.42" y="378.00" width="5.94" height="6.00" rx="0"><title>0.1 % + 0.01 % matched pairs, 0.4: 3.000</title></rect>
-<rect class="s0" x="420.83" y="338.00" width="5.94" height="46.00" rx="0"><title>0.1 % everywhere, 0.5: 23.000</title></rect>
-<rect class="s1" x="428.77" y="384.00" width="5.94" height="0.50" rx="0"><title>0.1 % + 0.01 % matched pairs, 0.5: 0.000</title></rect>
-<text class="tick" x="427.8" y="402.0" text-anchor="middle">0.5</text>
-<rect class="s0" x="438.19" y="350.00" width="5.94" height="34.00" rx="0"><title>0.1 % everywhere, 0.6: 17.000</title></rect>
-<rect class="s1" x="446.13" y="384.00" width="5.94" height="0.50" rx="0"><title>0.1 % + 0.01 % matched pairs, 0.6: 0.000</title></rect>
-<rect class="s0" x="455.54" y="360.00" width="5.94" height="24.00" rx="0"><title>0.1 % everywhere, 0.7: 12.000</title></rect>
-<rect class="s1" x="463.48" y="384.00" width="5.94" height="0.50" rx="0"><title>0.1 % + 0.01 % matched pairs, 0.7: 0.000</title></rect>
-<rect class="s0" x="472.90" y="374.00" width="5.94" height="10.00" rx="0"><title>0.1 % everywhere, 0.8: 5.000</title></rect>
-<rect class="s1" x="480.84" y="384.00" width="5.94" height="0.50" rx="0"><title>0.1 % + 0.01 % matched pairs, 0.8: 0.000</title></rect>
-<rect class="s0" x="490.25" y="370.00" width="5.94" height="14.00" rx="0"><title>0.1 % everywhere, 0.9: 7.000</title></rect>
-<rect class="s1" x="498.19" y="384.00" width="5.94" height="0.50" rx="0"><title>0.1 % + 0.01 % matched pairs, 0.9: 0.000</title></rect>
-<rect class="s0" x="507.61" y="370.00" width="5.94" height="14.00" rx="0"><title>0.1 % everywhere, 1.0: 7.000</title></rect>
-<rect class="s1" x="515.55" y="384.00" width="5.94" height="0.50" rx="0"><title>0.1 % + 0.01 % matched pairs, 1.0: 0.000</title></rect>
-<text class="tick" x="514.5" y="402.0" text-anchor="middle">1.0</text>
-<rect class="s0" x="524.96" y="374.00" width="5.94" height="10.00" rx="0"><title>0.1 % everywhere, 1.1: 5.000</title></rect>
-<rect class="s1" x="532.90" y="384.00" width="5.94" height="0.50" rx="0"><title>0.1 % + 0.01 % matched pairs, 1.1: 0.000</title></rect>
-<rect class="s0" x="542.32" y="380.00" width="5.94" height="4.00" rx="0"><title>0.1 % everywhere, 1.2: 2.000</title></rect>
-<rect class="s1" x="550.26" y="384.00" width="5.94" height="0.50" rx="0"><title>0.1 % + 0.01 % matched pairs, 1.2: 0.000</title></rect>
-<rect class="s0" x="559.67" y="380.00" width="5.94" height="4.00" rx="0"><title>0.1 % everywhere, 1.3: 2.000</title></rect>
-<rect class="s1" x="567.61" y="384.00" width="5.94" height="0.50" rx="0"><title>0.1 % + 0.01 % matched pairs, 1.3: 0.000</title></rect>
-<rect class="s0" x="577.03" y="382.00" width="5.94" height="2.00" rx="0"><title>0.1 % everywhere, 1.4: 1.000</title></rect>
-<rect class="s1" x="584.97" y="384.00" width="5.94" height="0.50" rx="0"><title>0.1 % + 0.01 % matched pairs, 1.4: 0.000</title></rect>
-<rect class="s0" x="594.38" y="384.00" width="5.94" height="0.50" rx="0"><title>0.1 % everywhere, 1.5: 0.000</title></rect>
-<rect class="s1" x="602.32" y="384.00" width="5.94" height="0.50" rx="0"><title>0.1 % + 0.01 % matched pairs, 1.5: 0.000</title></rect>
-<text class="tick" x="601.3" y="402.0" text-anchor="middle">1.5</text>
-<line class="baseline" x1="72.0" x2="610.0" y1="384.0" y2="384.0"/>
-<text class="label" x="341.0" y="426.0" text-anchor="middle">error (% of full scale; edge bins include everything beyond)</text>
+<?xml version="1.0" encoding="utf-8"  standalone="no"?>
+<svg 
+ viewBox="0 0 760 440"
+ xmlns="http://www.w3.org/2000/svg"
+ xmlns:xlink="http://www.w3.org/1999/xlink"
+>
+
+<title>Gnuplot</title>
+<desc>Produced by GNUPLOT 6.0 patchlevel 0 </desc>
+
+<g id="gnuplot_canvas">
+
+<rect x="0" y="0" width="760" height="440" fill="#fcfcfb"/>
+<defs>
+
+	<circle id='gpDot' r='0.5' stroke-width='0.5' stroke='currentColor'/>
+	<path id='gpPt0' stroke-width='0.222' stroke='currentColor' d='M-1,0 h2 M0,-1 v2'/>
+	<path id='gpPt1' stroke-width='0.222' stroke='currentColor' d='M-1,-1 L1,1 M1,-1 L-1,1'/>
+	<path id='gpPt2' stroke-width='0.222' stroke='currentColor' d='M-1,0 L1,0 M0,-1 L0,1 M-1,-1 L1,1 M-1,1 L1,-1'/>
+	<rect id='gpPt3' stroke-width='0.222' stroke='currentColor' x='-1' y='-1' width='2' height='2'/>
+	<rect id='gpPt4' stroke-width='0.222' stroke='currentColor' fill='currentColor' x='-1' y='-1' width='2' height='2'/>
+	<circle id='gpPt5' stroke-width='0.222' stroke='currentColor' cx='0' cy='0' r='1'/>
+	<use xlink:href='#gpPt5' id='gpPt6' fill='currentColor' stroke='none'/>
+	<path id='gpPt7' stroke-width='0.222' stroke='currentColor' d='M0,-1.33 L-1.33,0.67 L1.33,0.67 z'/>
+	<use xlink:href='#gpPt7' id='gpPt8' fill='currentColor' stroke='none'/>
+	<use xlink:href='#gpPt7' id='gpPt9' stroke='currentColor' transform='rotate(180)'/>
+	<use xlink:href='#gpPt9' id='gpPt10' fill='currentColor' stroke='none'/>
+	<use xlink:href='#gpPt3' id='gpPt11' stroke='currentColor' transform='rotate(45)'/>
+	<use xlink:href='#gpPt11' id='gpPt12' fill='currentColor' stroke='none'/>
+	<path id='gpPt13' stroke-width='0.222' stroke='currentColor' d='M0,1.330 L1.265,0.411 L0.782,-1.067 L-0.782,-1.076 L-1.265,0.411 z'/>
+	<use xlink:href='#gpPt13' id='gpPt14' fill='currentColor' stroke='none'/>
+	<filter id='textbox' filterUnits='objectBoundingBox' x='0' y='0' height='1' width='1'>
+	  <feFlood flood-color='#FCFCFB' flood-opacity='1' result='bgnd'/>
+	  <feComposite in='SourceGraphic' in2='bgnd' operator='atop'/>
+	</filter>
+	<filter id='greybox' filterUnits='objectBoundingBox' x='0' y='0' height='1' width='1'>
+	  <feFlood flood-color='lightgrey' flood-opacity='1' result='grey'/>
+	  <feComposite in='SourceGraphic' in2='grey' operator='atop'/>
+	</filter>
+</defs>
+<g fill="none" color="#FCFCFB" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="gray" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(225, 224, 217)' stroke-dasharray='2,4' class="gridline"  d='M72.53,382.40 L734.82,382.40  '/></g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(195, 194, 183)'  d='M72.53,382.40 L81.53,382.40  '/>	<g transform="translate(64.14,386.30)" stroke="none" fill="rgb(137,135,129)" font-family="sans" font-size="12.00"  text-anchor="end">
+		<text><tspan font-family="sans" > 0</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="gray" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(225, 224, 217)' stroke-dasharray='2,4' class="gridline"  d='M72.53,330.44 L734.82,330.44  '/></g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(195, 194, 183)'  d='M72.53,330.44 L81.53,330.44  '/>	<g transform="translate(64.14,334.34)" stroke="none" fill="rgb(137,135,129)" font-family="sans" font-size="12.00"  text-anchor="end">
+		<text><tspan font-family="sans" > 20</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="gray" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(225, 224, 217)' stroke-dasharray='2,4' class="gridline"  d='M72.53,278.47 L734.82,278.47  '/></g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(195, 194, 183)'  d='M72.53,278.47 L81.53,278.47  '/>	<g transform="translate(64.14,282.37)" stroke="none" fill="rgb(137,135,129)" font-family="sans" font-size="12.00"  text-anchor="end">
+		<text><tspan font-family="sans" > 40</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="gray" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(225, 224, 217)' stroke-dasharray='2,4' class="gridline"  d='M72.53,226.51 L734.82,226.51  '/></g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(195, 194, 183)'  d='M72.53,226.51 L81.53,226.51  '/>	<g transform="translate(64.14,230.41)" stroke="none" fill="rgb(137,135,129)" font-family="sans" font-size="12.00"  text-anchor="end">
+		<text><tspan font-family="sans" > 60</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="gray" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(225, 224, 217)' stroke-dasharray='2,4' class="gridline"  d='M72.53,174.54 L734.82,174.54  '/></g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(195, 194, 183)'  d='M72.53,174.54 L81.53,174.54  '/>	<g transform="translate(64.14,178.44)" stroke="none" fill="rgb(137,135,129)" font-family="sans" font-size="12.00"  text-anchor="end">
+		<text><tspan font-family="sans" > 80</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="gray" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(225, 224, 217)' stroke-dasharray='2,4' class="gridline"  d='M72.53,122.58 L734.82,122.58  '/></g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(195, 194, 183)'  d='M72.53,122.58 L81.53,122.58  '/>	<g transform="translate(64.14,126.48)" stroke="none" fill="rgb(137,135,129)" font-family="sans" font-size="12.00"  text-anchor="end">
+		<text><tspan font-family="sans" > 100</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(195, 194, 183)'  d='M93.23,382.40 L93.23,373.40  '/>	<g transform="translate(93.23,404.30)" stroke="none" fill="rgb(137,135,129)" font-family="sans" font-size="12.00"  text-anchor="middle">
+		<text><tspan font-family="sans" >-1.5</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(195, 194, 183)'  d='M196.71,382.40 L196.71,373.40  '/>	<g transform="translate(196.71,404.30)" stroke="none" fill="rgb(137,135,129)" font-family="sans" font-size="12.00"  text-anchor="middle">
+		<text><tspan font-family="sans" >-1</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(195, 194, 183)'  d='M300.19,382.40 L300.19,373.40  '/>	<g transform="translate(300.19,404.30)" stroke="none" fill="rgb(137,135,129)" font-family="sans" font-size="12.00"  text-anchor="middle">
+		<text><tspan font-family="sans" >-0.5</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(195, 194, 183)'  d='M403.68,382.40 L403.68,373.40  '/>	<g transform="translate(403.68,404.30)" stroke="none" fill="rgb(137,135,129)" font-family="sans" font-size="12.00"  text-anchor="middle">
+		<text><tspan font-family="sans" > 0</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(195, 194, 183)'  d='M507.16,382.40 L507.16,373.40  '/>	<g transform="translate(507.16,404.30)" stroke="none" fill="rgb(137,135,129)" font-family="sans" font-size="12.00"  text-anchor="middle">
+		<text><tspan font-family="sans" > 0.5</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(195, 194, 183)'  d='M610.64,382.40 L610.64,373.40  '/>	<g transform="translate(610.64,404.30)" stroke="none" fill="rgb(137,135,129)" font-family="sans" font-size="12.00"  text-anchor="middle">
+		<text><tspan font-family="sans" > 1</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(195, 194, 183)'  d='M714.12,382.40 L714.12,373.40  '/>	<g transform="translate(714.12,404.30)" stroke="none" fill="rgb(137,135,129)" font-family="sans" font-size="12.00"  text-anchor="middle">
+		<text><tspan font-family="sans" > 1.5</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(195, 194, 183)'  d='M72.53,81.01 L72.53,382.40 L734.82,382.40 M734.82,81.01 M72.53,81.01  '/></g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+	<g id="gnuplot_plot_1" ><title>0.1 % everywhere</title>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g transform="translate(315.84,102.91)" stroke="none" fill="rgb(82,81,78)" font-family="sans" font-size="12.00"  text-anchor="end">
+		<text><tspan font-family="sans" >0.1 % everywhere</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g stroke='none' shape-rendering='crispEdges'>
+		<polygon fill = 'rgb( 42, 120, 214)' fill-opacity = '0.600000' points = '324.23,103.51 350.01,103.51 350.01,94.51 324.23,94.51 '/>
+		<polygon fill = 'rgb( 42, 120, 214)' fill-opacity = '0.600000' points = '125.31,382.40 143.94,382.40 143.94,379.79 125.31,379.79 '/>
+		<polygon fill = 'rgb( 42, 120, 214)' fill-opacity = '0.600000' points = '146.00,382.40 164.64,382.40 164.64,379.79 146.00,379.79 '/>
+		<polygon fill = 'rgb( 42, 120, 214)' fill-opacity = '0.600000' points = '166.70,382.40 185.34,382.40 185.34,374.60 166.70,374.60 '/>
+		<polygon fill = 'rgb( 42, 120, 214)' fill-opacity = '0.600000' points = '187.40,382.40 206.03,382.40 206.03,377.19 187.40,377.19 '/>
+		<polygon fill = 'rgb( 42, 120, 214)' fill-opacity = '0.600000' points = '208.09,382.40 226.73,382.40 226.73,353.81 208.09,353.81 '/>
+		<polygon fill = 'rgb( 42, 120, 214)' fill-opacity = '0.600000' points = '228.79,382.40 247.43,382.40 247.43,356.41 228.79,356.41 '/>
+		<polygon fill = 'rgb( 42, 120, 214)' fill-opacity = '0.600000' points = '249.49,382.40 268.12,382.40 268.12,348.61 249.49,348.61 '/>
+		<polygon fill = 'rgb( 42, 120, 214)' fill-opacity = '0.600000' points = '270.18,382.40 288.82,382.40 288.82,338.22 270.18,338.22 '/>
+		<polygon fill = 'rgb( 42, 120, 214)' fill-opacity = '0.600000' points = '290.88,382.40 309.52,382.40 309.52,335.62 290.88,335.62 '/>
+		<polygon fill = 'rgb( 42, 120, 214)' fill-opacity = '0.600000' points = '311.58,382.40 330.21,382.40 330.21,320.03 311.58,320.03 '/>
+		<polygon fill = 'rgb( 42, 120, 214)' fill-opacity = '0.600000' points = '332.27,382.40 350.91,382.40 350.91,273.27 332.27,273.27 '/>
+		<polygon fill = 'rgb( 42, 120, 214)' fill-opacity = '0.600000' points = '352.97,382.40 371.61,382.40 371.61,265.47 352.97,265.47 '/>
+		<polygon fill = 'rgb( 42, 120, 214)' fill-opacity = '0.600000' points = '373.66,382.40 392.30,382.40 392.30,273.27 373.66,273.27 '/>
+		<polygon fill = 'rgb( 42, 120, 214)' fill-opacity = '0.600000' points = '394.36,382.40 413.00,382.40 413.00,281.06 394.36,281.06 '/>
+		<polygon fill = 'rgb( 42, 120, 214)' fill-opacity = '0.600000' points = '415.06,382.40 433.70,382.40 433.70,273.27 415.06,273.27 '/>
+		<polygon fill = 'rgb( 42, 120, 214)' fill-opacity = '0.600000' points = '435.75,382.40 454.39,382.40 454.39,283.66 435.75,283.66 '/>
+		<polygon fill = 'rgb( 42, 120, 214)' fill-opacity = '0.600000' points = '456.45,382.40 475.09,382.40 475.09,299.25 456.45,299.25 '/>
+		<polygon fill = 'rgb( 42, 120, 214)' fill-opacity = '0.600000' points = '477.15,382.40 495.78,382.40 495.78,281.06 477.15,281.06 '/>
+		<polygon fill = 'rgb( 42, 120, 214)' fill-opacity = '0.600000' points = '497.84,382.40 516.48,382.40 516.48,322.63 497.84,322.63 '/>
+		<polygon fill = 'rgb( 42, 120, 214)' fill-opacity = '0.600000' points = '518.54,382.40 537.18,382.40 537.18,338.22 518.54,338.22 '/>
+		<polygon fill = 'rgb( 42, 120, 214)' fill-opacity = '0.600000' points = '539.24,382.40 557.87,382.40 557.87,351.21 539.24,351.21 '/>
+		<polygon fill = 'rgb( 42, 120, 214)' fill-opacity = '0.600000' points = '559.93,382.40 578.57,382.40 578.57,369.40 559.93,369.40 '/>
+		<polygon fill = 'rgb( 42, 120, 214)' fill-opacity = '0.600000' points = '580.63,382.40 599.27,382.40 599.27,364.20 580.63,364.20 '/>
+		<polygon fill = 'rgb( 42, 120, 214)' fill-opacity = '0.600000' points = '601.33,382.40 619.96,382.40 619.96,364.20 601.33,364.20 '/>
+		<polygon fill = 'rgb( 42, 120, 214)' fill-opacity = '0.600000' points = '622.02,382.40 640.66,382.40 640.66,369.40 622.02,369.40 '/>
+		<polygon fill = 'rgb( 42, 120, 214)' fill-opacity = '0.600000' points = '642.72,382.40 661.36,382.40 661.36,377.19 642.72,377.19 '/>
+		<polygon fill = 'rgb( 42, 120, 214)' fill-opacity = '0.600000' points = '663.42,382.40 682.05,382.40 682.05,377.19 663.42,377.19 '/>
+		<polygon fill = 'rgb( 42, 120, 214)' fill-opacity = '0.600000' points = '684.11,382.40 702.75,382.40 702.75,379.79 684.11,379.79 '/>
+	</g>
+</g>
+	</g>
+	<g id="gnuplot_plot_2" ><title>0.1 % + 0.01 % matched pairs</title>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g transform="translate(593.32,102.91)" stroke="none" fill="rgb(82,81,78)" font-family="sans" font-size="12.00"  text-anchor="end">
+		<text><tspan font-family="sans" >0.1 % + 0.01 % matched pairs</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g stroke='none' shape-rendering='crispEdges'>
+		<polygon fill = 'rgb(235, 104,  52)' fill-opacity = '0.600000' points = '601.71,103.51 627.49,103.51 627.49,94.51 601.71,94.51 '/>
+		<polygon fill = 'rgb(235, 104,  52)' fill-opacity = '0.600000' points = '311.58,382.40 330.21,382.40 330.21,369.40 311.58,369.40 '/>
+		<polygon fill = 'rgb(235, 104,  52)' fill-opacity = '0.600000' points = '332.27,382.40 350.91,382.40 350.91,304.44 332.27,304.44 '/>
+		<polygon fill = 'rgb(235, 104,  52)' fill-opacity = '0.600000' points = '352.97,382.40 371.61,382.40 371.61,239.49 352.97,239.49 '/>
+		<polygon fill = 'rgb(235, 104,  52)' fill-opacity = '0.600000' points = '373.66,382.40 392.30,382.40 392.30,114.78 373.66,114.78 '/>
+		<polygon fill = 'rgb(235, 104,  52)' fill-opacity = '0.600000' points = '394.36,382.40 413.00,382.40 413.00,81.00 394.36,81.00 '/>
+		<polygon fill = 'rgb(235, 104,  52)' fill-opacity = '0.600000' points = '415.06,382.40 433.70,382.40 433.70,109.58 415.06,109.58 '/>
+		<polygon fill = 'rgb(235, 104,  52)' fill-opacity = '0.600000' points = '435.75,382.40 454.39,382.40 454.39,223.90 435.75,223.90 '/>
+		<polygon fill = 'rgb(235, 104,  52)' fill-opacity = '0.600000' points = '456.45,382.40 475.09,382.40 475.09,325.23 456.45,325.23 '/>
+		<polygon fill = 'rgb(235, 104,  52)' fill-opacity = '0.600000' points = '477.15,382.40 495.78,382.40 495.78,374.60 477.15,374.60 '/>
+	</g>
+</g>
+	</g>
+<g fill="none" color="#FCFCFB" stroke="rgb(235, 104,  52)" stroke-width="2.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="2.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="black" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(195, 194, 183)'  d='M72.53,81.01 L72.53,382.40 L734.82,382.40 M734.82,81.01 M72.53,81.01  '/>	<g transform="translate(19.18,231.71) rotate(270.00)" stroke="none" fill="rgb(82,81,78)" font-family="sans" font-size="12.00"  text-anchor="middle">
+		<text><tspan font-family="sans" >builds per 0.1 % bin</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g transform="translate(403.67,431.30)" stroke="none" fill="rgb(82,81,78)" font-family="sans" font-size="12.00"  text-anchor="middle">
+		<text><tspan font-family="sans" >error (% of full scale)</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g transform="translate(403.67,31.89)" stroke="none" fill="rgb(11,11,11)" font-family="sans" font-size="15.00"  text-anchor="middle">
+		<text><tspan font-family="sans" >Resistor tolerance late in the game</tspan></text>
+	</g>
+	<g transform="translate(403.67,54.39)" stroke="none" fill="rgb(11,11,11)" font-family="sans" font-size="15.00"  text-anchor="middle">
+		<text><tspan font-family="sans"  font-size="12.0">500 random builds each. Void stacked, 30 played, 24 danger played: 8 of 10 left = 80 %</tspan><tspan font-size="15.0" dy="0.00"></tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+</g>
 </svg>
+

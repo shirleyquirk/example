@@ -248,9 +248,11 @@ simpler.
 
 ## Files
 
-- `plates.nim`: plate geometry and SVG output (`nim plates`).
+- `plates.nim`: plate geometry and SVG output; `genplates.nim` writes them (`nim plates`).
 - `icons/`: traced biome icons (`nim icons`) and their source image.
-- `plates/`: generated laser files.
-- `simgen.nim`: generates the chain netlist for a game situation (`nim sim`).
-- `sim/divider.cir`: stand-alone divider simulation.
+- `simgen.nim`, `experiments.nim`: netlist generators for the chain, divider and Monte Carlo.
+- `results.nim`: runs ngspice in parallel, writes `results/*.csv` and the report
+  (`nim results`; `nim sim` runs just the whole-chain check).
+- `plots.gp`: gnuplot script drawing `results/*.svg` from the CSVs.
+- `sim/divider.cir`: stand-alone divider netlist.
 - `../tests/test_plates.nim`: checks the optics against the app for every stack.

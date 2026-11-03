@@ -1,1501 +1,1501 @@
-config,trial,error_pct_fs
-"1 % everywhere",0,-0.3130
-"1 % everywhere",1,4.9891
-"1 % everywhere",2,-0.3159
-"1 % everywhere",3,8.8743
-"1 % everywhere",4,-2.0343
-"1 % everywhere",5,1.1336
-"1 % everywhere",6,1.5620
-"1 % everywhere",7,-4.4058
-"1 % everywhere",8,0.6705
-"1 % everywhere",9,2.9116
-"1 % everywhere",10,6.7642
-"1 % everywhere",11,-5.0266
-"1 % everywhere",12,6.4913
-"1 % everywhere",13,9.9039
-"1 % everywhere",14,12.2620
-"1 % everywhere",15,5.1769
-"1 % everywhere",16,8.6100
-"1 % everywhere",17,0.5407
-"1 % everywhere",18,2.8938
-"1 % everywhere",19,3.6155
-"1 % everywhere",20,6.5401
-"1 % everywhere",21,-1.6275
-"1 % everywhere",22,-6.7505
-"1 % everywhere",23,-1.9176
-"1 % everywhere",24,-0.4151
-"1 % everywhere",25,-1.2423
-"1 % everywhere",26,2.1537
-"1 % everywhere",27,-3.2785
-"1 % everywhere",28,-3.8005
-"1 % everywhere",29,3.7367
-"1 % everywhere",30,2.2667
-"1 % everywhere",31,4.8886
-"1 % everywhere",32,2.5377
-"1 % everywhere",33,-1.9066
-"1 % everywhere",34,-8.0252
-"1 % everywhere",35,-3.4998
-"1 % everywhere",36,10.2924
-"1 % everywhere",37,-2.8515
-"1 % everywhere",38,1.3970
-"1 % everywhere",39,-7.8156
-"1 % everywhere",40,-0.1016
-"1 % everywhere",41,-5.9920
-"1 % everywhere",42,-3.8647
-"1 % everywhere",43,-5.2196
-"1 % everywhere",44,5.5336
-"1 % everywhere",45,1.5505
-"1 % everywhere",46,-1.0961
-"1 % everywhere",47,-1.1789
-"1 % everywhere",48,-2.1620
-"1 % everywhere",49,-5.1200
-"1 % everywhere",50,-0.5360
-"1 % everywhere",51,5.3596
-"1 % everywhere",52,2.5721
-"1 % everywhere",53,5.4038
-"1 % everywhere",54,4.2904
-"1 % everywhere",55,1.5988
-"1 % everywhere",56,-0.0105
-"1 % everywhere",57,6.0843
-"1 % everywhere",58,3.2371
-"1 % everywhere",59,-7.0977
-"1 % everywhere",60,-7.3964
-"1 % everywhere",61,4.1793
-"1 % everywhere",62,-2.2347
-"1 % everywhere",63,2.4394
-"1 % everywhere",64,-0.3108
-"1 % everywhere",65,2.7606
-"1 % everywhere",66,2.0350
-"1 % everywhere",67,0.7859
-"1 % everywhere",68,-5.0905
-"1 % everywhere",69,-6.4759
-"1 % everywhere",70,-0.2675
-"1 % everywhere",71,-3.6556
-"1 % everywhere",72,-2.5466
-"1 % everywhere",73,-2.8763
-"1 % everywhere",74,12.5848
-"1 % everywhere",75,-2.5273
-"1 % everywhere",76,0.4499
-"1 % everywhere",77,-5.6001
-"1 % everywhere",78,-1.2380
-"1 % everywhere",79,4.6910
-"1 % everywhere",80,-0.6345
-"1 % everywhere",81,-0.3753
-"1 % everywhere",82,-5.3029
-"1 % everywhere",83,2.4801
-"1 % everywhere",84,2.0397
-"1 % everywhere",85,1.3353
-"1 % everywhere",86,4.9350
-"1 % everywhere",87,0.9579
-"1 % everywhere",88,7.1341
-"1 % everywhere",89,9.6365
-"1 % everywhere",90,-4.9885
-"1 % everywhere",91,-4.1527
-"1 % everywhere",92,-1.5984
-"1 % everywhere",93,4.4614
-"1 % everywhere",94,-3.5687
-"1 % everywhere",95,-5.0751
-"1 % everywhere",96,1.6645
-"1 % everywhere",97,3.2897
-"1 % everywhere",98,4.6615
-"1 % everywhere",99,-7.8156
-"1 % everywhere",100,-2.2399
-"1 % everywhere",101,-5.4018
-"1 % everywhere",102,11.7419
-"1 % everywhere",103,-4.7525
-"1 % everywhere",104,-2.2660
-"1 % everywhere",105,-4.2115
-"1 % everywhere",106,0.5278
-"1 % everywhere",107,-2.9732
-"1 % everywhere",108,5.7956
-"1 % everywhere",109,5.8610
-"1 % everywhere",110,1.2462
-"1 % everywhere",111,0.8315
-"1 % everywhere",112,-2.3594
-"1 % everywhere",113,-4.2917
-"1 % everywhere",114,-4.6631
-"1 % everywhere",115,-4.1241
-"1 % everywhere",116,1.8504
-"1 % everywhere",117,5.7363
-"1 % everywhere",118,3.7886
-"1 % everywhere",119,-5.5306
-"1 % everywhere",120,3.4765
-"1 % everywhere",121,-1.1678
-"1 % everywhere",122,-1.9831
-"1 % everywhere",123,9.2305
-"1 % everywhere",124,1.0002
-"1 % everywhere",125,9.2924
-"1 % everywhere",126,-4.5080
-"1 % everywhere",127,0.1248
-"1 % everywhere",128,-3.9473
-"1 % everywhere",129,-5.1216
-"1 % everywhere",130,-5.9811
-"1 % everywhere",131,3.0428
-"1 % everywhere",132,7.3020
-"1 % everywhere",133,5.4616
-"1 % everywhere",134,8.2833
-"1 % everywhere",135,-7.6535
-"1 % everywhere",136,4.3282
-"1 % everywhere",137,-2.4140
-"1 % everywhere",138,2.3975
-"1 % everywhere",139,7.5319
-"1 % everywhere",140,-1.4813
-"1 % everywhere",141,-7.9522
-"1 % everywhere",142,4.7377
-"1 % everywhere",143,-5.8536
-"1 % everywhere",144,5.4067
-"1 % everywhere",145,0.3581
-"1 % everywhere",146,2.9853
-"1 % everywhere",147,4.5553
-"1 % everywhere",148,-7.4499
-"1 % everywhere",149,-0.8171
-"1 % everywhere",150,0.3956
-"1 % everywhere",151,5.7010
-"1 % everywhere",152,-3.3514
-"1 % everywhere",153,0.1395
-"1 % everywhere",154,4.7755
-"1 % everywhere",155,-6.2797
-"1 % everywhere",156,1.6478
-"1 % everywhere",157,0.5247
-"1 % everywhere",158,11.9469
-"1 % everywhere",159,-0.3912
-"1 % everywhere",160,12.9693
-"1 % everywhere",161,2.7243
-"1 % everywhere",162,-6.6141
-"1 % everywhere",163,3.5488
-"1 % everywhere",164,1.3630
-"1 % everywhere",165,-0.0569
-"1 % everywhere",166,-3.4052
-"1 % everywhere",167,-1.4585
-"1 % everywhere",168,1.5623
-"1 % everywhere",169,7.7986
-"1 % everywhere",170,3.5590
-"1 % everywhere",171,1.0579
-"1 % everywhere",172,2.1418
-"1 % everywhere",173,-8.5242
-"1 % everywhere",174,-5.6742
-"1 % everywhere",175,1.1263
-"1 % everywhere",176,-2.4981
-"1 % everywhere",177,4.7291
-"1 % everywhere",178,-1.0871
-"1 % everywhere",179,-5.7239
-"1 % everywhere",180,-0.8506
-"1 % everywhere",181,-0.1614
-"1 % everywhere",182,1.2252
-"1 % everywhere",183,3.4677
-"1 % everywhere",184,-7.1217
-"1 % everywhere",185,6.4724
-"1 % everywhere",186,-0.7965
-"1 % everywhere",187,-5.6143
-"1 % everywhere",188,-4.6723
-"1 % everywhere",189,-2.8116
-"1 % everywhere",190,0.5791
-"1 % everywhere",191,4.8459
-"1 % everywhere",192,-4.6214
-"1 % everywhere",193,-3.1882
-"1 % everywhere",194,2.9643
-"1 % everywhere",195,4.4704
-"1 % everywhere",196,5.7800
-"1 % everywhere",197,-6.0511
-"1 % everywhere",198,-0.7438
-"1 % everywhere",199,2.7950
-"1 % everywhere",200,0.4326
-"1 % everywhere",201,-1.8080
-"1 % everywhere",202,1.4630
-"1 % everywhere",203,1.9281
-"1 % everywhere",204,1.3341
-"1 % everywhere",205,-2.5977
-"1 % everywhere",206,-8.9863
-"1 % everywhere",207,6.0014
-"1 % everywhere",208,-3.0370
-"1 % everywhere",209,-4.9223
-"1 % everywhere",210,-2.4361
-"1 % everywhere",211,-7.2285
-"1 % everywhere",212,-4.1963
-"1 % everywhere",213,2.7435
-"1 % everywhere",214,-3.0500
-"1 % everywhere",215,0.6038
-"1 % everywhere",216,-10.0910
-"1 % everywhere",217,0.1965
-"1 % everywhere",218,5.0965
-"1 % everywhere",219,-2.9223
-"1 % everywhere",220,12.4587
-"1 % everywhere",221,5.3840
-"1 % everywhere",222,-5.4050
-"1 % everywhere",223,1.7525
-"1 % everywhere",224,-3.9775
-"1 % everywhere",225,-2.1776
-"1 % everywhere",226,-8.0772
-"1 % everywhere",227,3.0397
-"1 % everywhere",228,-2.0070
-"1 % everywhere",229,7.0160
-"1 % everywhere",230,5.5409
-"1 % everywhere",231,-3.3833
-"1 % everywhere",232,-9.4933
-"1 % everywhere",233,-6.8347
-"1 % everywhere",234,-3.4224
-"1 % everywhere",235,-2.5684
-"1 % everywhere",236,6.2721
-"1 % everywhere",237,-4.1422
-"1 % everywhere",238,-8.2513
-"1 % everywhere",239,2.5520
-"1 % everywhere",240,1.1942
-"1 % everywhere",241,0.4108
-"1 % everywhere",242,3.6293
-"1 % everywhere",243,1.6665
-"1 % everywhere",244,0.5869
-"1 % everywhere",245,3.1865
-"1 % everywhere",246,2.9722
-"1 % everywhere",247,-0.6444
-"1 % everywhere",248,-2.4020
-"1 % everywhere",249,0.3266
-"1 % everywhere",250,-2.7552
-"1 % everywhere",251,3.1430
-"1 % everywhere",252,2.9907
-"1 % everywhere",253,0.7120
-"1 % everywhere",254,3.9208
-"1 % everywhere",255,0.4437
-"1 % everywhere",256,2.9373
-"1 % everywhere",257,-5.3700
-"1 % everywhere",258,-2.7086
-"1 % everywhere",259,-0.6857
-"1 % everywhere",260,-5.6455
-"1 % everywhere",261,3.4371
-"1 % everywhere",262,0.8182
-"1 % everywhere",263,-1.5308
-"1 % everywhere",264,2.6215
-"1 % everywhere",265,2.5276
-"1 % everywhere",266,3.3368
-"1 % everywhere",267,3.6686
-"1 % everywhere",268,-2.4758
-"1 % everywhere",269,3.2706
-"1 % everywhere",270,0.9833
-"1 % everywhere",271,7.8004
-"1 % everywhere",272,0.0364
-"1 % everywhere",273,-1.0345
-"1 % everywhere",274,6.9338
-"1 % everywhere",275,-3.5534
-"1 % everywhere",276,-0.9173
-"1 % everywhere",277,1.2313
-"1 % everywhere",278,-6.0092
-"1 % everywhere",279,-4.5848
-"1 % everywhere",280,3.5855
-"1 % everywhere",281,3.5567
-"1 % everywhere",282,-2.1147
-"1 % everywhere",283,4.4639
-"1 % everywhere",284,0.5486
-"1 % everywhere",285,8.6364
-"1 % everywhere",286,-9.5043
-"1 % everywhere",287,-6.6502
-"1 % everywhere",288,9.2106
-"1 % everywhere",289,-3.2100
-"1 % everywhere",290,-11.3223
-"1 % everywhere",291,-6.6866
-"1 % everywhere",292,-5.0439
-"1 % everywhere",293,0.0855
-"1 % everywhere",294,-4.9958
-"1 % everywhere",295,-8.3384
-"1 % everywhere",296,-4.0387
-"1 % everywhere",297,-4.8931
-"1 % everywhere",298,1.8786
-"1 % everywhere",299,3.8937
-"1 % everywhere",300,4.6281
-"1 % everywhere",301,3.0427
-"1 % everywhere",302,1.9442
-"1 % everywhere",303,-1.1913
-"1 % everywhere",304,-10.7211
-"1 % everywhere",305,-1.8475
-"1 % everywhere",306,0.3139
-"1 % everywhere",307,-4.9376
-"1 % everywhere",308,0.4544
-"1 % everywhere",309,-3.8063
-"1 % everywhere",310,-4.9683
-"1 % everywhere",311,-2.6439
-"1 % everywhere",312,1.9983
-"1 % everywhere",313,2.5819
-"1 % everywhere",314,2.2861
-"1 % everywhere",315,-5.1662
-"1 % everywhere",316,2.5979
-"1 % everywhere",317,-1.0708
-"1 % everywhere",318,2.3265
-"1 % everywhere",319,-1.0726
-"1 % everywhere",320,1.3340
-"1 % everywhere",321,-6.2698
-"1 % everywhere",322,-5.2450
-"1 % everywhere",323,4.9568
-"1 % everywhere",324,5.3258
-"1 % everywhere",325,4.2990
-"1 % everywhere",326,4.9084
-"1 % everywhere",327,3.5113
-"1 % everywhere",328,-2.2737
-"1 % everywhere",329,6.1086
-"1 % everywhere",330,-2.7365
-"1 % everywhere",331,1.3272
-"1 % everywhere",332,10.1242
-"1 % everywhere",333,-1.7990
-"1 % everywhere",334,2.9217
-"1 % everywhere",335,-2.5082
-"1 % everywhere",336,0.7062
-"1 % everywhere",337,-0.8978
-"1 % everywhere",338,-4.5519
-"1 % everywhere",339,-5.1383
-"1 % everywhere",340,-0.7231
-"1 % everywhere",341,-1.0918
-"1 % everywhere",342,1.4703
-"1 % everywhere",343,4.7335
-"1 % everywhere",344,-2.6294
-"1 % everywhere",345,5.5530
-"1 % everywhere",346,-4.0138
-"1 % everywhere",347,-6.7789
-"1 % everywhere",348,2.4899
-"1 % everywhere",349,-4.0953
-"1 % everywhere",350,-1.9614
-"1 % everywhere",351,-3.0085
-"1 % everywhere",352,0.5325
-"1 % everywhere",353,-1.7214
-"1 % everywhere",354,1.3323
-"1 % everywhere",355,-0.6704
-"1 % everywhere",356,-6.4476
-"1 % everywhere",357,-6.4742
-"1 % everywhere",358,-1.4044
-"1 % everywhere",359,-3.3830
-"1 % everywhere",360,7.6789
-"1 % everywhere",361,11.2905
-"1 % everywhere",362,4.8908
-"1 % everywhere",363,10.2300
-"1 % everywhere",364,6.7601
-"1 % everywhere",365,-2.0903
-"1 % everywhere",366,-4.7489
-"1 % everywhere",367,0.5656
-"1 % everywhere",368,0.2883
-"1 % everywhere",369,-3.8866
-"1 % everywhere",370,0.4938
-"1 % everywhere",371,-2.7711
-"1 % everywhere",372,-1.4326
-"1 % everywhere",373,-6.0781
-"1 % everywhere",374,0.3953
-"1 % everywhere",375,0.9947
-"1 % everywhere",376,-0.0594
-"1 % everywhere",377,-1.1588
-"1 % everywhere",378,-0.2882
-"1 % everywhere",379,5.9562
-"1 % everywhere",380,0.9253
-"1 % everywhere",381,-0.5804
-"1 % everywhere",382,-4.0623
-"1 % everywhere",383,2.8887
-"1 % everywhere",384,-4.3033
-"1 % everywhere",385,-3.9898
-"1 % everywhere",386,-3.3971
-"1 % everywhere",387,6.5830
-"1 % everywhere",388,6.2094
-"1 % everywhere",389,1.8660
-"1 % everywhere",390,-4.2707
-"1 % everywhere",391,2.0324
-"1 % everywhere",392,-1.9258
-"1 % everywhere",393,-5.0844
-"1 % everywhere",394,2.2756
-"1 % everywhere",395,3.5705
-"1 % everywhere",396,-2.2425
-"1 % everywhere",397,-0.6697
-"1 % everywhere",398,-8.5234
-"1 % everywhere",399,-5.4541
-"1 % everywhere",400,-4.2956
-"1 % everywhere",401,1.9386
-"1 % everywhere",402,-4.5517
-"1 % everywhere",403,-5.4184
-"1 % everywhere",404,0.9611
-"1 % everywhere",405,0.6300
-"1 % everywhere",406,3.1775
-"1 % everywhere",407,4.9422
-"1 % everywhere",408,-0.7148
-"1 % everywhere",409,2.3534
-"1 % everywhere",410,-5.7399
-"1 % everywhere",411,-6.4928
-"1 % everywhere",412,-9.6291
-"1 % everywhere",413,-2.4659
-"1 % everywhere",414,3.7124
-"1 % everywhere",415,-3.9957
-"1 % everywhere",416,7.1936
-"1 % everywhere",417,-0.7887
-"1 % everywhere",418,2.4783
-"1 % everywhere",419,2.6306
-"1 % everywhere",420,-3.2839
-"1 % everywhere",421,-1.1384
-"1 % everywhere",422,-4.3776
-"1 % everywhere",423,-4.0361
-"1 % everywhere",424,-5.5822
-"1 % everywhere",425,2.9812
-"1 % everywhere",426,3.5678
-"1 % everywhere",427,-0.8563
-"1 % everywhere",428,-5.3128
-"1 % everywhere",429,-5.4690
-"1 % everywhere",430,-6.2803
-"1 % everywhere",431,-1.6706
-"1 % everywhere",432,-7.1261
-"1 % everywhere",433,0.8639
-"1 % everywhere",434,-5.2508
-"1 % everywhere",435,-3.0165
-"1 % everywhere",436,3.6968
-"1 % everywhere",437,0.4162
-"1 % everywhere",438,10.5986
-"1 % everywhere",439,0.9911
-"1 % everywhere",440,-2.6248
-"1 % everywhere",441,2.7220
-"1 % everywhere",442,-5.2974
-"1 % everywhere",443,3.8938
-"1 % everywhere",444,0.0062
-"1 % everywhere",445,0.2249
-"1 % everywhere",446,2.4257
-"1 % everywhere",447,4.9621
-"1 % everywhere",448,-0.2555
-"1 % everywhere",449,8.8214
-"1 % everywhere",450,-2.2766
-"1 % everywhere",451,-1.8704
-"1 % everywhere",452,-4.5521
-"1 % everywhere",453,-0.2946
-"1 % everywhere",454,-0.7050
-"1 % everywhere",455,6.7469
-"1 % everywhere",456,6.2221
-"1 % everywhere",457,0.1187
-"1 % everywhere",458,2.9095
-"1 % everywhere",459,-6.0371
-"1 % everywhere",460,-3.6220
-"1 % everywhere",461,2.2258
-"1 % everywhere",462,1.3246
-"1 % everywhere",463,2.2019
-"1 % everywhere",464,2.1861
-"1 % everywhere",465,4.2418
-"1 % everywhere",466,1.4660
-"1 % everywhere",467,5.7116
-"1 % everywhere",468,-3.4983
-"1 % everywhere",469,1.4275
-"1 % everywhere",470,1.6128
-"1 % everywhere",471,-6.5167
-"1 % everywhere",472,4.0955
-"1 % everywhere",473,9.7846
-"1 % everywhere",474,2.8965
-"1 % everywhere",475,3.6298
-"1 % everywhere",476,-9.8564
-"1 % everywhere",477,-4.7056
-"1 % everywhere",478,-0.9940
-"1 % everywhere",479,0.2611
-"1 % everywhere",480,7.0225
-"1 % everywhere",481,1.2341
-"1 % everywhere",482,-3.6580
-"1 % everywhere",483,-5.4126
-"1 % everywhere",484,9.9708
-"1 % everywhere",485,8.0028
-"1 % everywhere",486,8.3864
-"1 % everywhere",487,-0.6397
-"1 % everywhere",488,4.3729
-"1 % everywhere",489,4.3285
-"1 % everywhere",490,-1.3423
-"1 % everywhere",491,4.8951
-"1 % everywhere",492,-7.2843
-"1 % everywhere",493,-0.9473
-"1 % everywhere",494,3.9701
-"1 % everywhere",495,-0.2202
-"1 % everywhere",496,12.1078
-"1 % everywhere",497,-3.0435
-"1 % everywhere",498,1.7894
-"1 % everywhere",499,1.3724
-"0.1 % everywhere",0,-1.3048
-"0.1 % everywhere",1,0.8482
-"0.1 % everywhere",2,-0.4786
-"0.1 % everywhere",3,0.0426
-"0.1 % everywhere",4,-0.5403
-"0.1 % everywhere",5,0.1235
-"0.1 % everywhere",6,0.3884
-"0.1 % everywhere",7,-0.5216
-"0.1 % everywhere",8,0.4227
-"0.1 % everywhere",9,-0.4153
-"0.1 % everywhere",10,0.0040
-"0.1 % everywhere",11,0.1304
-"0.1 % everywhere",12,-0.2022
-"0.1 % everywhere",13,-0.5261
-"0.1 % everywhere",14,0.1513
-"0.1 % everywhere",15,-0.2241
-"0.1 % everywhere",16,-0.0283
-"0.1 % everywhere",17,-0.3191
-"0.1 % everywhere",18,0.1897
-"0.1 % everywhere",19,0.3581
-"0.1 % everywhere",20,0.2799
-"0.1 % everywhere",21,1.3042
-"0.1 % everywhere",22,-0.2763
-"0.1 % everywhere",23,0.3720
-"0.1 % everywhere",24,0.5754
-"0.1 % everywhere",25,0.1050
-"0.1 % everywhere",26,-0.1369
-"0.1 % everywhere",27,0.1287
-"0.1 % everywhere",28,0.3755
-"0.1 % everywhere",29,-0.1203
-"0.1 % everywhere",30,0.6682
-"0.1 % everywhere",31,-0.3019
-"0.1 % everywhere",32,-0.1346
-"0.1 % everywhere",33,-0.4441
-"0.1 % everywhere",34,0.2792
-"0.1 % everywhere",35,-0.1134
-"0.1 % everywhere",36,-0.9442
-"0.1 % everywhere",37,-0.2261
-"0.1 % everywhere",38,0.0341
-"0.1 % everywhere",39,-0.1281
-"0.1 % everywhere",40,0.1319
-"0.1 % everywhere",41,-0.7316
-"0.1 % everywhere",42,-0.3537
-"0.1 % everywhere",43,-0.1237
-"0.1 % everywhere",44,0.2780
-"0.1 % everywhere",45,0.7970
-"0.1 % everywhere",46,-0.3616
-"0.1 % everywhere",47,0.5843
-"0.1 % everywhere",48,0.7818
-"0.1 % everywhere",49,-0.1686
-"0.1 % everywhere",50,0.3349
-"0.1 % everywhere",51,-0.3096
-"0.1 % everywhere",52,0.3784
-"0.1 % everywhere",53,-0.2966
-"0.1 % everywhere",54,-0.2027
-"0.1 % everywhere",55,0.0754
-"0.1 % everywhere",56,0.3768
-"0.1 % everywhere",57,-0.5530
-"0.1 % everywhere",58,-0.2791
-"0.1 % everywhere",59,0.4413
-"0.1 % everywhere",60,0.3821
-"0.1 % everywhere",61,-0.1968
-"0.1 % everywhere",62,-0.0905
-"0.1 % everywhere",63,-0.4683
-"0.1 % everywhere",64,0.4491
-"0.1 % everywhere",65,0.2087
-"0.1 % everywhere",66,-0.2336
-"0.1 % everywhere",67,-0.3851
-"0.1 % everywhere",68,-0.6428
-"0.1 % everywhere",69,-0.7138
-"0.1 % everywhere",70,0.0149
-"0.1 % everywhere",71,0.1792
-"0.1 % everywhere",72,0.2098
-"0.1 % everywhere",73,-0.6311
-"0.1 % everywhere",74,0.7068
-"0.1 % everywhere",75,0.7537
-"0.1 % everywhere",76,0.0646
-"0.1 % everywhere",77,-0.0390
-"0.1 % everywhere",78,-0.0498
-"0.1 % everywhere",79,0.7178
-"0.1 % everywhere",80,0.0434
-"0.1 % everywhere",81,-0.2570
-"0.1 % everywhere",82,-0.0935
-"0.1 % everywhere",83,-0.2485
-"0.1 % everywhere",84,-0.2481
-"0.1 % everywhere",85,0.2717
-"0.1 % everywhere",86,0.1301
-"0.1 % everywhere",87,-0.6094
-"0.1 % everywhere",88,0.5307
-"0.1 % everywhere",89,0.1542
-"0.1 % everywhere",90,-0.1684
-"0.1 % everywhere",91,-0.2921
-"0.1 % everywhere",92,-1.0021
-"0.1 % everywhere",93,-0.0357
-"0.1 % everywhere",94,-0.5401
-"0.1 % everywhere",95,-0.2626
-"0.1 % everywhere",96,0.0139
-"0.1 % everywhere",97,-0.1634
-"0.1 % everywhere",98,0.1257
-"0.1 % everywhere",99,-0.2171
-"0.1 % everywhere",100,-0.5642
-"0.1 % everywhere",101,-0.6542
-"0.1 % everywhere",102,-0.1541
-"0.1 % everywhere",103,0.1298
-"0.1 % everywhere",104,0.7425
-"0.1 % everywhere",105,0.1838
-"0.1 % everywhere",106,-0.0073
-"0.1 % everywhere",107,-0.9617
-"0.1 % everywhere",108,0.4309
-"0.1 % everywhere",109,-0.3300
-"0.1 % everywhere",110,0.4458
-"0.1 % everywhere",111,0.0157
-"0.1 % everywhere",112,-0.0737
-"0.1 % everywhere",113,0.6280
-"0.1 % everywhere",114,0.7133
-"0.1 % everywhere",115,0.8925
-"0.1 % everywhere",116,-0.6725
-"0.1 % everywhere",117,1.0175
-"0.1 % everywhere",118,-0.2545
-"0.1 % everywhere",119,-0.3894
-"0.1 % everywhere",120,-0.7631
-"0.1 % everywhere",121,-0.2725
-"0.1 % everywhere",122,-0.2338
-"0.1 % everywhere",123,0.0414
-"0.1 % everywhere",124,-0.5761
-"0.1 % everywhere",125,0.1067
-"0.1 % everywhere",126,-0.5181
-"0.1 % everywhere",127,-0.1054
-"0.1 % everywhere",128,0.4527
-"0.1 % everywhere",129,-0.3152
-"0.1 % everywhere",130,-0.1729
-"0.1 % everywhere",131,0.1078
-"0.1 % everywhere",132,0.0550
-"0.1 % everywhere",133,-0.4245
-"0.1 % everywhere",134,-0.0850
-"0.1 % everywhere",135,-0.0858
-"0.1 % everywhere",136,-0.6912
-"0.1 % everywhere",137,0.3724
-"0.1 % everywhere",138,0.6623
-"0.1 % everywhere",139,0.1367
-"0.1 % everywhere",140,0.1894
-"0.1 % everywhere",141,0.2161
-"0.1 % everywhere",142,0.5129
-"0.1 % everywhere",143,0.6674
-"0.1 % everywhere",144,1.2999
-"0.1 % everywhere",145,0.0465
-"0.1 % everywhere",146,0.3625
-"0.1 % everywhere",147,0.3072
-"0.1 % everywhere",148,-0.2877
-"0.1 % everywhere",149,0.2449
-"0.1 % everywhere",150,-0.7533
-"0.1 % everywhere",151,-0.0285
-"0.1 % everywhere",152,0.4329
-"0.1 % everywhere",153,-0.2340
-"0.1 % everywhere",154,-0.2323
-"0.1 % everywhere",155,0.1062
-"0.1 % everywhere",156,0.9393
-"0.1 % everywhere",157,-0.4601
-"0.1 % everywhere",158,0.2363
-"0.1 % everywhere",159,0.0828
-"0.1 % everywhere",160,0.5612
-"0.1 % everywhere",161,0.4424
-"0.1 % everywhere",162,-0.6850
-"0.1 % everywhere",163,0.4160
-"0.1 % everywhere",164,-0.2173
-"0.1 % everywhere",165,-0.3431
-"0.1 % everywhere",166,0.3586
-"0.1 % everywhere",167,-0.0690
-"0.1 % everywhere",168,0.1611
-"0.1 % everywhere",169,0.3432
-"0.1 % everywhere",170,1.1063
-"0.1 % everywhere",171,0.1458
-"0.1 % everywhere",172,0.7079
-"0.1 % everywhere",173,-0.2696
-"0.1 % everywhere",174,-0.1235
-"0.1 % everywhere",175,0.9327
-"0.1 % everywhere",176,-0.0919
-"0.1 % everywhere",177,-0.1973
-"0.1 % everywhere",178,-0.2329
-"0.1 % everywhere",179,-0.2482
-"0.1 % everywhere",180,-0.1412
-"0.1 % everywhere",181,0.2380
-"0.1 % everywhere",182,0.4069
-"0.1 % everywhere",183,-0.9240
-"0.1 % everywhere",184,0.3594
-"0.1 % everywhere",185,-0.1812
-"0.1 % everywhere",186,-0.3235
-"0.1 % everywhere",187,-0.2603
-"0.1 % everywhere",188,0.2105
-"0.1 % everywhere",189,-0.6260
-"0.1 % everywhere",190,-0.2449
-"0.1 % everywhere",191,-0.0886
-"0.1 % everywhere",192,-0.1799
-"0.1 % everywhere",193,-0.3849
-"0.1 % everywhere",194,0.2544
-"0.1 % everywhere",195,-0.3930
-"0.1 % everywhere",196,-0.3771
-"0.1 % everywhere",197,0.3710
-"0.1 % everywhere",198,0.4443
-"0.1 % everywhere",199,0.6069
-"0.1 % everywhere",200,0.2720
-"0.1 % everywhere",201,0.5157
-"0.1 % everywhere",202,0.4776
-"0.1 % everywhere",203,0.8881
-"0.1 % everywhere",204,0.3776
-"0.1 % everywhere",205,-0.7363
-"0.1 % everywhere",206,-0.2221
-"0.1 % everywhere",207,0.7256
-"0.1 % everywhere",208,-0.2094
-"0.1 % everywhere",209,0.2958
-"0.1 % everywhere",210,-0.2586
-"0.1 % everywhere",211,0.1506
-"0.1 % everywhere",212,-0.8768
-"0.1 % everywhere",213,0.3314
-"0.1 % everywhere",214,0.1059
-"0.1 % everywhere",215,-0.1227
-"0.1 % everywhere",216,-0.3383
-"0.1 % everywhere",217,0.5687
-"0.1 % everywhere",218,-0.4184
-"0.1 % everywhere",219,0.3399
-"0.1 % everywhere",220,-0.8163
-"0.1 % everywhere",221,-0.0621
-"0.1 % everywhere",222,0.4057
-"0.1 % everywhere",223,0.0481
-"0.1 % everywhere",224,0.9315
-"0.1 % everywhere",225,-0.7891
-"0.1 % everywhere",226,-0.4365
-"0.1 % everywhere",227,-0.2125
-"0.1 % everywhere",228,0.0074
-"0.1 % everywhere",229,0.2973
-"0.1 % everywhere",230,0.6928
-"0.1 % everywhere",231,-0.5973
-"0.1 % everywhere",232,-0.2910
-"0.1 % everywhere",233,-0.2260
-"0.1 % everywhere",234,0.0461
-"0.1 % everywhere",235,-0.3082
-"0.1 % everywhere",236,-0.3230
-"0.1 % everywhere",237,-0.1761
-"0.1 % everywhere",238,-0.5410
-"0.1 % everywhere",239,0.5250
-"0.1 % everywhere",240,0.2378
-"0.1 % everywhere",241,0.5592
-"0.1 % everywhere",242,0.6087
-"0.1 % everywhere",243,0.1635
-"0.1 % everywhere",244,-0.7701
-"0.1 % everywhere",245,-0.5640
-"0.1 % everywhere",246,-0.8258
-"0.1 % everywhere",247,-0.2852
-"0.1 % everywhere",248,0.0879
-"0.1 % everywhere",249,-0.3991
-"0.1 % everywhere",250,0.3155
-"0.1 % everywhere",251,0.2719
-"0.1 % everywhere",252,1.0688
-"0.1 % everywhere",253,1.1230
-"0.1 % everywhere",254,-0.2625
-"0.1 % everywhere",255,-0.3229
-"0.1 % everywhere",256,-0.3781
-"0.1 % everywhere",257,0.2756
-"0.1 % everywhere",258,-0.4969
-"0.1 % everywhere",259,0.4854
-"0.1 % everywhere",260,0.1477
-"0.1 % everywhere",261,-0.1852
-"0.1 % everywhere",262,0.0591
-"0.1 % everywhere",263,-0.8243
-"0.1 % everywhere",264,0.1423
-"0.1 % everywhere",265,0.4934
-"0.1 % everywhere",266,0.5092
-"0.1 % everywhere",267,-0.5375
-"0.1 % everywhere",268,0.3721
-"0.1 % everywhere",269,-0.8819
-"0.1 % everywhere",270,-0.7398
-"0.1 % everywhere",271,0.9603
-"0.1 % everywhere",272,-0.3225
-"0.1 % everywhere",273,0.4549
-"0.1 % everywhere",274,0.6062
-"0.1 % everywhere",275,-0.0502
-"0.1 % everywhere",276,0.0727
-"0.1 % everywhere",277,0.3400
-"0.1 % everywhere",278,0.3610
-"0.1 % everywhere",279,-0.0644
-"0.1 % everywhere",280,-0.5877
-"0.1 % everywhere",281,-0.9078
-"0.1 % everywhere",282,0.4239
-"0.1 % everywhere",283,-0.5494
-"0.1 % everywhere",284,-0.9475
-"0.1 % everywhere",285,0.2235
-"0.1 % everywhere",286,-0.6988
-"0.1 % everywhere",287,0.1675
-"0.1 % everywhere",288,0.7009
-"0.1 % everywhere",289,-0.1275
-"0.1 % everywhere",290,-1.0878
-"0.1 % everywhere",291,-0.9327
-"0.1 % everywhere",292,-0.5423
-"0.1 % everywhere",293,0.3180
-"0.1 % everywhere",294,-0.8564
-"0.1 % everywhere",295,0.0543
-"0.1 % everywhere",296,-0.0646
-"0.1 % everywhere",297,0.5891
-"0.1 % everywhere",298,1.0202
-"0.1 % everywhere",299,-0.2842
-"0.1 % everywhere",300,1.0809
-"0.1 % everywhere",301,0.5360
-"0.1 % everywhere",302,-0.1635
-"0.1 % everywhere",303,0.0766
-"0.1 % everywhere",304,-0.3733
-"0.1 % everywhere",305,-0.1165
-"0.1 % everywhere",306,0.0877
-"0.1 % everywhere",307,0.0657
-"0.1 % everywhere",308,-0.0123
-"0.1 % everywhere",309,0.9911
-"0.1 % everywhere",310,0.0713
-"0.1 % everywhere",311,-0.0717
-"0.1 % everywhere",312,-0.2695
-"0.1 % everywhere",313,0.8532
-"0.1 % everywhere",314,0.1478
-"0.1 % everywhere",315,-0.4194
-"0.1 % everywhere",316,0.4484
-"0.1 % everywhere",317,-0.2678
-"0.1 % everywhere",318,0.3484
-"0.1 % everywhere",319,-0.4351
-"0.1 % everywhere",320,-0.1274
-"0.1 % everywhere",321,0.9313
-"0.1 % everywhere",322,-0.2470
-"0.1 % everywhere",323,-0.0163
-"0.1 % everywhere",324,0.1371
-"0.1 % everywhere",325,-0.5517
-"0.1 % everywhere",326,-0.2125
-"0.1 % everywhere",327,0.5031
-"0.1 % everywhere",328,0.5799
-"0.1 % everywhere",329,-1.1342
-"0.1 % everywhere",330,0.0485
-"0.1 % everywhere",331,0.1679
-"0.1 % everywhere",332,-0.0293
-"0.1 % everywhere",333,0.2580
-"0.1 % everywhere",334,0.1956
-"0.1 % everywhere",335,-0.5517
-"0.1 % everywhere",336,0.2318
-"0.1 % everywhere",337,-0.5963
-"0.1 % everywhere",338,0.6180
-"0.1 % everywhere",339,0.2036
-"0.1 % everywhere",340,-0.1493
-"0.1 % everywhere",341,-0.2002
-"0.1 % everywhere",342,0.2887
-"0.1 % everywhere",343,-0.0479
-"0.1 % everywhere",344,0.3993
-"0.1 % everywhere",345,-0.3238
-"0.1 % everywhere",346,0.1596
-"0.1 % everywhere",347,-0.5471
-"0.1 % everywhere",348,0.4688
-"0.1 % everywhere",349,-0.7333
-"0.1 % everywhere",350,0.2005
-"0.1 % everywhere",351,-0.6772
-"0.1 % everywhere",352,0.3657
-"0.1 % everywhere",353,0.0854
-"0.1 % everywhere",354,0.0395
-"0.1 % everywhere",355,-0.0920
-"0.1 % everywhere",356,0.4787
-"0.1 % everywhere",357,0.5014
-"0.1 % everywhere",358,-0.0331
-"0.1 % everywhere",359,0.0938
-"0.1 % everywhere",360,1.0287
-"0.1 % everywhere",361,-1.1986
-"0.1 % everywhere",362,-0.1878
-"0.1 % everywhere",363,-0.2021
-"0.1 % everywhere",364,0.1092
-"0.1 % everywhere",365,-0.6064
-"0.1 % everywhere",366,-0.7209
-"0.1 % everywhere",367,0.5860
-"0.1 % everywhere",368,0.3206
-"0.1 % everywhere",369,-1.0852
-"0.1 % everywhere",370,-0.0850
-"0.1 % everywhere",371,0.5725
-"0.1 % everywhere",372,-0.5798
-"0.1 % everywhere",373,-0.5275
-"0.1 % everywhere",374,-0.0300
-"0.1 % everywhere",375,-0.0165
-"0.1 % everywhere",376,0.4198
-"0.1 % everywhere",377,-0.3117
-"0.1 % everywhere",378,-0.1409
-"0.1 % everywhere",379,-0.2931
-"0.1 % everywhere",380,0.1553
-"0.1 % everywhere",381,-0.0005
-"0.1 % everywhere",382,0.0090
-"0.1 % everywhere",383,-0.9140
-"0.1 % everywhere",384,0.1568
-"0.1 % everywhere",385,-0.1475
-"0.1 % everywhere",386,-0.0027
-"0.1 % everywhere",387,-0.2317
-"0.1 % everywhere",388,-0.8579
-"0.1 % everywhere",389,0.1563
-"0.1 % everywhere",390,0.0426
-"0.1 % everywhere",391,-0.3530
-"0.1 % everywhere",392,0.1779
-"0.1 % everywhere",393,0.1596
-"0.1 % everywhere",394,1.1235
-"0.1 % everywhere",395,0.2845
-"0.1 % everywhere",396,-0.1318
-"0.1 % everywhere",397,-0.3115
-"0.1 % everywhere",398,-0.7716
-"0.1 % everywhere",399,0.5443
-"0.1 % everywhere",400,0.0063
-"0.1 % everywhere",401,-0.6573
-"0.1 % everywhere",402,1.1545
-"0.1 % everywhere",403,0.0757
-"0.1 % everywhere",404,-0.0954
-"0.1 % everywhere",405,-0.8771
-"0.1 % everywhere",406,0.0272
-"0.1 % everywhere",407,-0.2135
-"0.1 % everywhere",408,0.4297
-"0.1 % everywhere",409,0.4079
-"0.1 % everywhere",410,-0.5945
-"0.1 % everywhere",411,0.2083
-"0.1 % everywhere",412,0.5530
-"0.1 % everywhere",413,0.3835
-"0.1 % everywhere",414,-0.0244
-"0.1 % everywhere",415,0.4850
-"0.1 % everywhere",416,-0.4532
-"0.1 % everywhere",417,-0.2654
-"0.1 % everywhere",418,-0.6207
-"0.1 % everywhere",419,0.2751
-"0.1 % everywhere",420,0.9814
-"0.1 % everywhere",421,-0.1158
-"0.1 % everywhere",422,-0.1271
-"0.1 % everywhere",423,0.1423
-"0.1 % everywhere",424,0.2625
-"0.1 % everywhere",425,-0.4094
-"0.1 % everywhere",426,0.4106
-"0.1 % everywhere",427,0.1149
-"0.1 % everywhere",428,-0.2969
-"0.1 % everywhere",429,0.1608
-"0.1 % everywhere",430,0.2243
-"0.1 % everywhere",431,0.4729
-"0.1 % everywhere",432,0.2836
-"0.1 % everywhere",433,-0.0512
-"0.1 % everywhere",434,-0.1904
-"0.1 % everywhere",435,-0.4276
-"0.1 % everywhere",436,1.1532
-"0.1 % everywhere",437,-0.1854
-"0.1 % everywhere",438,0.3086
-"0.1 % everywhere",439,-0.0300
-"0.1 % everywhere",440,-0.3400
-"0.1 % everywhere",441,0.1893
-"0.1 % everywhere",442,0.4146
-"0.1 % everywhere",443,0.0501
-"0.1 % everywhere",444,0.8208
-"0.1 % everywhere",445,0.3412
-"0.1 % everywhere",446,-0.1898
-"0.1 % everywhere",447,0.5499
-"0.1 % everywhere",448,0.5085
-"0.1 % everywhere",449,0.0744
-"0.1 % everywhere",450,-0.5161
-"0.1 % everywhere",451,-0.4673
-"0.1 % everywhere",452,0.5770
-"0.1 % everywhere",453,1.0013
-"0.1 % everywhere",454,-0.0977
-"0.1 % everywhere",455,-0.2391
-"0.1 % everywhere",456,-0.0067
-"0.1 % everywhere",457,-0.1171
-"0.1 % everywhere",458,-0.3042
-"0.1 % everywhere",459,0.0120
-"0.1 % everywhere",460,-0.8173
-"0.1 % everywhere",461,1.3859
-"0.1 % everywhere",462,-0.8381
-"0.1 % everywhere",463,-0.4260
-"0.1 % everywhere",464,0.0431
-"0.1 % everywhere",465,-0.2380
-"0.1 % everywhere",466,-0.0924
-"0.1 % everywhere",467,0.0531
-"0.1 % everywhere",468,0.3720
-"0.1 % everywhere",469,0.1945
-"0.1 % everywhere",470,0.0995
-"0.1 % everywhere",471,0.3553
-"0.1 % everywhere",472,-0.3607
-"0.1 % everywhere",473,-0.3273
-"0.1 % everywhere",474,0.1906
-"0.1 % everywhere",475,0.4897
-"0.1 % everywhere",476,-0.3989
-"0.1 % everywhere",477,0.1114
-"0.1 % everywhere",478,-0.2400
-"0.1 % everywhere",479,0.2025
-"0.1 % everywhere",480,0.4908
-"0.1 % everywhere",481,0.3214
-"0.1 % everywhere",482,-0.3053
-"0.1 % everywhere",483,-0.1001
-"0.1 % everywhere",484,0.3452
-"0.1 % everywhere",485,0.4088
-"0.1 % everywhere",486,-0.1105
-"0.1 % everywhere",487,-0.3161
-"0.1 % everywhere",488,-0.0217
-"0.1 % everywhere",489,0.6935
-"0.1 % everywhere",490,0.3140
-"0.1 % everywhere",491,0.3079
-"0.1 % everywhere",492,-0.4138
-"0.1 % everywhere",493,0.1038
-"0.1 % everywhere",494,-0.3478
-"0.1 % everywhere",495,0.6230
-"0.1 % everywhere",496,0.2469
-"0.1 % everywhere",497,0.4905
-"0.1 % everywhere",498,-0.0997
-"0.1 % everywhere",499,-0.1722
-"0.1 % + 0.01 % matched pairs",0,-0.1920
-"0.1 % + 0.01 % matched pairs",1,0.2204
-"0.1 % + 0.01 % matched pairs",2,-0.1246
-"0.1 % + 0.01 % matched pairs",3,0.0625
-"0.1 % + 0.01 % matched pairs",4,0.0310
-"0.1 % + 0.01 % matched pairs",5,-0.0028
-"0.1 % + 0.01 % matched pairs",6,-0.1605
-"0.1 % + 0.01 % matched pairs",7,0.0098
-"0.1 % + 0.01 % matched pairs",8,0.1482
-"0.1 % + 0.01 % matched pairs",9,-0.2868
-"0.1 % + 0.01 % matched pairs",10,-0.1048
-"0.1 % + 0.01 % matched pairs",11,0.2284
-"0.1 % + 0.01 % matched pairs",12,-0.0877
-"0.1 % + 0.01 % matched pairs",13,0.1119
-"0.1 % + 0.01 % matched pairs",14,-0.1015
-"0.1 % + 0.01 % matched pairs",15,-0.2791
-"0.1 % + 0.01 % matched pairs",16,0.0686
-"0.1 % + 0.01 % matched pairs",17,0.1326
-"0.1 % + 0.01 % matched pairs",18,-0.0393
-"0.1 % + 0.01 % matched pairs",19,0.1993
-"0.1 % + 0.01 % matched pairs",20,0.0706
-"0.1 % + 0.01 % matched pairs",21,-0.1756
-"0.1 % + 0.01 % matched pairs",22,-0.0557
-"0.1 % + 0.01 % matched pairs",23,-0.0067
-"0.1 % + 0.01 % matched pairs",24,-0.1099
-"0.1 % + 0.01 % matched pairs",25,-0.1938
-"0.1 % + 0.01 % matched pairs",26,-0.0763
-"0.1 % + 0.01 % matched pairs",27,0.0376
-"0.1 % + 0.01 % matched pairs",28,-0.3356
-"0.1 % + 0.01 % matched pairs",29,0.1852
-"0.1 % + 0.01 % matched pairs",30,-0.1455
-"0.1 % + 0.01 % matched pairs",31,0.0561
-"0.1 % + 0.01 % matched pairs",32,-0.0485
-"0.1 % + 0.01 % matched pairs",33,0.1535
-"0.1 % + 0.01 % matched pairs",34,-0.1002
-"0.1 % + 0.01 % matched pairs",35,-0.1732
-"0.1 % + 0.01 % matched pairs",36,0.0493
-"0.1 % + 0.01 % matched pairs",37,-0.1486
-"0.1 % + 0.01 % matched pairs",38,0.0236
-"0.1 % + 0.01 % matched pairs",39,0.2124
-"0.1 % + 0.01 % matched pairs",40,0.0829
-"0.1 % + 0.01 % matched pairs",41,-0.0037
-"0.1 % + 0.01 % matched pairs",42,0.3277
-"0.1 % + 0.01 % matched pairs",43,-0.2297
-"0.1 % + 0.01 % matched pairs",44,-0.1660
-"0.1 % + 0.01 % matched pairs",45,0.1358
-"0.1 % + 0.01 % matched pairs",46,-0.2086
-"0.1 % + 0.01 % matched pairs",47,0.0472
-"0.1 % + 0.01 % matched pairs",48,-0.2034
-"0.1 % + 0.01 % matched pairs",49,-0.0061
-"0.1 % + 0.01 % matched pairs",50,-0.2410
-"0.1 % + 0.01 % matched pairs",51,-0.0578
-"0.1 % + 0.01 % matched pairs",52,-0.3285
-"0.1 % + 0.01 % matched pairs",53,-0.0700
-"0.1 % + 0.01 % matched pairs",54,-0.1388
-"0.1 % + 0.01 % matched pairs",55,0.1973
-"0.1 % + 0.01 % matched pairs",56,0.1404
-"0.1 % + 0.01 % matched pairs",57,-0.1225
-"0.1 % + 0.01 % matched pairs",58,-0.0977
-"0.1 % + 0.01 % matched pairs",59,0.3488
-"0.1 % + 0.01 % matched pairs",60,-0.0136
-"0.1 % + 0.01 % matched pairs",61,-0.0524
-"0.1 % + 0.01 % matched pairs",62,-0.0018
-"0.1 % + 0.01 % matched pairs",63,0.0097
-"0.1 % + 0.01 % matched pairs",64,-0.1516
-"0.1 % + 0.01 % matched pairs",65,0.0622
-"0.1 % + 0.01 % matched pairs",66,0.0553
-"0.1 % + 0.01 % matched pairs",67,0.2757
-"0.1 % + 0.01 % matched pairs",68,0.1214
-"0.1 % + 0.01 % matched pairs",69,-0.1899
-"0.1 % + 0.01 % matched pairs",70,-0.0011
-"0.1 % + 0.01 % matched pairs",71,-0.2791
-"0.1 % + 0.01 % matched pairs",72,-0.1791
-"0.1 % + 0.01 % matched pairs",73,-0.0657
-"0.1 % + 0.01 % matched pairs",74,-0.2483
-"0.1 % + 0.01 % matched pairs",75,0.0828
-"0.1 % + 0.01 % matched pairs",76,-0.2277
-"0.1 % + 0.01 % matched pairs",77,0.0179
-"0.1 % + 0.01 % matched pairs",78,-0.0542
-"0.1 % + 0.01 % matched pairs",79,-0.3058
-"0.1 % + 0.01 % matched pairs",80,0.0993
-"0.1 % + 0.01 % matched pairs",81,0.1451
-"0.1 % + 0.01 % matched pairs",82,0.0751
-"0.1 % + 0.01 % matched pairs",83,0.0095
-"0.1 % + 0.01 % matched pairs",84,-0.0708
-"0.1 % + 0.01 % matched pairs",85,-0.3840
-"0.1 % + 0.01 % matched pairs",86,0.1447
-"0.1 % + 0.01 % matched pairs",87,0.0591
-"0.1 % + 0.01 % matched pairs",88,-0.0890
-"0.1 % + 0.01 % matched pairs",89,0.2790
-"0.1 % + 0.01 % matched pairs",90,-0.0188
-"0.1 % + 0.01 % matched pairs",91,-0.0105
-"0.1 % + 0.01 % matched pairs",92,0.2017
-"0.1 % + 0.01 % matched pairs",93,-0.0409
-"0.1 % + 0.01 % matched pairs",94,0.0547
-"0.1 % + 0.01 % matched pairs",95,0.0247
-"0.1 % + 0.01 % matched pairs",96,-0.2371
-"0.1 % + 0.01 % matched pairs",97,-0.1141
-"0.1 % + 0.01 % matched pairs",98,0.2198
-"0.1 % + 0.01 % matched pairs",99,0.0650
-"0.1 % + 0.01 % matched pairs",100,-0.0086
-"0.1 % + 0.01 % matched pairs",101,-0.0220
-"0.1 % + 0.01 % matched pairs",102,0.1697
-"0.1 % + 0.01 % matched pairs",103,-0.2110
-"0.1 % + 0.01 % matched pairs",104,-0.1287
-"0.1 % + 0.01 % matched pairs",105,0.2688
-"0.1 % + 0.01 % matched pairs",106,-0.3814
-"0.1 % + 0.01 % matched pairs",107,0.0630
-"0.1 % + 0.01 % matched pairs",108,0.1788
-"0.1 % + 0.01 % matched pairs",109,-0.0512
-"0.1 % + 0.01 % matched pairs",110,-0.1450
-"0.1 % + 0.01 % matched pairs",111,-0.2851
-"0.1 % + 0.01 % matched pairs",112,0.0125
-"0.1 % + 0.01 % matched pairs",113,0.0697
-"0.1 % + 0.01 % matched pairs",114,0.0717
-"0.1 % + 0.01 % matched pairs",115,-0.0974
-"0.1 % + 0.01 % matched pairs",116,0.1491
-"0.1 % + 0.01 % matched pairs",117,-0.0244
-"0.1 % + 0.01 % matched pairs",118,-0.1561
-"0.1 % + 0.01 % matched pairs",119,0.1894
-"0.1 % + 0.01 % matched pairs",120,0.0910
-"0.1 % + 0.01 % matched pairs",121,-0.1785
-"0.1 % + 0.01 % matched pairs",122,-0.1415
-"0.1 % + 0.01 % matched pairs",123,-0.2548
-"0.1 % + 0.01 % matched pairs",124,0.2049
-"0.1 % + 0.01 % matched pairs",125,-0.1124
-"0.1 % + 0.01 % matched pairs",126,-0.2574
-"0.1 % + 0.01 % matched pairs",127,-0.2605
-"0.1 % + 0.01 % matched pairs",128,-0.2147
-"0.1 % + 0.01 % matched pairs",129,0.0995
-"0.1 % + 0.01 % matched pairs",130,0.1425
-"0.1 % + 0.01 % matched pairs",131,-0.3000
-"0.1 % + 0.01 % matched pairs",132,-0.0192
-"0.1 % + 0.01 % matched pairs",133,-0.1108
-"0.1 % + 0.01 % matched pairs",134,-0.0186
-"0.1 % + 0.01 % matched pairs",135,0.0905
-"0.1 % + 0.01 % matched pairs",136,-0.1326
-"0.1 % + 0.01 % matched pairs",137,0.0850
-"0.1 % + 0.01 % matched pairs",138,0.0882
-"0.1 % + 0.01 % matched pairs",139,-0.0668
-"0.1 % + 0.01 % matched pairs",140,-0.1748
-"0.1 % + 0.01 % matched pairs",141,-0.2361
-"0.1 % + 0.01 % matched pairs",142,-0.0268
-"0.1 % + 0.01 % matched pairs",143,0.1115
-"0.1 % + 0.01 % matched pairs",144,-0.1238
-"0.1 % + 0.01 % matched pairs",145,-0.0100
-"0.1 % + 0.01 % matched pairs",146,-0.0320
-"0.1 % + 0.01 % matched pairs",147,-0.0732
-"0.1 % + 0.01 % matched pairs",148,0.2703
-"0.1 % + 0.01 % matched pairs",149,-0.0740
-"0.1 % + 0.01 % matched pairs",150,0.0230
-"0.1 % + 0.01 % matched pairs",151,-0.1311
-"0.1 % + 0.01 % matched pairs",152,0.0559
-"0.1 % + 0.01 % matched pairs",153,-0.1782
-"0.1 % + 0.01 % matched pairs",154,0.1207
-"0.1 % + 0.01 % matched pairs",155,-0.0591
-"0.1 % + 0.01 % matched pairs",156,-0.2879
-"0.1 % + 0.01 % matched pairs",157,-0.0574
-"0.1 % + 0.01 % matched pairs",158,0.0273
-"0.1 % + 0.01 % matched pairs",159,0.2741
-"0.1 % + 0.01 % matched pairs",160,-0.0244
-"0.1 % + 0.01 % matched pairs",161,-0.0339
-"0.1 % + 0.01 % matched pairs",162,0.2915
-"0.1 % + 0.01 % matched pairs",163,0.1812
-"0.1 % + 0.01 % matched pairs",164,-0.0635
-"0.1 % + 0.01 % matched pairs",165,-0.2754
-"0.1 % + 0.01 % matched pairs",166,-0.1199
-"0.1 % + 0.01 % matched pairs",167,-0.0461
-"0.1 % + 0.01 % matched pairs",168,-0.2724
-"0.1 % + 0.01 % matched pairs",169,-0.0153
-"0.1 % + 0.01 % matched pairs",170,-0.0896
-"0.1 % + 0.01 % matched pairs",171,0.2176
-"0.1 % + 0.01 % matched pairs",172,0.0540
-"0.1 % + 0.01 % matched pairs",173,0.0641
-"0.1 % + 0.01 % matched pairs",174,0.1286
-"0.1 % + 0.01 % matched pairs",175,-0.1550
-"0.1 % + 0.01 % matched pairs",176,-0.4358
-"0.1 % + 0.01 % matched pairs",177,0.2952
-"0.1 % + 0.01 % matched pairs",178,0.0418
-"0.1 % + 0.01 % matched pairs",179,0.1132
-"0.1 % + 0.01 % matched pairs",180,-0.0714
-"0.1 % + 0.01 % matched pairs",181,0.1419
-"0.1 % + 0.01 % matched pairs",182,-0.0860
-"0.1 % + 0.01 % matched pairs",183,0.0218
-"0.1 % + 0.01 % matched pairs",184,-0.3690
-"0.1 % + 0.01 % matched pairs",185,-0.1028
-"0.1 % + 0.01 % matched pairs",186,-0.2061
-"0.1 % + 0.01 % matched pairs",187,0.0713
-"0.1 % + 0.01 % matched pairs",188,-0.0484
-"0.1 % + 0.01 % matched pairs",189,-0.1811
-"0.1 % + 0.01 % matched pairs",190,0.0670
-"0.1 % + 0.01 % matched pairs",191,0.3341
-"0.1 % + 0.01 % matched pairs",192,-0.1287
-"0.1 % + 0.01 % matched pairs",193,-0.0739
-"0.1 % + 0.01 % matched pairs",194,-0.0512
-"0.1 % + 0.01 % matched pairs",195,-0.0505
-"0.1 % + 0.01 % matched pairs",196,0.0225
-"0.1 % + 0.01 % matched pairs",197,-0.2822
-"0.1 % + 0.01 % matched pairs",198,-0.0137
-"0.1 % + 0.01 % matched pairs",199,0.1401
-"0.1 % + 0.01 % matched pairs",200,0.1379
-"0.1 % + 0.01 % matched pairs",201,0.0035
-"0.1 % + 0.01 % matched pairs",202,-0.3472
-"0.1 % + 0.01 % matched pairs",203,0.1398
-"0.1 % + 0.01 % matched pairs",204,-0.0483
-"0.1 % + 0.01 % matched pairs",205,0.1874
-"0.1 % + 0.01 % matched pairs",206,-0.0556
-"0.1 % + 0.01 % matched pairs",207,0.1963
-"0.1 % + 0.01 % matched pairs",208,-0.2260
-"0.1 % + 0.01 % matched pairs",209,-0.1448
-"0.1 % + 0.01 % matched pairs",210,0.1560
-"0.1 % + 0.01 % matched pairs",211,0.2739
-"0.1 % + 0.01 % matched pairs",212,-0.0268
-"0.1 % + 0.01 % matched pairs",213,0.0592
-"0.1 % + 0.01 % matched pairs",214,-0.0394
-"0.1 % + 0.01 % matched pairs",215,0.3862
-"0.1 % + 0.01 % matched pairs",216,-0.0459
-"0.1 % + 0.01 % matched pairs",217,0.1054
-"0.1 % + 0.01 % matched pairs",218,0.0810
-"0.1 % + 0.01 % matched pairs",219,0.1015
-"0.1 % + 0.01 % matched pairs",220,-0.0187
-"0.1 % + 0.01 % matched pairs",221,0.1114
-"0.1 % + 0.01 % matched pairs",222,0.0255
-"0.1 % + 0.01 % matched pairs",223,-0.2162
-"0.1 % + 0.01 % matched pairs",224,-0.1194
-"0.1 % + 0.01 % matched pairs",225,-0.2302
-"0.1 % + 0.01 % matched pairs",226,-0.2141
-"0.1 % + 0.01 % matched pairs",227,0.1019
-"0.1 % + 0.01 % matched pairs",228,-0.2034
-"0.1 % + 0.01 % matched pairs",229,-0.1149
-"0.1 % + 0.01 % matched pairs",230,0.2420
-"0.1 % + 0.01 % matched pairs",231,-0.2460
-"0.1 % + 0.01 % matched pairs",232,0.1795
-"0.1 % + 0.01 % matched pairs",233,0.1345
-"0.1 % + 0.01 % matched pairs",234,-0.0763
-"0.1 % + 0.01 % matched pairs",235,-0.0912
-"0.1 % + 0.01 % matched pairs",236,0.2157
-"0.1 % + 0.01 % matched pairs",237,0.1760
-"0.1 % + 0.01 % matched pairs",238,-0.0677
-"0.1 % + 0.01 % matched pairs",239,0.2067
-"0.1 % + 0.01 % matched pairs",240,0.0919
-"0.1 % + 0.01 % matched pairs",241,0.0598
-"0.1 % + 0.01 % matched pairs",242,-0.0072
-"0.1 % + 0.01 % matched pairs",243,0.1866
-"0.1 % + 0.01 % matched pairs",244,-0.0275
-"0.1 % + 0.01 % matched pairs",245,0.1584
-"0.1 % + 0.01 % matched pairs",246,-0.0002
-"0.1 % + 0.01 % matched pairs",247,-0.1232
-"0.1 % + 0.01 % matched pairs",248,-0.0022
-"0.1 % + 0.01 % matched pairs",249,0.0676
-"0.1 % + 0.01 % matched pairs",250,-0.1272
-"0.1 % + 0.01 % matched pairs",251,0.2387
-"0.1 % + 0.01 % matched pairs",252,0.1829
-"0.1 % + 0.01 % matched pairs",253,0.0690
-"0.1 % + 0.01 % matched pairs",254,-0.1061
-"0.1 % + 0.01 % matched pairs",255,-0.1677
-"0.1 % + 0.01 % matched pairs",256,-0.1429
-"0.1 % + 0.01 % matched pairs",257,0.1149
-"0.1 % + 0.01 % matched pairs",258,0.1312
-"0.1 % + 0.01 % matched pairs",259,0.0038
-"0.1 % + 0.01 % matched pairs",260,-0.0666
-"0.1 % + 0.01 % matched pairs",261,-0.0265
-"0.1 % + 0.01 % matched pairs",262,-0.0907
-"0.1 % + 0.01 % matched pairs",263,0.1634
-"0.1 % + 0.01 % matched pairs",264,-0.0305
-"0.1 % + 0.01 % matched pairs",265,-0.0023
-"0.1 % + 0.01 % matched pairs",266,0.0723
-"0.1 % + 0.01 % matched pairs",267,0.1491
-"0.1 % + 0.01 % matched pairs",268,0.1235
-"0.1 % + 0.01 % matched pairs",269,-0.0356
-"0.1 % + 0.01 % matched pairs",270,0.0783
-"0.1 % + 0.01 % matched pairs",271,-0.0459
-"0.1 % + 0.01 % matched pairs",272,-0.0369
-"0.1 % + 0.01 % matched pairs",273,0.0006
-"0.1 % + 0.01 % matched pairs",274,-0.0991
-"0.1 % + 0.01 % matched pairs",275,-0.2519
-"0.1 % + 0.01 % matched pairs",276,0.2704
-"0.1 % + 0.01 % matched pairs",277,-0.1010
-"0.1 % + 0.01 % matched pairs",278,-0.1098
-"0.1 % + 0.01 % matched pairs",279,-0.1019
-"0.1 % + 0.01 % matched pairs",280,-0.1598
-"0.1 % + 0.01 % matched pairs",281,-0.1113
-"0.1 % + 0.01 % matched pairs",282,-0.1340
-"0.1 % + 0.01 % matched pairs",283,-0.1437
-"0.1 % + 0.01 % matched pairs",284,-0.1726
-"0.1 % + 0.01 % matched pairs",285,0.0507
-"0.1 % + 0.01 % matched pairs",286,-0.0997
-"0.1 % + 0.01 % matched pairs",287,0.1141
-"0.1 % + 0.01 % matched pairs",288,0.0866
-"0.1 % + 0.01 % matched pairs",289,-0.1326
-"0.1 % + 0.01 % matched pairs",290,0.0102
-"0.1 % + 0.01 % matched pairs",291,-0.0433
-"0.1 % + 0.01 % matched pairs",292,-0.1029
-"0.1 % + 0.01 % matched pairs",293,-0.1709
-"0.1 % + 0.01 % matched pairs",294,-0.1352
-"0.1 % + 0.01 % matched pairs",295,0.1789
-"0.1 % + 0.01 % matched pairs",296,-0.0613
-"0.1 % + 0.01 % matched pairs",297,0.0669
-"0.1 % + 0.01 % matched pairs",298,0.1504
-"0.1 % + 0.01 % matched pairs",299,0.1331
-"0.1 % + 0.01 % matched pairs",300,-0.2637
-"0.1 % + 0.01 % matched pairs",301,-0.2528
-"0.1 % + 0.01 % matched pairs",302,0.2276
-"0.1 % + 0.01 % matched pairs",303,0.1047
-"0.1 % + 0.01 % matched pairs",304,-0.1008
-"0.1 % + 0.01 % matched pairs",305,-0.1191
-"0.1 % + 0.01 % matched pairs",306,-0.1461
-"0.1 % + 0.01 % matched pairs",307,0.1668
-"0.1 % + 0.01 % matched pairs",308,0.0432
-"0.1 % + 0.01 % matched pairs",309,-0.2233
-"0.1 % + 0.01 % matched pairs",310,0.3122
-"0.1 % + 0.01 % matched pairs",311,-0.1462
-"0.1 % + 0.01 % matched pairs",312,0.0894
-"0.1 % + 0.01 % matched pairs",313,0.2367
-"0.1 % + 0.01 % matched pairs",314,0.2077
-"0.1 % + 0.01 % matched pairs",315,0.1734
-"0.1 % + 0.01 % matched pairs",316,-0.0106
-"0.1 % + 0.01 % matched pairs",317,-0.4332
-"0.1 % + 0.01 % matched pairs",318,-0.2806
-"0.1 % + 0.01 % matched pairs",319,-0.0926
-"0.1 % + 0.01 % matched pairs",320,0.0002
-"0.1 % + 0.01 % matched pairs",321,-0.2820
-"0.1 % + 0.01 % matched pairs",322,0.1489
-"0.1 % + 0.01 % matched pairs",323,-0.0717
-"0.1 % + 0.01 % matched pairs",324,0.2106
-"0.1 % + 0.01 % matched pairs",325,0.0698
-"0.1 % + 0.01 % matched pairs",326,-0.2700
-"0.1 % + 0.01 % matched pairs",327,0.1899
-"0.1 % + 0.01 % matched pairs",328,0.1714
-"0.1 % + 0.01 % matched pairs",329,0.0021
-"0.1 % + 0.01 % matched pairs",330,0.2508
-"0.1 % + 0.01 % matched pairs",331,0.0918
-"0.1 % + 0.01 % matched pairs",332,-0.2345
-"0.1 % + 0.01 % matched pairs",333,0.0672
-"0.1 % + 0.01 % matched pairs",334,0.2940
-"0.1 % + 0.01 % matched pairs",335,0.2525
-"0.1 % + 0.01 % matched pairs",336,-0.0116
-"0.1 % + 0.01 % matched pairs",337,0.1083
-"0.1 % + 0.01 % matched pairs",338,0.2353
-"0.1 % + 0.01 % matched pairs",339,0.0056
-"0.1 % + 0.01 % matched pairs",340,-0.2507
-"0.1 % + 0.01 % matched pairs",341,-0.1816
-"0.1 % + 0.01 % matched pairs",342,0.0272
-"0.1 % + 0.01 % matched pairs",343,0.0439
-"0.1 % + 0.01 % matched pairs",344,-0.1377
-"0.1 % + 0.01 % matched pairs",345,0.1857
-"0.1 % + 0.01 % matched pairs",346,0.1247
-"0.1 % + 0.01 % matched pairs",347,-0.0177
-"0.1 % + 0.01 % matched pairs",348,0.0086
-"0.1 % + 0.01 % matched pairs",349,-0.0217
-"0.1 % + 0.01 % matched pairs",350,0.2142
-"0.1 % + 0.01 % matched pairs",351,0.1305
-"0.1 % + 0.01 % matched pairs",352,-0.0815
-"0.1 % + 0.01 % matched pairs",353,-0.1375
-"0.1 % + 0.01 % matched pairs",354,0.1530
-"0.1 % + 0.01 % matched pairs",355,0.1479
-"0.1 % + 0.01 % matched pairs",356,0.3442
-"0.1 % + 0.01 % matched pairs",357,-0.1083
-"0.1 % + 0.01 % matched pairs",358,0.2113
-"0.1 % + 0.01 % matched pairs",359,-0.0910
-"0.1 % + 0.01 % matched pairs",360,0.0664
-"0.1 % + 0.01 % matched pairs",361,0.0628
-"0.1 % + 0.01 % matched pairs",362,0.0257
-"0.1 % + 0.01 % matched pairs",363,0.1189
-"0.1 % + 0.01 % matched pairs",364,0.0900
-"0.1 % + 0.01 % matched pairs",365,-0.1897
-"0.1 % + 0.01 % matched pairs",366,0.0396
-"0.1 % + 0.01 % matched pairs",367,-0.1298
-"0.1 % + 0.01 % matched pairs",368,-0.0059
-"0.1 % + 0.01 % matched pairs",369,0.0240
-"0.1 % + 0.01 % matched pairs",370,-0.1912
-"0.1 % + 0.01 % matched pairs",371,-0.0632
-"0.1 % + 0.01 % matched pairs",372,0.3927
-"0.1 % + 0.01 % matched pairs",373,-0.0427
-"0.1 % + 0.01 % matched pairs",374,0.2230
-"0.1 % + 0.01 % matched pairs",375,0.1463
-"0.1 % + 0.01 % matched pairs",376,-0.0995
-"0.1 % + 0.01 % matched pairs",377,0.0442
-"0.1 % + 0.01 % matched pairs",378,-0.0798
-"0.1 % + 0.01 % matched pairs",379,-0.2565
-"0.1 % + 0.01 % matched pairs",380,-0.0233
-"0.1 % + 0.01 % matched pairs",381,-0.2029
-"0.1 % + 0.01 % matched pairs",382,0.2087
-"0.1 % + 0.01 % matched pairs",383,-0.2023
-"0.1 % + 0.01 % matched pairs",384,-0.0517
-"0.1 % + 0.01 % matched pairs",385,0.0297
-"0.1 % + 0.01 % matched pairs",386,0.1266
-"0.1 % + 0.01 % matched pairs",387,-0.1402
-"0.1 % + 0.01 % matched pairs",388,0.0350
-"0.1 % + 0.01 % matched pairs",389,0.0975
-"0.1 % + 0.01 % matched pairs",390,0.0515
-"0.1 % + 0.01 % matched pairs",391,-0.1105
-"0.1 % + 0.01 % matched pairs",392,0.0298
-"0.1 % + 0.01 % matched pairs",393,0.2232
-"0.1 % + 0.01 % matched pairs",394,-0.1234
-"0.1 % + 0.01 % matched pairs",395,-0.0421
-"0.1 % + 0.01 % matched pairs",396,0.1887
-"0.1 % + 0.01 % matched pairs",397,0.0131
-"0.1 % + 0.01 % matched pairs",398,0.0454
-"0.1 % + 0.01 % matched pairs",399,-0.0257
-"0.1 % + 0.01 % matched pairs",400,-0.0903
-"0.1 % + 0.01 % matched pairs",401,-0.0644
-"0.1 % + 0.01 % matched pairs",402,-0.1011
-"0.1 % + 0.01 % matched pairs",403,0.0232
-"0.1 % + 0.01 % matched pairs",404,-0.2939
-"0.1 % + 0.01 % matched pairs",405,0.0140
-"0.1 % + 0.01 % matched pairs",406,0.1922
-"0.1 % + 0.01 % matched pairs",407,0.1002
-"0.1 % + 0.01 % matched pairs",408,0.1180
-"0.1 % + 0.01 % matched pairs",409,-0.0691
-"0.1 % + 0.01 % matched pairs",410,-0.2286
-"0.1 % + 0.01 % matched pairs",411,-0.1326
-"0.1 % + 0.01 % matched pairs",412,-0.2823
-"0.1 % + 0.01 % matched pairs",413,-0.2101
-"0.1 % + 0.01 % matched pairs",414,-0.0634
-"0.1 % + 0.01 % matched pairs",415,0.0440
-"0.1 % + 0.01 % matched pairs",416,0.0147
-"0.1 % + 0.01 % matched pairs",417,-0.1240
-"0.1 % + 0.01 % matched pairs",418,-0.2992
-"0.1 % + 0.01 % matched pairs",419,-0.1928
-"0.1 % + 0.01 % matched pairs",420,-0.0426
-"0.1 % + 0.01 % matched pairs",421,-0.0250
-"0.1 % + 0.01 % matched pairs",422,0.1956
-"0.1 % + 0.01 % matched pairs",423,0.1197
-"0.1 % + 0.01 % matched pairs",424,0.0975
-"0.1 % + 0.01 % matched pairs",425,-0.0240
-"0.1 % + 0.01 % matched pairs",426,0.0597
-"0.1 % + 0.01 % matched pairs",427,-0.0390
-"0.1 % + 0.01 % matched pairs",428,0.0216
-"0.1 % + 0.01 % matched pairs",429,0.1217
-"0.1 % + 0.01 % matched pairs",430,0.1220
-"0.1 % + 0.01 % matched pairs",431,0.0205
-"0.1 % + 0.01 % matched pairs",432,0.2144
-"0.1 % + 0.01 % matched pairs",433,0.0997
-"0.1 % + 0.01 % matched pairs",434,0.1344
-"0.1 % + 0.01 % matched pairs",435,-0.1657
-"0.1 % + 0.01 % matched pairs",436,-0.0429
-"0.1 % + 0.01 % matched pairs",437,0.1572
-"0.1 % + 0.01 % matched pairs",438,0.0513
-"0.1 % + 0.01 % matched pairs",439,-0.2908
-"0.1 % + 0.01 % matched pairs",440,-0.1506
-"0.1 % + 0.01 % matched pairs",441,-0.2143
-"0.1 % + 0.01 % matched pairs",442,-0.1266
-"0.1 % + 0.01 % matched pairs",443,0.1920
-"0.1 % + 0.01 % matched pairs",444,0.2354
-"0.1 % + 0.01 % matched pairs",445,-0.0096
-"0.1 % + 0.01 % matched pairs",446,-0.0035
-"0.1 % + 0.01 % matched pairs",447,0.2639
-"0.1 % + 0.01 % matched pairs",448,0.0633
-"0.1 % + 0.01 % matched pairs",449,0.2010
-"0.1 % + 0.01 % matched pairs",450,-0.1910
-"0.1 % + 0.01 % matched pairs",451,0.0103
-"0.1 % + 0.01 % matched pairs",452,0.3279
-"0.1 % + 0.01 % matched pairs",453,-0.0689
-"0.1 % + 0.01 % matched pairs",454,0.1599
-"0.1 % + 0.01 % matched pairs",455,0.0584
-"0.1 % + 0.01 % matched pairs",456,-0.1763
-"0.1 % + 0.01 % matched pairs",457,0.3735
-"0.1 % + 0.01 % matched pairs",458,-0.0244
-"0.1 % + 0.01 % matched pairs",459,-0.0264
-"0.1 % + 0.01 % matched pairs",460,0.2798
-"0.1 % + 0.01 % matched pairs",461,0.1771
-"0.1 % + 0.01 % matched pairs",462,0.0569
-"0.1 % + 0.01 % matched pairs",463,-0.0265
-"0.1 % + 0.01 % matched pairs",464,-0.0182
-"0.1 % + 0.01 % matched pairs",465,0.1208
-"0.1 % + 0.01 % matched pairs",466,-0.0387
-"0.1 % + 0.01 % matched pairs",467,-0.0901
-"0.1 % + 0.01 % matched pairs",468,0.0175
-"0.1 % + 0.01 % matched pairs",469,0.2240
-"0.1 % + 0.01 % matched pairs",470,-0.1388
-"0.1 % + 0.01 % matched pairs",471,0.0582
-"0.1 % + 0.01 % matched pairs",472,-0.1631
-"0.1 % + 0.01 % matched pairs",473,0.1351
-"0.1 % + 0.01 % matched pairs",474,-0.1419
-"0.1 % + 0.01 % matched pairs",475,0.0335
-"0.1 % + 0.01 % matched pairs",476,0.1192
-"0.1 % + 0.01 % matched pairs",477,-0.2209
-"0.1 % + 0.01 % matched pairs",478,0.0341
-"0.1 % + 0.01 % matched pairs",479,-0.0997
-"0.1 % + 0.01 % matched pairs",480,0.1856
-"0.1 % + 0.01 % matched pairs",481,0.0254
-"0.1 % + 0.01 % matched pairs",482,-0.2558
-"0.1 % + 0.01 % matched pairs",483,-0.2080
-"0.1 % + 0.01 % matched pairs",484,-0.0054
-"0.1 % + 0.01 % matched pairs",485,0.3291
-"0.1 % + 0.01 % matched pairs",486,0.0272
-"0.1 % + 0.01 % matched pairs",487,0.0664
-"0.1 % + 0.01 % matched pairs",488,-0.1763
-"0.1 % + 0.01 % matched pairs",489,0.0964
-"0.1 % + 0.01 % matched pairs",490,0.0492
-"0.1 % + 0.01 % matched pairs",491,0.1712
-"0.1 % + 0.01 % matched pairs",492,0.2732
-"0.1 % + 0.01 % matched pairs",493,0.0812
-"0.1 % + 0.01 % matched pairs",494,-0.2864
-"0.1 % + 0.01 % matched pairs",495,-0.0094
-"0.1 % + 0.01 % matched pairs",496,0.1583
-"0.1 % + 0.01 % matched pairs",497,0.0403
-"0.1 % + 0.01 % matched pairs",498,0.1526
-"0.1 % + 0.01 % matched pairs",499,0.0670
+config_index,config,trial,error_pct_fs
+0,"1 % everywhere",0,-0.3130
+0,"1 % everywhere",1,4.9891
+0,"1 % everywhere",2,-0.3159
+0,"1 % everywhere",3,8.8743
+0,"1 % everywhere",4,-2.0343
+0,"1 % everywhere",5,1.1336
+0,"1 % everywhere",6,1.5620
+0,"1 % everywhere",7,-4.4058
+0,"1 % everywhere",8,0.6705
+0,"1 % everywhere",9,2.9116
+0,"1 % everywhere",10,6.7642
+0,"1 % everywhere",11,-5.0266
+0,"1 % everywhere",12,6.4913
+0,"1 % everywhere",13,9.9039
+0,"1 % everywhere",14,12.2620
+0,"1 % everywhere",15,5.1769
+0,"1 % everywhere",16,8.6100
+0,"1 % everywhere",17,0.5407
+0,"1 % everywhere",18,2.8938
+0,"1 % everywhere",19,3.6155
+0,"1 % everywhere",20,6.5401
+0,"1 % everywhere",21,-1.6275
+0,"1 % everywhere",22,-6.7505
+0,"1 % everywhere",23,-1.9176
+0,"1 % everywhere",24,-0.4151
+0,"1 % everywhere",25,-1.2423
+0,"1 % everywhere",26,2.1537
+0,"1 % everywhere",27,-3.2785
+0,"1 % everywhere",28,-3.8005
+0,"1 % everywhere",29,3.7367
+0,"1 % everywhere",30,2.2667
+0,"1 % everywhere",31,4.8886
+0,"1 % everywhere",32,2.5377
+0,"1 % everywhere",33,-1.9066
+0,"1 % everywhere",34,-8.0252
+0,"1 % everywhere",35,-3.4998
+0,"1 % everywhere",36,10.2924
+0,"1 % everywhere",37,-2.8515
+0,"1 % everywhere",38,1.3970
+0,"1 % everywhere",39,-7.8156
+0,"1 % everywhere",40,-0.1016
+0,"1 % everywhere",41,-5.9920
+0,"1 % everywhere",42,-3.8647
+0,"1 % everywhere",43,-5.2196
+0,"1 % everywhere",44,5.5336
+0,"1 % everywhere",45,1.5505
+0,"1 % everywhere",46,-1.0961
+0,"1 % everywhere",47,-1.1789
+0,"1 % everywhere",48,-2.1620
+0,"1 % everywhere",49,-5.1200
+0,"1 % everywhere",50,-0.5360
+0,"1 % everywhere",51,5.3596
+0,"1 % everywhere",52,2.5721
+0,"1 % everywhere",53,5.4038
+0,"1 % everywhere",54,4.2904
+0,"1 % everywhere",55,1.5988
+0,"1 % everywhere",56,-0.0105
+0,"1 % everywhere",57,6.0843
+0,"1 % everywhere",58,3.2371
+0,"1 % everywhere",59,-7.0977
+0,"1 % everywhere",60,-7.3964
+0,"1 % everywhere",61,4.1793
+0,"1 % everywhere",62,-2.2347
+0,"1 % everywhere",63,2.4394
+0,"1 % everywhere",64,-0.3108
+0,"1 % everywhere",65,2.7606
+0,"1 % everywhere",66,2.0350
+0,"1 % everywhere",67,0.7859
+0,"1 % everywhere",68,-5.0905
+0,"1 % everywhere",69,-6.4759
+0,"1 % everywhere",70,-0.2675
+0,"1 % everywhere",71,-3.6556
+0,"1 % everywhere",72,-2.5466
+0,"1 % everywhere",73,-2.8763
+0,"1 % everywhere",74,12.5848
+0,"1 % everywhere",75,-2.5273
+0,"1 % everywhere",76,0.4499
+0,"1 % everywhere",77,-5.6001
+0,"1 % everywhere",78,-1.2380
+0,"1 % everywhere",79,4.6910
+0,"1 % everywhere",80,-0.6345
+0,"1 % everywhere",81,-0.3753
+0,"1 % everywhere",82,-5.3029
+0,"1 % everywhere",83,2.4801
+0,"1 % everywhere",84,2.0397
+0,"1 % everywhere",85,1.3353
+0,"1 % everywhere",86,4.9350
+0,"1 % everywhere",87,0.9579
+0,"1 % everywhere",88,7.1341
+0,"1 % everywhere",89,9.6365
+0,"1 % everywhere",90,-4.9885
+0,"1 % everywhere",91,-4.1527
+0,"1 % everywhere",92,-1.5984
+0,"1 % everywhere",93,4.4614
+0,"1 % everywhere",94,-3.5687
+0,"1 % everywhere",95,-5.0751
+0,"1 % everywhere",96,1.6645
+0,"1 % everywhere",97,3.2897
+0,"1 % everywhere",98,4.6615
+0,"1 % everywhere",99,-7.8156
+0,"1 % everywhere",100,-2.2399
+0,"1 % everywhere",101,-5.4018
+0,"1 % everywhere",102,11.7419
+0,"1 % everywhere",103,-4.7525
+0,"1 % everywhere",104,-2.2660
+0,"1 % everywhere",105,-4.2115
+0,"1 % everywhere",106,0.5278
+0,"1 % everywhere",107,-2.9732
+0,"1 % everywhere",108,5.7956
+0,"1 % everywhere",109,5.8610
+0,"1 % everywhere",110,1.2462
+0,"1 % everywhere",111,0.8315
+0,"1 % everywhere",112,-2.3594
+0,"1 % everywhere",113,-4.2917
+0,"1 % everywhere",114,-4.6631
+0,"1 % everywhere",115,-4.1241
+0,"1 % everywhere",116,1.8504
+0,"1 % everywhere",117,5.7363
+0,"1 % everywhere",118,3.7886
+0,"1 % everywhere",119,-5.5306
+0,"1 % everywhere",120,3.4765
+0,"1 % everywhere",121,-1.1678
+0,"1 % everywhere",122,-1.9831
+0,"1 % everywhere",123,9.2305
+0,"1 % everywhere",124,1.0002
+0,"1 % everywhere",125,9.2924
+0,"1 % everywhere",126,-4.5080
+0,"1 % everywhere",127,0.1248
+0,"1 % everywhere",128,-3.9473
+0,"1 % everywhere",129,-5.1216
+0,"1 % everywhere",130,-5.9811
+0,"1 % everywhere",131,3.0428
+0,"1 % everywhere",132,7.3020
+0,"1 % everywhere",133,5.4616
+0,"1 % everywhere",134,8.2833
+0,"1 % everywhere",135,-7.6535
+0,"1 % everywhere",136,4.3282
+0,"1 % everywhere",137,-2.4140
+0,"1 % everywhere",138,2.3975
+0,"1 % everywhere",139,7.5319
+0,"1 % everywhere",140,-1.4813
+0,"1 % everywhere",141,-7.9522
+0,"1 % everywhere",142,4.7377
+0,"1 % everywhere",143,-5.8536
+0,"1 % everywhere",144,5.4067
+0,"1 % everywhere",145,0.3581
+0,"1 % everywhere",146,2.9853
+0,"1 % everywhere",147,4.5553
+0,"1 % everywhere",148,-7.4499
+0,"1 % everywhere",149,-0.8171
+0,"1 % everywhere",150,0.3956
+0,"1 % everywhere",151,5.7010
+0,"1 % everywhere",152,-3.3514
+0,"1 % everywhere",153,0.1395
+0,"1 % everywhere",154,4.7755
+0,"1 % everywhere",155,-6.2797
+0,"1 % everywhere",156,1.6478
+0,"1 % everywhere",157,0.5247
+0,"1 % everywhere",158,11.9469
+0,"1 % everywhere",159,-0.3912
+0,"1 % everywhere",160,12.9693
+0,"1 % everywhere",161,2.7243
+0,"1 % everywhere",162,-6.6141
+0,"1 % everywhere",163,3.5488
+0,"1 % everywhere",164,1.3630
+0,"1 % everywhere",165,-0.0569
+0,"1 % everywhere",166,-3.4052
+0,"1 % everywhere",167,-1.4585
+0,"1 % everywhere",168,1.5623
+0,"1 % everywhere",169,7.7986
+0,"1 % everywhere",170,3.5590
+0,"1 % everywhere",171,1.0579
+0,"1 % everywhere",172,2.1418
+0,"1 % everywhere",173,-8.5242
+0,"1 % everywhere",174,-5.6742
+0,"1 % everywhere",175,1.1263
+0,"1 % everywhere",176,-2.4981
+0,"1 % everywhere",177,4.7291
+0,"1 % everywhere",178,-1.0871
+0,"1 % everywhere",179,-5.7239
+0,"1 % everywhere",180,-0.8506
+0,"1 % everywhere",181,-0.1614
+0,"1 % everywhere",182,1.2252
+0,"1 % everywhere",183,3.4677
+0,"1 % everywhere",184,-7.1217
+0,"1 % everywhere",185,6.4724
+0,"1 % everywhere",186,-0.7965
+0,"1 % everywhere",187,-5.6143
+0,"1 % everywhere",188,-4.6723
+0,"1 % everywhere",189,-2.8116
+0,"1 % everywhere",190,0.5791
+0,"1 % everywhere",191,4.8459
+0,"1 % everywhere",192,-4.6214
+0,"1 % everywhere",193,-3.1882
+0,"1 % everywhere",194,2.9643
+0,"1 % everywhere",195,4.4704
+0,"1 % everywhere",196,5.7800
+0,"1 % everywhere",197,-6.0511
+0,"1 % everywhere",198,-0.7438
+0,"1 % everywhere",199,2.7950
+0,"1 % everywhere",200,0.4326
+0,"1 % everywhere",201,-1.8080
+0,"1 % everywhere",202,1.4630
+0,"1 % everywhere",203,1.9281
+0,"1 % everywhere",204,1.3341
+0,"1 % everywhere",205,-2.5977
+0,"1 % everywhere",206,-8.9863
+0,"1 % everywhere",207,6.0014
+0,"1 % everywhere",208,-3.0370
+0,"1 % everywhere",209,-4.9223
+0,"1 % everywhere",210,-2.4361
+0,"1 % everywhere",211,-7.2285
+0,"1 % everywhere",212,-4.1963
+0,"1 % everywhere",213,2.7435
+0,"1 % everywhere",214,-3.0500
+0,"1 % everywhere",215,0.6038
+0,"1 % everywhere",216,-10.0910
+0,"1 % everywhere",217,0.1965
+0,"1 % everywhere",218,5.0965
+0,"1 % everywhere",219,-2.9223
+0,"1 % everywhere",220,12.4587
+0,"1 % everywhere",221,5.3840
+0,"1 % everywhere",222,-5.4050
+0,"1 % everywhere",223,1.7525
+0,"1 % everywhere",224,-3.9775
+0,"1 % everywhere",225,-2.1776
+0,"1 % everywhere",226,-8.0772
+0,"1 % everywhere",227,3.0397
+0,"1 % everywhere",228,-2.0070
+0,"1 % everywhere",229,7.0160
+0,"1 % everywhere",230,5.5409
+0,"1 % everywhere",231,-3.3833
+0,"1 % everywhere",232,-9.4933
+0,"1 % everywhere",233,-6.8347
+0,"1 % everywhere",234,-3.4224
+0,"1 % everywhere",235,-2.5684
+0,"1 % everywhere",236,6.2721
+0,"1 % everywhere",237,-4.1422
+0,"1 % everywhere",238,-8.2513
+0,"1 % everywhere",239,2.5520
+0,"1 % everywhere",240,1.1942
+0,"1 % everywhere",241,0.4108
+0,"1 % everywhere",242,3.6293
+0,"1 % everywhere",243,1.6665
+0,"1 % everywhere",244,0.5869
+0,"1 % everywhere",245,3.1865
+0,"1 % everywhere",246,2.9722
+0,"1 % everywhere",247,-0.6444
+0,"1 % everywhere",248,-2.4020
+0,"1 % everywhere",249,0.3266
+0,"1 % everywhere",250,-2.7552
+0,"1 % everywhere",251,3.1430
+0,"1 % everywhere",252,2.9907
+0,"1 % everywhere",253,0.7120
+0,"1 % everywhere",254,3.9208
+0,"1 % everywhere",255,0.4437
+0,"1 % everywhere",256,2.9373
+0,"1 % everywhere",257,-5.3700
+0,"1 % everywhere",258,-2.7086
+0,"1 % everywhere",259,-0.6857
+0,"1 % everywhere",260,-5.6455
+0,"1 % everywhere",261,3.4371
+0,"1 % everywhere",262,0.8182
+0,"1 % everywhere",263,-1.5308
+0,"1 % everywhere",264,2.6215
+0,"1 % everywhere",265,2.5276
+0,"1 % everywhere",266,3.3368
+0,"1 % everywhere",267,3.6686
+0,"1 % everywhere",268,-2.4758
+0,"1 % everywhere",269,3.2706
+0,"1 % everywhere",270,0.9833
+0,"1 % everywhere",271,7.8004
+0,"1 % everywhere",272,0.0364
+0,"1 % everywhere",273,-1.0345
+0,"1 % everywhere",274,6.9338
+0,"1 % everywhere",275,-3.5534
+0,"1 % everywhere",276,-0.9173
+0,"1 % everywhere",277,1.2313
+0,"1 % everywhere",278,-6.0092
+0,"1 % everywhere",279,-4.5848
+0,"1 % everywhere",280,3.5855
+0,"1 % everywhere",281,3.5567
+0,"1 % everywhere",282,-2.1147
+0,"1 % everywhere",283,4.4639
+0,"1 % everywhere",284,0.5486
+0,"1 % everywhere",285,8.6364
+0,"1 % everywhere",286,-9.5043
+0,"1 % everywhere",287,-6.6502
+0,"1 % everywhere",288,9.2106
+0,"1 % everywhere",289,-3.2100
+0,"1 % everywhere",290,-11.3223
+0,"1 % everywhere",291,-6.6866
+0,"1 % everywhere",292,-5.0439
+0,"1 % everywhere",293,0.0855
+0,"1 % everywhere",294,-4.9958
+0,"1 % everywhere",295,-8.3384
+0,"1 % everywhere",296,-4.0387
+0,"1 % everywhere",297,-4.8931
+0,"1 % everywhere",298,1.8786
+0,"1 % everywhere",299,3.8937
+0,"1 % everywhere",300,4.6281
+0,"1 % everywhere",301,3.0427
+0,"1 % everywhere",302,1.9442
+0,"1 % everywhere",303,-1.1913
+0,"1 % everywhere",304,-10.7211
+0,"1 % everywhere",305,-1.8475
+0,"1 % everywhere",306,0.3139
+0,"1 % everywhere",307,-4.9376
+0,"1 % everywhere",308,0.4544
+0,"1 % everywhere",309,-3.8063
+0,"1 % everywhere",310,-4.9683
+0,"1 % everywhere",311,-2.6439
+0,"1 % everywhere",312,1.9983
+0,"1 % everywhere",313,2.5819
+0,"1 % everywhere",314,2.2861
+0,"1 % everywhere",315,-5.1662
+0,"1 % everywhere",316,2.5979
+0,"1 % everywhere",317,-1.0708
+0,"1 % everywhere",318,2.3265
+0,"1 % everywhere",319,-1.0726
+0,"1 % everywhere",320,1.3340
+0,"1 % everywhere",321,-6.2698
+0,"1 % everywhere",322,-5.2450
+0,"1 % everywhere",323,4.9568
+0,"1 % everywhere",324,5.3258
+0,"1 % everywhere",325,4.2990
+0,"1 % everywhere",326,4.9084
+0,"1 % everywhere",327,3.5113
+0,"1 % everywhere",328,-2.2737
+0,"1 % everywhere",329,6.1086
+0,"1 % everywhere",330,-2.7365
+0,"1 % everywhere",331,1.3272
+0,"1 % everywhere",332,10.1242
+0,"1 % everywhere",333,-1.7990
+0,"1 % everywhere",334,2.9217
+0,"1 % everywhere",335,-2.5082
+0,"1 % everywhere",336,0.7062
+0,"1 % everywhere",337,-0.8978
+0,"1 % everywhere",338,-4.5519
+0,"1 % everywhere",339,-5.1383
+0,"1 % everywhere",340,-0.7231
+0,"1 % everywhere",341,-1.0918
+0,"1 % everywhere",342,1.4703
+0,"1 % everywhere",343,4.7335
+0,"1 % everywhere",344,-2.6294
+0,"1 % everywhere",345,5.5530
+0,"1 % everywhere",346,-4.0138
+0,"1 % everywhere",347,-6.7789
+0,"1 % everywhere",348,2.4899
+0,"1 % everywhere",349,-4.0953
+0,"1 % everywhere",350,-1.9614
+0,"1 % everywhere",351,-3.0085
+0,"1 % everywhere",352,0.5325
+0,"1 % everywhere",353,-1.7214
+0,"1 % everywhere",354,1.3323
+0,"1 % everywhere",355,-0.6704
+0,"1 % everywhere",356,-6.4476
+0,"1 % everywhere",357,-6.4742
+0,"1 % everywhere",358,-1.4044
+0,"1 % everywhere",359,-3.3830
+0,"1 % everywhere",360,7.6789
+0,"1 % everywhere",361,11.2905
+0,"1 % everywhere",362,4.8908
+0,"1 % everywhere",363,10.2300
+0,"1 % everywhere",364,6.7601
+0,"1 % everywhere",365,-2.0903
+0,"1 % everywhere",366,-4.7489
+0,"1 % everywhere",367,0.5656
+0,"1 % everywhere",368,0.2883
+0,"1 % everywhere",369,-3.8866
+0,"1 % everywhere",370,0.4938
+0,"1 % everywhere",371,-2.7711
+0,"1 % everywhere",372,-1.4326
+0,"1 % everywhere",373,-6.0781
+0,"1 % everywhere",374,0.3953
+0,"1 % everywhere",375,0.9947
+0,"1 % everywhere",376,-0.0594
+0,"1 % everywhere",377,-1.1588
+0,"1 % everywhere",378,-0.2882
+0,"1 % everywhere",379,5.9562
+0,"1 % everywhere",380,0.9253
+0,"1 % everywhere",381,-0.5804
+0,"1 % everywhere",382,-4.0623
+0,"1 % everywhere",383,2.8887
+0,"1 % everywhere",384,-4.3033
+0,"1 % everywhere",385,-3.9898
+0,"1 % everywhere",386,-3.3971
+0,"1 % everywhere",387,6.5830
+0,"1 % everywhere",388,6.2094
+0,"1 % everywhere",389,1.8660
+0,"1 % everywhere",390,-4.2707
+0,"1 % everywhere",391,2.0324
+0,"1 % everywhere",392,-1.9258
+0,"1 % everywhere",393,-5.0844
+0,"1 % everywhere",394,2.2756
+0,"1 % everywhere",395,3.5705
+0,"1 % everywhere",396,-2.2425
+0,"1 % everywhere",397,-0.6697
+0,"1 % everywhere",398,-8.5234
+0,"1 % everywhere",399,-5.4541
+0,"1 % everywhere",400,-4.2956
+0,"1 % everywhere",401,1.9386
+0,"1 % everywhere",402,-4.5517
+0,"1 % everywhere",403,-5.4184
+0,"1 % everywhere",404,0.9611
+0,"1 % everywhere",405,0.6300
+0,"1 % everywhere",406,3.1775
+0,"1 % everywhere",407,4.9422
+0,"1 % everywhere",408,-0.7148
+0,"1 % everywhere",409,2.3534
+0,"1 % everywhere",410,-5.7399
+0,"1 % everywhere",411,-6.4928
+0,"1 % everywhere",412,-9.6291
+0,"1 % everywhere",413,-2.4659
+0,"1 % everywhere",414,3.7124
+0,"1 % everywhere",415,-3.9957
+0,"1 % everywhere",416,7.1936
+0,"1 % everywhere",417,-0.7887
+0,"1 % everywhere",418,2.4783
+0,"1 % everywhere",419,2.6306
+0,"1 % everywhere",420,-3.2839
+0,"1 % everywhere",421,-1.1384
+0,"1 % everywhere",422,-4.3776
+0,"1 % everywhere",423,-4.0361
+0,"1 % everywhere",424,-5.5822
+0,"1 % everywhere",425,2.9812
+0,"1 % everywhere",426,3.5678
+0,"1 % everywhere",427,-0.8563
+0,"1 % everywhere",428,-5.3128
+0,"1 % everywhere",429,-5.4690
+0,"1 % everywhere",430,-6.2803
+0,"1 % everywhere",431,-1.6706
+0,"1 % everywhere",432,-7.1261
+0,"1 % everywhere",433,0.8639
+0,"1 % everywhere",434,-5.2508
+0,"1 % everywhere",435,-3.0165
+0,"1 % everywhere",436,3.6968
+0,"1 % everywhere",437,0.4162
+0,"1 % everywhere",438,10.5986
+0,"1 % everywhere",439,0.9911
+0,"1 % everywhere",440,-2.6248
+0,"1 % everywhere",441,2.7220
+0,"1 % everywhere",442,-5.2974
+0,"1 % everywhere",443,3.8938
+0,"1 % everywhere",444,0.0062
+0,"1 % everywhere",445,0.2249
+0,"1 % everywhere",446,2.4257
+0,"1 % everywhere",447,4.9621
+0,"1 % everywhere",448,-0.2555
+0,"1 % everywhere",449,8.8214
+0,"1 % everywhere",450,-2.2766
+0,"1 % everywhere",451,-1.8704
+0,"1 % everywhere",452,-4.5521
+0,"1 % everywhere",453,-0.2946
+0,"1 % everywhere",454,-0.7050
+0,"1 % everywhere",455,6.7469
+0,"1 % everywhere",456,6.2221
+0,"1 % everywhere",457,0.1187
+0,"1 % everywhere",458,2.9095
+0,"1 % everywhere",459,-6.0371
+0,"1 % everywhere",460,-3.6220
+0,"1 % everywhere",461,2.2258
+0,"1 % everywhere",462,1.3246
+0,"1 % everywhere",463,2.2019
+0,"1 % everywhere",464,2.1861
+0,"1 % everywhere",465,4.2418
+0,"1 % everywhere",466,1.4660
+0,"1 % everywhere",467,5.7116
+0,"1 % everywhere",468,-3.4983
+0,"1 % everywhere",469,1.4275
+0,"1 % everywhere",470,1.6128
+0,"1 % everywhere",471,-6.5167
+0,"1 % everywhere",472,4.0955
+0,"1 % everywhere",473,9.7846
+0,"1 % everywhere",474,2.8965
+0,"1 % everywhere",475,3.6298
+0,"1 % everywhere",476,-9.8564
+0,"1 % everywhere",477,-4.7056
+0,"1 % everywhere",478,-0.9940
+0,"1 % everywhere",479,0.2611
+0,"1 % everywhere",480,7.0225
+0,"1 % everywhere",481,1.2341
+0,"1 % everywhere",482,-3.6580
+0,"1 % everywhere",483,-5.4126
+0,"1 % everywhere",484,9.9708
+0,"1 % everywhere",485,8.0028
+0,"1 % everywhere",486,8.3864
+0,"1 % everywhere",487,-0.6397
+0,"1 % everywhere",488,4.3729
+0,"1 % everywhere",489,4.3285
+0,"1 % everywhere",490,-1.3423
+0,"1 % everywhere",491,4.8951
+0,"1 % everywhere",492,-7.2843
+0,"1 % everywhere",493,-0.9473
+0,"1 % everywhere",494,3.9701
+0,"1 % everywhere",495,-0.2202
+0,"1 % everywhere",496,12.1078
+0,"1 % everywhere",497,-3.0435
+0,"1 % everywhere",498,1.7894
+0,"1 % everywhere",499,1.3724
+1,"0.1 % everywhere",0,-1.3048
+1,"0.1 % everywhere",1,0.8482
+1,"0.1 % everywhere",2,-0.4786
+1,"0.1 % everywhere",3,0.0426
+1,"0.1 % everywhere",4,-0.5403
+1,"0.1 % everywhere",5,0.1235
+1,"0.1 % everywhere",6,0.3884
+1,"0.1 % everywhere",7,-0.5216
+1,"0.1 % everywhere",8,0.4227
+1,"0.1 % everywhere",9,-0.4153
+1,"0.1 % everywhere",10,0.0040
+1,"0.1 % everywhere",11,0.1304
+1,"0.1 % everywhere",12,-0.2022
+1,"0.1 % everywhere",13,-0.5261
+1,"0.1 % everywhere",14,0.1513
+1,"0.1 % everywhere",15,-0.2241
+1,"0.1 % everywhere",16,-0.0283
+1,"0.1 % everywhere",17,-0.3191
+1,"0.1 % everywhere",18,0.1897
+1,"0.1 % everywhere",19,0.3581
+1,"0.1 % everywhere",20,0.2799
+1,"0.1 % everywhere",21,1.3042
+1,"0.1 % everywhere",22,-0.2763
+1,"0.1 % everywhere",23,0.3720
+1,"0.1 % everywhere",24,0.5754
+1,"0.1 % everywhere",25,0.1050
+1,"0.1 % everywhere",26,-0.1369
+1,"0.1 % everywhere",27,0.1287
+1,"0.1 % everywhere",28,0.3755
+1,"0.1 % everywhere",29,-0.1203
+1,"0.1 % everywhere",30,0.6682
+1,"0.1 % everywhere",31,-0.3019
+1,"0.1 % everywhere",32,-0.1346
+1,"0.1 % everywhere",33,-0.4441
+1,"0.1 % everywhere",34,0.2792
+1,"0.1 % everywhere",35,-0.1134
+1,"0.1 % everywhere",36,-0.9442
+1,"0.1 % everywhere",37,-0.2261
+1,"0.1 % everywhere",38,0.0341
+1,"0.1 % everywhere",39,-0.1281
+1,"0.1 % everywhere",40,0.1319
+1,"0.1 % everywhere",41,-0.7316
+1,"0.1 % everywhere",42,-0.3537
+1,"0.1 % everywhere",43,-0.1237
+1,"0.1 % everywhere",44,0.2780
+1,"0.1 % everywhere",45,0.7970
+1,"0.1 % everywhere",46,-0.3616
+1,"0.1 % everywhere",47,0.5843
+1,"0.1 % everywhere",48,0.7818
+1,"0.1 % everywhere",49,-0.1686
+1,"0.1 % everywhere",50,0.3349
+1,"0.1 % everywhere",51,-0.3096
+1,"0.1 % everywhere",52,0.3784
+1,"0.1 % everywhere",53,-0.2966
+1,"0.1 % everywhere",54,-0.2027
+1,"0.1 % everywhere",55,0.0754
+1,"0.1 % everywhere",56,0.3768
+1,"0.1 % everywhere",57,-0.5530
+1,"0.1 % everywhere",58,-0.2791
+1,"0.1 % everywhere",59,0.4413
+1,"0.1 % everywhere",60,0.3821
+1,"0.1 % everywhere",61,-0.1968
+1,"0.1 % everywhere",62,-0.0905
+1,"0.1 % everywhere",63,-0.4683
+1,"0.1 % everywhere",64,0.4491
+1,"0.1 % everywhere",65,0.2087
+1,"0.1 % everywhere",66,-0.2336
+1,"0.1 % everywhere",67,-0.3851
+1,"0.1 % everywhere",68,-0.6428
+1,"0.1 % everywhere",69,-0.7138
+1,"0.1 % everywhere",70,0.0149
+1,"0.1 % everywhere",71,0.1792
+1,"0.1 % everywhere",72,0.2098
+1,"0.1 % everywhere",73,-0.6311
+1,"0.1 % everywhere",74,0.7068
+1,"0.1 % everywhere",75,0.7537
+1,"0.1 % everywhere",76,0.0646
+1,"0.1 % everywhere",77,-0.0390
+1,"0.1 % everywhere",78,-0.0498
+1,"0.1 % everywhere",79,0.7178
+1,"0.1 % everywhere",80,0.0434
+1,"0.1 % everywhere",81,-0.2570
+1,"0.1 % everywhere",82,-0.0935
+1,"0.1 % everywhere",83,-0.2485
+1,"0.1 % everywhere",84,-0.2481
+1,"0.1 % everywhere",85,0.2717
+1,"0.1 % everywhere",86,0.1301
+1,"0.1 % everywhere",87,-0.6094
+1,"0.1 % everywhere",88,0.5307
+1,"0.1 % everywhere",89,0.1542
+1,"0.1 % everywhere",90,-0.1684
+1,"0.1 % everywhere",91,-0.2921
+1,"0.1 % everywhere",92,-1.0021
+1,"0.1 % everywhere",93,-0.0357
+1,"0.1 % everywhere",94,-0.5401
+1,"0.1 % everywhere",95,-0.2626
+1,"0.1 % everywhere",96,0.0139
+1,"0.1 % everywhere",97,-0.1634
+1,"0.1 % everywhere",98,0.1257
+1,"0.1 % everywhere",99,-0.2171
+1,"0.1 % everywhere",100,-0.5642
+1,"0.1 % everywhere",101,-0.6542
+1,"0.1 % everywhere",102,-0.1541
+1,"0.1 % everywhere",103,0.1298
+1,"0.1 % everywhere",104,0.7425
+1,"0.1 % everywhere",105,0.1838
+1,"0.1 % everywhere",106,-0.0073
+1,"0.1 % everywhere",107,-0.9617
+1,"0.1 % everywhere",108,0.4309
+1,"0.1 % everywhere",109,-0.3300
+1,"0.1 % everywhere",110,0.4458
+1,"0.1 % everywhere",111,0.0157
+1,"0.1 % everywhere",112,-0.0737
+1,"0.1 % everywhere",113,0.6280
+1,"0.1 % everywhere",114,0.7133
+1,"0.1 % everywhere",115,0.8925
+1,"0.1 % everywhere",116,-0.6725
+1,"0.1 % everywhere",117,1.0175
+1,"0.1 % everywhere",118,-0.2545
+1,"0.1 % everywhere",119,-0.3894
+1,"0.1 % everywhere",120,-0.7631
+1,"0.1 % everywhere",121,-0.2725
+1,"0.1 % everywhere",122,-0.2338
+1,"0.1 % everywhere",123,0.0414
+1,"0.1 % everywhere",124,-0.5761
+1,"0.1 % everywhere",125,0.1067
+1,"0.1 % everywhere",126,-0.5181
+1,"0.1 % everywhere",127,-0.1054
+1,"0.1 % everywhere",128,0.4527
+1,"0.1 % everywhere",129,-0.3152
+1,"0.1 % everywhere",130,-0.1729
+1,"0.1 % everywhere",131,0.1078
+1,"0.1 % everywhere",132,0.0550
+1,"0.1 % everywhere",133,-0.4245
+1,"0.1 % everywhere",134,-0.0850
+1,"0.1 % everywhere",135,-0.0858
+1,"0.1 % everywhere",136,-0.6912
+1,"0.1 % everywhere",137,0.3724
+1,"0.1 % everywhere",138,0.6623
+1,"0.1 % everywhere",139,0.1367
+1,"0.1 % everywhere",140,0.1894
+1,"0.1 % everywhere",141,0.2161
+1,"0.1 % everywhere",142,0.5129
+1,"0.1 % everywhere",143,0.6674
+1,"0.1 % everywhere",144,1.2999
+1,"0.1 % everywhere",145,0.0465
+1,"0.1 % everywhere",146,0.3625
+1,"0.1 % everywhere",147,0.3072
+1,"0.1 % everywhere",148,-0.2877
+1,"0.1 % everywhere",149,0.2449
+1,"0.1 % everywhere",150,-0.7533
+1,"0.1 % everywhere",151,-0.0285
+1,"0.1 % everywhere",152,0.4329
+1,"0.1 % everywhere",153,-0.2340
+1,"0.1 % everywhere",154,-0.2323
+1,"0.1 % everywhere",155,0.1062
+1,"0.1 % everywhere",156,0.9393
+1,"0.1 % everywhere",157,-0.4601
+1,"0.1 % everywhere",158,0.2363
+1,"0.1 % everywhere",159,0.0828
+1,"0.1 % everywhere",160,0.5612
+1,"0.1 % everywhere",161,0.4424
+1,"0.1 % everywhere",162,-0.6850
+1,"0.1 % everywhere",163,0.4160
+1,"0.1 % everywhere",164,-0.2173
+1,"0.1 % everywhere",165,-0.3431
+1,"0.1 % everywhere",166,0.3586
+1,"0.1 % everywhere",167,-0.0690
+1,"0.1 % everywhere",168,0.1611
+1,"0.1 % everywhere",169,0.3432
+1,"0.1 % everywhere",170,1.1063
+1,"0.1 % everywhere",171,0.1458
+1,"0.1 % everywhere",172,0.7079
+1,"0.1 % everywhere",173,-0.2696
+1,"0.1 % everywhere",174,-0.1235
+1,"0.1 % everywhere",175,0.9327
+1,"0.1 % everywhere",176,-0.0919
+1,"0.1 % everywhere",177,-0.1973
+1,"0.1 % everywhere",178,-0.2329
+1,"0.1 % everywhere",179,-0.2482
+1,"0.1 % everywhere",180,-0.1412
+1,"0.1 % everywhere",181,0.2380
+1,"0.1 % everywhere",182,0.4069
+1,"0.1 % everywhere",183,-0.9240
+1,"0.1 % everywhere",184,0.3594
+1,"0.1 % everywhere",185,-0.1812
+1,"0.1 % everywhere",186,-0.3235
+1,"0.1 % everywhere",187,-0.2603
+1,"0.1 % everywhere",188,0.2105
+1,"0.1 % everywhere",189,-0.6260
+1,"0.1 % everywhere",190,-0.2449
+1,"0.1 % everywhere",191,-0.0886
+1,"0.1 % everywhere",192,-0.1799
+1,"0.1 % everywhere",193,-0.3849
+1,"0.1 % everywhere",194,0.2544
+1,"0.1 % everywhere",195,-0.3930
+1,"0.1 % everywhere",196,-0.3771
+1,"0.1 % everywhere",197,0.3710
+1,"0.1 % everywhere",198,0.4443
+1,"0.1 % everywhere",199,0.6069
+1,"0.1 % everywhere",200,0.2720
+1,"0.1 % everywhere",201,0.5157
+1,"0.1 % everywhere",202,0.4776
+1,"0.1 % everywhere",203,0.8881
+1,"0.1 % everywhere",204,0.3776
+1,"0.1 % everywhere",205,-0.7363
+1,"0.1 % everywhere",206,-0.2221
+1,"0.1 % everywhere",207,0.7256
+1,"0.1 % everywhere",208,-0.2094
+1,"0.1 % everywhere",209,0.2958
+1,"0.1 % everywhere",210,-0.2586
+1,"0.1 % everywhere",211,0.1506
+1,"0.1 % everywhere",212,-0.8768
+1,"0.1 % everywhere",213,0.3314
+1,"0.1 % everywhere",214,0.1059
+1,"0.1 % everywhere",215,-0.1227
+1,"0.1 % everywhere",216,-0.3383
+1,"0.1 % everywhere",217,0.5687
+1,"0.1 % everywhere",218,-0.4184
+1,"0.1 % everywhere",219,0.3399
+1,"0.1 % everywhere",220,-0.8163
+1,"0.1 % everywhere",221,-0.0621
+1,"0.1 % everywhere",222,0.4057
+1,"0.1 % everywhere",223,0.0481
+1,"0.1 % everywhere",224,0.9315
+1,"0.1 % everywhere",225,-0.7891
+1,"0.1 % everywhere",226,-0.4365
+1,"0.1 % everywhere",227,-0.2125
+1,"0.1 % everywhere",228,0.0074
+1,"0.1 % everywhere",229,0.2973
+1,"0.1 % everywhere",230,0.6928
+1,"0.1 % everywhere",231,-0.5973
+1,"0.1 % everywhere",232,-0.2910
+1,"0.1 % everywhere",233,-0.2260
+1,"0.1 % everywhere",234,0.0461
+1,"0.1 % everywhere",235,-0.3082
+1,"0.1 % everywhere",236,-0.3230
+1,"0.1 % everywhere",237,-0.1761
+1,"0.1 % everywhere",238,-0.5410
+1,"0.1 % everywhere",239,0.5250
+1,"0.1 % everywhere",240,0.2378
+1,"0.1 % everywhere",241,0.5592
+1,"0.1 % everywhere",242,0.6087
+1,"0.1 % everywhere",243,0.1635
+1,"0.1 % everywhere",244,-0.7701
+1,"0.1 % everywhere",245,-0.5640
+1,"0.1 % everywhere",246,-0.8258
+1,"0.1 % everywhere",247,-0.2852
+1,"0.1 % everywhere",248,0.0879
+1,"0.1 % everywhere",249,-0.3991
+1,"0.1 % everywhere",250,0.3155
+1,"0.1 % everywhere",251,0.2719
+1,"0.1 % everywhere",252,1.0688
+1,"0.1 % everywhere",253,1.1230
+1,"0.1 % everywhere",254,-0.2625
+1,"0.1 % everywhere",255,-0.3229
+1,"0.1 % everywhere",256,-0.3781
+1,"0.1 % everywhere",257,0.2756
+1,"0.1 % everywhere",258,-0.4969
+1,"0.1 % everywhere",259,0.4854
+1,"0.1 % everywhere",260,0.1477
+1,"0.1 % everywhere",261,-0.1852
+1,"0.1 % everywhere",262,0.0591
+1,"0.1 % everywhere",263,-0.8243
+1,"0.1 % everywhere",264,0.1423
+1,"0.1 % everywhere",265,0.4934
+1,"0.1 % everywhere",266,0.5092
+1,"0.1 % everywhere",267,-0.5375
+1,"0.1 % everywhere",268,0.3721
+1,"0.1 % everywhere",269,-0.8819
+1,"0.1 % everywhere",270,-0.7398
+1,"0.1 % everywhere",271,0.9603
+1,"0.1 % everywhere",272,-0.3225
+1,"0.1 % everywhere",273,0.4549
+1,"0.1 % everywhere",274,0.6062
+1,"0.1 % everywhere",275,-0.0502
+1,"0.1 % everywhere",276,0.0727
+1,"0.1 % everywhere",277,0.3400
+1,"0.1 % everywhere",278,0.3610
+1,"0.1 % everywhere",279,-0.0644
+1,"0.1 % everywhere",280,-0.5877
+1,"0.1 % everywhere",281,-0.9078
+1,"0.1 % everywhere",282,0.4239
+1,"0.1 % everywhere",283,-0.5494
+1,"0.1 % everywhere",284,-0.9475
+1,"0.1 % everywhere",285,0.2235
+1,"0.1 % everywhere",286,-0.6988
+1,"0.1 % everywhere",287,0.1675
+1,"0.1 % everywhere",288,0.7009
+1,"0.1 % everywhere",289,-0.1275
+1,"0.1 % everywhere",290,-1.0878
+1,"0.1 % everywhere",291,-0.9327
+1,"0.1 % everywhere",292,-0.5423
+1,"0.1 % everywhere",293,0.3180
+1,"0.1 % everywhere",294,-0.8564
+1,"0.1 % everywhere",295,0.0543
+1,"0.1 % everywhere",296,-0.0646
+1,"0.1 % everywhere",297,0.5891
+1,"0.1 % everywhere",298,1.0202
+1,"0.1 % everywhere",299,-0.2842
+1,"0.1 % everywhere",300,1.0809
+1,"0.1 % everywhere",301,0.5360
+1,"0.1 % everywhere",302,-0.1635
+1,"0.1 % everywhere",303,0.0766
+1,"0.1 % everywhere",304,-0.3733
+1,"0.1 % everywhere",305,-0.1165
+1,"0.1 % everywhere",306,0.0877
+1,"0.1 % everywhere",307,0.0657
+1,"0.1 % everywhere",308,-0.0123
+1,"0.1 % everywhere",309,0.9911
+1,"0.1 % everywhere",310,0.0713
+1,"0.1 % everywhere",311,-0.0717
+1,"0.1 % everywhere",312,-0.2695
+1,"0.1 % everywhere",313,0.8532
+1,"0.1 % everywhere",314,0.1478
+1,"0.1 % everywhere",315,-0.4194
+1,"0.1 % everywhere",316,0.4484
+1,"0.1 % everywhere",317,-0.2678
+1,"0.1 % everywhere",318,0.3484
+1,"0.1 % everywhere",319,-0.4351
+1,"0.1 % everywhere",320,-0.1274
+1,"0.1 % everywhere",321,0.9313
+1,"0.1 % everywhere",322,-0.2470
+1,"0.1 % everywhere",323,-0.0163
+1,"0.1 % everywhere",324,0.1371
+1,"0.1 % everywhere",325,-0.5517
+1,"0.1 % everywhere",326,-0.2125
+1,"0.1 % everywhere",327,0.5031
+1,"0.1 % everywhere",328,0.5799
+1,"0.1 % everywhere",329,-1.1342
+1,"0.1 % everywhere",330,0.0485
+1,"0.1 % everywhere",331,0.1679
+1,"0.1 % everywhere",332,-0.0293
+1,"0.1 % everywhere",333,0.2580
+1,"0.1 % everywhere",334,0.1956
+1,"0.1 % everywhere",335,-0.5517
+1,"0.1 % everywhere",336,0.2318
+1,"0.1 % everywhere",337,-0.5963
+1,"0.1 % everywhere",338,0.6180
+1,"0.1 % everywhere",339,0.2036
+1,"0.1 % everywhere",340,-0.1493
+1,"0.1 % everywhere",341,-0.2002
+1,"0.1 % everywhere",342,0.2887
+1,"0.1 % everywhere",343,-0.0479
+1,"0.1 % everywhere",344,0.3993
+1,"0.1 % everywhere",345,-0.3238
+1,"0.1 % everywhere",346,0.1596
+1,"0.1 % everywhere",347,-0.5471
+1,"0.1 % everywhere",348,0.4688
+1,"0.1 % everywhere",349,-0.7333
+1,"0.1 % everywhere",350,0.2005
+1,"0.1 % everywhere",351,-0.6772
+1,"0.1 % everywhere",352,0.3657
+1,"0.1 % everywhere",353,0.0854
+1,"0.1 % everywhere",354,0.0395
+1,"0.1 % everywhere",355,-0.0920
+1,"0.1 % everywhere",356,0.4787
+1,"0.1 % everywhere",357,0.5014
+1,"0.1 % everywhere",358,-0.0331
+1,"0.1 % everywhere",359,0.0938
+1,"0.1 % everywhere",360,1.0287
+1,"0.1 % everywhere",361,-1.1986
+1,"0.1 % everywhere",362,-0.1878
+1,"0.1 % everywhere",363,-0.2021
+1,"0.1 % everywhere",364,0.1092
+1,"0.1 % everywhere",365,-0.6064
+1,"0.1 % everywhere",366,-0.7209
+1,"0.1 % everywhere",367,0.5860
+1,"0.1 % everywhere",368,0.3206
+1,"0.1 % everywhere",369,-1.0852
+1,"0.1 % everywhere",370,-0.0850
+1,"0.1 % everywhere",371,0.5725
+1,"0.1 % everywhere",372,-0.5798
+1,"0.1 % everywhere",373,-0.5275
+1,"0.1 % everywhere",374,-0.0300
+1,"0.1 % everywhere",375,-0.0165
+1,"0.1 % everywhere",376,0.4198
+1,"0.1 % everywhere",377,-0.3117
+1,"0.1 % everywhere",378,-0.1409
+1,"0.1 % everywhere",379,-0.2931
+1,"0.1 % everywhere",380,0.1553
+1,"0.1 % everywhere",381,-0.0005
+1,"0.1 % everywhere",382,0.0090
+1,"0.1 % everywhere",383,-0.9140
+1,"0.1 % everywhere",384,0.1568
+1,"0.1 % everywhere",385,-0.1475
+1,"0.1 % everywhere",386,-0.0027
+1,"0.1 % everywhere",387,-0.2317
+1,"0.1 % everywhere",388,-0.8579
+1,"0.1 % everywhere",389,0.1563
+1,"0.1 % everywhere",390,0.0426
+1,"0.1 % everywhere",391,-0.3530
+1,"0.1 % everywhere",392,0.1779
+1,"0.1 % everywhere",393,0.1596
+1,"0.1 % everywhere",394,1.1235
+1,"0.1 % everywhere",395,0.2845
+1,"0.1 % everywhere",396,-0.1318
+1,"0.1 % everywhere",397,-0.3115
+1,"0.1 % everywhere",398,-0.7716
+1,"0.1 % everywhere",399,0.5443
+1,"0.1 % everywhere",400,0.0063
+1,"0.1 % everywhere",401,-0.6573
+1,"0.1 % everywhere",402,1.1545
+1,"0.1 % everywhere",403,0.0757
+1,"0.1 % everywhere",404,-0.0954
+1,"0.1 % everywhere",405,-0.8771
+1,"0.1 % everywhere",406,0.0272
+1,"0.1 % everywhere",407,-0.2135
+1,"0.1 % everywhere",408,0.4297
+1,"0.1 % everywhere",409,0.4079
+1,"0.1 % everywhere",410,-0.5945
+1,"0.1 % everywhere",411,0.2083
+1,"0.1 % everywhere",412,0.5530
+1,"0.1 % everywhere",413,0.3835
+1,"0.1 % everywhere",414,-0.0244
+1,"0.1 % everywhere",415,0.4850
+1,"0.1 % everywhere",416,-0.4532
+1,"0.1 % everywhere",417,-0.2654
+1,"0.1 % everywhere",418,-0.6207
+1,"0.1 % everywhere",419,0.2751
+1,"0.1 % everywhere",420,0.9814
+1,"0.1 % everywhere",421,-0.1158
+1,"0.1 % everywhere",422,-0.1271
+1,"0.1 % everywhere",423,0.1423
+1,"0.1 % everywhere",424,0.2625
+1,"0.1 % everywhere",425,-0.4094
+1,"0.1 % everywhere",426,0.4106
+1,"0.1 % everywhere",427,0.1149
+1,"0.1 % everywhere",428,-0.2969
+1,"0.1 % everywhere",429,0.1608
+1,"0.1 % everywhere",430,0.2243
+1,"0.1 % everywhere",431,0.4729
+1,"0.1 % everywhere",432,0.2836
+1,"0.1 % everywhere",433,-0.0512
+1,"0.1 % everywhere",434,-0.1904
+1,"0.1 % everywhere",435,-0.4276
+1,"0.1 % everywhere",436,1.1532
+1,"0.1 % everywhere",437,-0.1854
+1,"0.1 % everywhere",438,0.3086
+1,"0.1 % everywhere",439,-0.0300
+1,"0.1 % everywhere",440,-0.3400
+1,"0.1 % everywhere",441,0.1893
+1,"0.1 % everywhere",442,0.4146
+1,"0.1 % everywhere",443,0.0501
+1,"0.1 % everywhere",444,0.8208
+1,"0.1 % everywhere",445,0.3412
+1,"0.1 % everywhere",446,-0.1898
+1,"0.1 % everywhere",447,0.5499
+1,"0.1 % everywhere",448,0.5085
+1,"0.1 % everywhere",449,0.0744
+1,"0.1 % everywhere",450,-0.5161
+1,"0.1 % everywhere",451,-0.4673
+1,"0.1 % everywhere",452,0.5770
+1,"0.1 % everywhere",453,1.0013
+1,"0.1 % everywhere",454,-0.0977
+1,"0.1 % everywhere",455,-0.2391
+1,"0.1 % everywhere",456,-0.0067
+1,"0.1 % everywhere",457,-0.1171
+1,"0.1 % everywhere",458,-0.3042
+1,"0.1 % everywhere",459,0.0120
+1,"0.1 % everywhere",460,-0.8173
+1,"0.1 % everywhere",461,1.3859
+1,"0.1 % everywhere",462,-0.8381
+1,"0.1 % everywhere",463,-0.4260
+1,"0.1 % everywhere",464,0.0431
+1,"0.1 % everywhere",465,-0.2380
+1,"0.1 % everywhere",466,-0.0924
+1,"0.1 % everywhere",467,0.0531
+1,"0.1 % everywhere",468,0.3720
+1,"0.1 % everywhere",469,0.1945
+1,"0.1 % everywhere",470,0.0995
+1,"0.1 % everywhere",471,0.3553
+1,"0.1 % everywhere",472,-0.3607
+1,"0.1 % everywhere",473,-0.3273
+1,"0.1 % everywhere",474,0.1906
+1,"0.1 % everywhere",475,0.4897
+1,"0.1 % everywhere",476,-0.3989
+1,"0.1 % everywhere",477,0.1114
+1,"0.1 % everywhere",478,-0.2400
+1,"0.1 % everywhere",479,0.2025
+1,"0.1 % everywhere",480,0.4908
+1,"0.1 % everywhere",481,0.3214
+1,"0.1 % everywhere",482,-0.3053
+1,"0.1 % everywhere",483,-0.1001
+1,"0.1 % everywhere",484,0.3452
+1,"0.1 % everywhere",485,0.4088
+1,"0.1 % everywhere",486,-0.1105
+1,"0.1 % everywhere",487,-0.3161
+1,"0.1 % everywhere",488,-0.0217
+1,"0.1 % everywhere",489,0.6935
+1,"0.1 % everywhere",490,0.3140
+1,"0.1 % everywhere",491,0.3079
+1,"0.1 % everywhere",492,-0.4138
+1,"0.1 % everywhere",493,0.1038
+1,"0.1 % everywhere",494,-0.3478
+1,"0.1 % everywhere",495,0.6230
+1,"0.1 % everywhere",496,0.2469
+1,"0.1 % everywhere",497,0.4905
+1,"0.1 % everywhere",498,-0.0997
+1,"0.1 % everywhere",499,-0.1722
+2,"0.1 % + 0.01 % matched pairs",0,-0.1920
+2,"0.1 % + 0.01 % matched pairs",1,0.2204
+2,"0.1 % + 0.01 % matched pairs",2,-0.1246
+2,"0.1 % + 0.01 % matched pairs",3,0.0625
+2,"0.1 % + 0.01 % matched pairs",4,0.0310
+2,"0.1 % + 0.01 % matched pairs",5,-0.0028
+2,"0.1 % + 0.01 % matched pairs",6,-0.1605
+2,"0.1 % + 0.01 % matched pairs",7,0.0098
+2,"0.1 % + 0.01 % matched pairs",8,0.1482
+2,"0.1 % + 0.01 % matched pairs",9,-0.2868
+2,"0.1 % + 0.01 % matched pairs",10,-0.1048
+2,"0.1 % + 0.01 % matched pairs",11,0.2284
+2,"0.1 % + 0.01 % matched pairs",12,-0.0877
+2,"0.1 % + 0.01 % matched pairs",13,0.1119
+2,"0.1 % + 0.01 % matched pairs",14,-0.1015
+2,"0.1 % + 0.01 % matched pairs",15,-0.2791
+2,"0.1 % + 0.01 % matched pairs",16,0.0686
+2,"0.1 % + 0.01 % matched pairs",17,0.1326
+2,"0.1 % + 0.01 % matched pairs",18,-0.0393
+2,"0.1 % + 0.01 % matched pairs",19,0.1993
+2,"0.1 % + 0.01 % matched pairs",20,0.0706
+2,"0.1 % + 0.01 % matched pairs",21,-0.1756
+2,"0.1 % + 0.01 % matched pairs",22,-0.0557
+2,"0.1 % + 0.01 % matched pairs",23,-0.0067
+2,"0.1 % + 0.01 % matched pairs",24,-0.1099
+2,"0.1 % + 0.01 % matched pairs",25,-0.1938
+2,"0.1 % + 0.01 % matched pairs",26,-0.0763
+2,"0.1 % + 0.01 % matched pairs",27,0.0376
+2,"0.1 % + 0.01 % matched pairs",28,-0.3356
+2,"0.1 % + 0.01 % matched pairs",29,0.1852
+2,"0.1 % + 0.01 % matched pairs",30,-0.1455
+2,"0.1 % + 0.01 % matched pairs",31,0.0561
+2,"0.1 % + 0.01 % matched pairs",32,-0.0485
+2,"0.1 % + 0.01 % matched pairs",33,0.1535
+2,"0.1 % + 0.01 % matched pairs",34,-0.1002
+2,"0.1 % + 0.01 % matched pairs",35,-0.1732
+2,"0.1 % + 0.01 % matched pairs",36,0.0493
+2,"0.1 % + 0.01 % matched pairs",37,-0.1486
+2,"0.1 % + 0.01 % matched pairs",38,0.0236
+2,"0.1 % + 0.01 % matched pairs",39,0.2124
+2,"0.1 % + 0.01 % matched pairs",40,0.0829
+2,"0.1 % + 0.01 % matched pairs",41,-0.0037
+2,"0.1 % + 0.01 % matched pairs",42,0.3277
+2,"0.1 % + 0.01 % matched pairs",43,-0.2297
+2,"0.1 % + 0.01 % matched pairs",44,-0.1660
+2,"0.1 % + 0.01 % matched pairs",45,0.1358
+2,"0.1 % + 0.01 % matched pairs",46,-0.2086
+2,"0.1 % + 0.01 % matched pairs",47,0.0472
+2,"0.1 % + 0.01 % matched pairs",48,-0.2034
+2,"0.1 % + 0.01 % matched pairs",49,-0.0061
+2,"0.1 % + 0.01 % matched pairs",50,-0.2410
+2,"0.1 % + 0.01 % matched pairs",51,-0.0578
+2,"0.1 % + 0.01 % matched pairs",52,-0.3285
+2,"0.1 % + 0.01 % matched pairs",53,-0.0700
+2,"0.1 % + 0.01 % matched pairs",54,-0.1388
+2,"0.1 % + 0.01 % matched pairs",55,0.1973
+2,"0.1 % + 0.01 % matched pairs",56,0.1404
+2,"0.1 % + 0.01 % matched pairs",57,-0.1225
+2,"0.1 % + 0.01 % matched pairs",58,-0.0977
+2,"0.1 % + 0.01 % matched pairs",59,0.3488
+2,"0.1 % + 0.01 % matched pairs",60,-0.0136
+2,"0.1 % + 0.01 % matched pairs",61,-0.0524
+2,"0.1 % + 0.01 % matched pairs",62,-0.0018
+2,"0.1 % + 0.01 % matched pairs",63,0.0097
+2,"0.1 % + 0.01 % matched pairs",64,-0.1516
+2,"0.1 % + 0.01 % matched pairs",65,0.0622
+2,"0.1 % + 0.01 % matched pairs",66,0.0553
+2,"0.1 % + 0.01 % matched pairs",67,0.2757
+2,"0.1 % + 0.01 % matched pairs",68,0.1214
+2,"0.1 % + 0.01 % matched pairs",69,-0.1899
+2,"0.1 % + 0.01 % matched pairs",70,-0.0011
+2,"0.1 % + 0.01 % matched pairs",71,-0.2791
+2,"0.1 % + 0.01 % matched pairs",72,-0.1791
+2,"0.1 % + 0.01 % matched pairs",73,-0.0657
+2,"0.1 % + 0.01 % matched pairs",74,-0.2483
+2,"0.1 % + 0.01 % matched pairs",75,0.0828
+2,"0.1 % + 0.01 % matched pairs",76,-0.2277
+2,"0.1 % + 0.01 % matched pairs",77,0.0179
+2,"0.1 % + 0.01 % matched pairs",78,-0.0542
+2,"0.1 % + 0.01 % matched pairs",79,-0.3058
+2,"0.1 % + 0.01 % matched pairs",80,0.0993
+2,"0.1 % + 0.01 % matched pairs",81,0.1451
+2,"0.1 % + 0.01 % matched pairs",82,0.0751
+2,"0.1 % + 0.01 % matched pairs",83,0.0095
+2,"0.1 % + 0.01 % matched pairs",84,-0.0708
+2,"0.1 % + 0.01 % matched pairs",85,-0.3840
+2,"0.1 % + 0.01 % matched pairs",86,0.1447
+2,"0.1 % + 0.01 % matched pairs",87,0.0591
+2,"0.1 % + 0.01 % matched pairs",88,-0.0890
+2,"0.1 % + 0.01 % matched pairs",89,0.2790
+2,"0.1 % + 0.01 % matched pairs",90,-0.0188
+2,"0.1 % + 0.01 % matched pairs",91,-0.0105
+2,"0.1 % + 0.01 % matched pairs",92,0.2017
+2,"0.1 % + 0.01 % matched pairs",93,-0.0409
+2,"0.1 % + 0.01 % matched pairs",94,0.0547
+2,"0.1 % + 0.01 % matched pairs",95,0.0247
+2,"0.1 % + 0.01 % matched pairs",96,-0.2371
+2,"0.1 % + 0.01 % matched pairs",97,-0.1141
+2,"0.1 % + 0.01 % matched pairs",98,0.2198
+2,"0.1 % + 0.01 % matched pairs",99,0.0650
+2,"0.1 % + 0.01 % matched pairs",100,-0.0086
+2,"0.1 % + 0.01 % matched pairs",101,-0.0220
+2,"0.1 % + 0.01 % matched pairs",102,0.1697
+2,"0.1 % + 0.01 % matched pairs",103,-0.2110
+2,"0.1 % + 0.01 % matched pairs",104,-0.1287
+2,"0.1 % + 0.01 % matched pairs",105,0.2688
+2,"0.1 % + 0.01 % matched pairs",106,-0.3814
+2,"0.1 % + 0.01 % matched pairs",107,0.0630
+2,"0.1 % + 0.01 % matched pairs",108,0.1788
+2,"0.1 % + 0.01 % matched pairs",109,-0.0512
+2,"0.1 % + 0.01 % matched pairs",110,-0.1450
+2,"0.1 % + 0.01 % matched pairs",111,-0.2851
+2,"0.1 % + 0.01 % matched pairs",112,0.0125
+2,"0.1 % + 0.01 % matched pairs",113,0.0697
+2,"0.1 % + 0.01 % matched pairs",114,0.0717
+2,"0.1 % + 0.01 % matched pairs",115,-0.0974
+2,"0.1 % + 0.01 % matched pairs",116,0.1491
+2,"0.1 % + 0.01 % matched pairs",117,-0.0244
+2,"0.1 % + 0.01 % matched pairs",118,-0.1561
+2,"0.1 % + 0.01 % matched pairs",119,0.1894
+2,"0.1 % + 0.01 % matched pairs",120,0.0910
+2,"0.1 % + 0.01 % matched pairs",121,-0.1785
+2,"0.1 % + 0.01 % matched pairs",122,-0.1415
+2,"0.1 % + 0.01 % matched pairs",123,-0.2548
+2,"0.1 % + 0.01 % matched pairs",124,0.2049
+2,"0.1 % + 0.01 % matched pairs",125,-0.1124
+2,"0.1 % + 0.01 % matched pairs",126,-0.2574
+2,"0.1 % + 0.01 % matched pairs",127,-0.2605
+2,"0.1 % + 0.01 % matched pairs",128,-0.2147
+2,"0.1 % + 0.01 % matched pairs",129,0.0995
+2,"0.1 % + 0.01 % matched pairs",130,0.1425
+2,"0.1 % + 0.01 % matched pairs",131,-0.3000
+2,"0.1 % + 0.01 % matched pairs",132,-0.0192
+2,"0.1 % + 0.01 % matched pairs",133,-0.1108
+2,"0.1 % + 0.01 % matched pairs",134,-0.0186
+2,"0.1 % + 0.01 % matched pairs",135,0.0905
+2,"0.1 % + 0.01 % matched pairs",136,-0.1326
+2,"0.1 % + 0.01 % matched pairs",137,0.0850
+2,"0.1 % + 0.01 % matched pairs",138,0.0882
+2,"0.1 % + 0.01 % matched pairs",139,-0.0668
+2,"0.1 % + 0.01 % matched pairs",140,-0.1748
+2,"0.1 % + 0.01 % matched pairs",141,-0.2361
+2,"0.1 % + 0.01 % matched pairs",142,-0.0268
+2,"0.1 % + 0.01 % matched pairs",143,0.1115
+2,"0.1 % + 0.01 % matched pairs",144,-0.1238
+2,"0.1 % + 0.01 % matched pairs",145,-0.0100
+2,"0.1 % + 0.01 % matched pairs",146,-0.0320
+2,"0.1 % + 0.01 % matched pairs",147,-0.0732
+2,"0.1 % + 0.01 % matched pairs",148,0.2703
+2,"0.1 % + 0.01 % matched pairs",149,-0.0740
+2,"0.1 % + 0.01 % matched pairs",150,0.0230
+2,"0.1 % + 0.01 % matched pairs",151,-0.1311
+2,"0.1 % + 0.01 % matched pairs",152,0.0559
+2,"0.1 % + 0.01 % matched pairs",153,-0.1782
+2,"0.1 % + 0.01 % matched pairs",154,0.1207
+2,"0.1 % + 0.01 % matched pairs",155,-0.0591
+2,"0.1 % + 0.01 % matched pairs",156,-0.2879
+2,"0.1 % + 0.01 % matched pairs",157,-0.0574
+2,"0.1 % + 0.01 % matched pairs",158,0.0273
+2,"0.1 % + 0.01 % matched pairs",159,0.2741
+2,"0.1 % + 0.01 % matched pairs",160,-0.0244
+2,"0.1 % + 0.01 % matched pairs",161,-0.0339
+2,"0.1 % + 0.01 % matched pairs",162,0.2915
+2,"0.1 % + 0.01 % matched pairs",163,0.1812
+2,"0.1 % + 0.01 % matched pairs",164,-0.0635
+2,"0.1 % + 0.01 % matched pairs",165,-0.2754
+2,"0.1 % + 0.01 % matched pairs",166,-0.1199
+2,"0.1 % + 0.01 % matched pairs",167,-0.0461
+2,"0.1 % + 0.01 % matched pairs",168,-0.2724
+2,"0.1 % + 0.01 % matched pairs",169,-0.0153
+2,"0.1 % + 0.01 % matched pairs",170,-0.0896
+2,"0.1 % + 0.01 % matched pairs",171,0.2176
+2,"0.1 % + 0.01 % matched pairs",172,0.0540
+2,"0.1 % + 0.01 % matched pairs",173,0.0641
+2,"0.1 % + 0.01 % matched pairs",174,0.1286
+2,"0.1 % + 0.01 % matched pairs",175,-0.1550
+2,"0.1 % + 0.01 % matched pairs",176,-0.4358
+2,"0.1 % + 0.01 % matched pairs",177,0.2952
+2,"0.1 % + 0.01 % matched pairs",178,0.0418
+2,"0.1 % + 0.01 % matched pairs",179,0.1132
+2,"0.1 % + 0.01 % matched pairs",180,-0.0714
+2,"0.1 % + 0.01 % matched pairs",181,0.1419
+2,"0.1 % + 0.01 % matched pairs",182,-0.0860
+2,"0.1 % + 0.01 % matched pairs",183,0.0218
+2,"0.1 % + 0.01 % matched pairs",184,-0.3690
+2,"0.1 % + 0.01 % matched pairs",185,-0.1028
+2,"0.1 % + 0.01 % matched pairs",186,-0.2061
+2,"0.1 % + 0.01 % matched pairs",187,0.0713
+2,"0.1 % + 0.01 % matched pairs",188,-0.0484
+2,"0.1 % + 0.01 % matched pairs",189,-0.1811
+2,"0.1 % + 0.01 % matched pairs",190,0.0670
+2,"0.1 % + 0.01 % matched pairs",191,0.3341
+2,"0.1 % + 0.01 % matched pairs",192,-0.1287
+2,"0.1 % + 0.01 % matched pairs",193,-0.0739
+2,"0.1 % + 0.01 % matched pairs",194,-0.0512
+2,"0.1 % + 0.01 % matched pairs",195,-0.0505
+2,"0.1 % + 0.01 % matched pairs",196,0.0225
+2,"0.1 % + 0.01 % matched pairs",197,-0.2822
+2,"0.1 % + 0.01 % matched pairs",198,-0.0137
+2,"0.1 % + 0.01 % matched pairs",199,0.1401
+2,"0.1 % + 0.01 % matched pairs",200,0.1379
+2,"0.1 % + 0.01 % matched pairs",201,0.0035
+2,"0.1 % + 0.01 % matched pairs",202,-0.3472
+2,"0.1 % + 0.01 % matched pairs",203,0.1398
+2,"0.1 % + 0.01 % matched pairs",204,-0.0483
+2,"0.1 % + 0.01 % matched pairs",205,0.1874
+2,"0.1 % + 0.01 % matched pairs",206,-0.0556
+2,"0.1 % + 0.01 % matched pairs",207,0.1963
+2,"0.1 % + 0.01 % matched pairs",208,-0.2260
+2,"0.1 % + 0.01 % matched pairs",209,-0.1448
+2,"0.1 % + 0.01 % matched pairs",210,0.1560
+2,"0.1 % + 0.01 % matched pairs",211,0.2739
+2,"0.1 % + 0.01 % matched pairs",212,-0.0268
+2,"0.1 % + 0.01 % matched pairs",213,0.0592
+2,"0.1 % + 0.01 % matched pairs",214,-0.0394
+2,"0.1 % + 0.01 % matched pairs",215,0.3862
+2,"0.1 % + 0.01 % matched pairs",216,-0.0459
+2,"0.1 % + 0.01 % matched pairs",217,0.1054
+2,"0.1 % + 0.01 % matched pairs",218,0.0810
+2,"0.1 % + 0.01 % matched pairs",219,0.1015
+2,"0.1 % + 0.01 % matched pairs",220,-0.0187
+2,"0.1 % + 0.01 % matched pairs",221,0.1114
+2,"0.1 % + 0.01 % matched pairs",222,0.0255
+2,"0.1 % + 0.01 % matched pairs",223,-0.2162
+2,"0.1 % + 0.01 % matched pairs",224,-0.1194
+2,"0.1 % + 0.01 % matched pairs",225,-0.2302
+2,"0.1 % + 0.01 % matched pairs",226,-0.2141
+2,"0.1 % + 0.01 % matched pairs",227,0.1019
+2,"0.1 % + 0.01 % matched pairs",228,-0.2034
+2,"0.1 % + 0.01 % matched pairs",229,-0.1149
+2,"0.1 % + 0.01 % matched pairs",230,0.2420
+2,"0.1 % + 0.01 % matched pairs",231,-0.2460
+2,"0.1 % + 0.01 % matched pairs",232,0.1795
+2,"0.1 % + 0.01 % matched pairs",233,0.1345
+2,"0.1 % + 0.01 % matched pairs",234,-0.0763
+2,"0.1 % + 0.01 % matched pairs",235,-0.0912
+2,"0.1 % + 0.01 % matched pairs",236,0.2157
+2,"0.1 % + 0.01 % matched pairs",237,0.1760
+2,"0.1 % + 0.01 % matched pairs",238,-0.0677
+2,"0.1 % + 0.01 % matched pairs",239,0.2067
+2,"0.1 % + 0.01 % matched pairs",240,0.0919
+2,"0.1 % + 0.01 % matched pairs",241,0.0598
+2,"0.1 % + 0.01 % matched pairs",242,-0.0072
+2,"0.1 % + 0.01 % matched pairs",243,0.1866
+2,"0.1 % + 0.01 % matched pairs",244,-0.0275
+2,"0.1 % + 0.01 % matched pairs",245,0.1584
+2,"0.1 % + 0.01 % matched pairs",246,-0.0002
+2,"0.1 % + 0.01 % matched pairs",247,-0.1232
+2,"0.1 % + 0.01 % matched pairs",248,-0.0022
+2,"0.1 % + 0.01 % matched pairs",249,0.0676
+2,"0.1 % + 0.01 % matched pairs",250,-0.1272
+2,"0.1 % + 0.01 % matched pairs",251,0.2387
+2,"0.1 % + 0.01 % matched pairs",252,0.1829
+2,"0.1 % + 0.01 % matched pairs",253,0.0690
+2,"0.1 % + 0.01 % matched pairs",254,-0.1061
+2,"0.1 % + 0.01 % matched pairs",255,-0.1677
+2,"0.1 % + 0.01 % matched pairs",256,-0.1429
+2,"0.1 % + 0.01 % matched pairs",257,0.1149
+2,"0.1 % + 0.01 % matched pairs",258,0.1312
+2,"0.1 % + 0.01 % matched pairs",259,0.0038
+2,"0.1 % + 0.01 % matched pairs",260,-0.0666
+2,"0.1 % + 0.01 % matched pairs",261,-0.0265
+2,"0.1 % + 0.01 % matched pairs",262,-0.0907
+2,"0.1 % + 0.01 % matched pairs",263,0.1634
+2,"0.1 % + 0.01 % matched pairs",264,-0.0305
+2,"0.1 % + 0.01 % matched pairs",265,-0.0023
+2,"0.1 % + 0.01 % matched pairs",266,0.0723
+2,"0.1 % + 0.01 % matched pairs",267,0.1491
+2,"0.1 % + 0.01 % matched pairs",268,0.1235
+2,"0.1 % + 0.01 % matched pairs",269,-0.0356
+2,"0.1 % + 0.01 % matched pairs",270,0.0783
+2,"0.1 % + 0.01 % matched pairs",271,-0.0459
+2,"0.1 % + 0.01 % matched pairs",272,-0.0369
+2,"0.1 % + 0.01 % matched pairs",273,0.0006
+2,"0.1 % + 0.01 % matched pairs",274,-0.0991
+2,"0.1 % + 0.01 % matched pairs",275,-0.2519
+2,"0.1 % + 0.01 % matched pairs",276,0.2704
+2,"0.1 % + 0.01 % matched pairs",277,-0.1010
+2,"0.1 % + 0.01 % matched pairs",278,-0.1098
+2,"0.1 % + 0.01 % matched pairs",279,-0.1019
+2,"0.1 % + 0.01 % matched pairs",280,-0.1598
+2,"0.1 % + 0.01 % matched pairs",281,-0.1113
+2,"0.1 % + 0.01 % matched pairs",282,-0.1340
+2,"0.1 % + 0.01 % matched pairs",283,-0.1437
+2,"0.1 % + 0.01 % matched pairs",284,-0.1726
+2,"0.1 % + 0.01 % matched pairs",285,0.0507
+2,"0.1 % + 0.01 % matched pairs",286,-0.0997
+2,"0.1 % + 0.01 % matched pairs",287,0.1141
+2,"0.1 % + 0.01 % matched pairs",288,0.0866
+2,"0.1 % + 0.01 % matched pairs",289,-0.1326
+2,"0.1 % + 0.01 % matched pairs",290,0.0102
+2,"0.1 % + 0.01 % matched pairs",291,-0.0433
+2,"0.1 % + 0.01 % matched pairs",292,-0.1029
+2,"0.1 % + 0.01 % matched pairs",293,-0.1709
+2,"0.1 % + 0.01 % matched pairs",294,-0.1352
+2,"0.1 % + 0.01 % matched pairs",295,0.1789
+2,"0.1 % + 0.01 % matched pairs",296,-0.0613
+2,"0.1 % + 0.01 % matched pairs",297,0.0669
+2,"0.1 % + 0.01 % matched pairs",298,0.1504
+2,"0.1 % + 0.01 % matched pairs",299,0.1331
+2,"0.1 % + 0.01 % matched pairs",300,-0.2637
+2,"0.1 % + 0.01 % matched pairs",301,-0.2528
+2,"0.1 % + 0.01 % matched pairs",302,0.2276
+2,"0.1 % + 0.01 % matched pairs",303,0.1047
+2,"0.1 % + 0.01 % matched pairs",304,-0.1008
+2,"0.1 % + 0.01 % matched pairs",305,-0.1191
+2,"0.1 % + 0.01 % matched pairs",306,-0.1461
+2,"0.1 % + 0.01 % matched pairs",307,0.1668
+2,"0.1 % + 0.01 % matched pairs",308,0.0432
+2,"0.1 % + 0.01 % matched pairs",309,-0.2233
+2,"0.1 % + 0.01 % matched pairs",310,0.3122
+2,"0.1 % + 0.01 % matched pairs",311,-0.1462
+2,"0.1 % + 0.01 % matched pairs",312,0.0894
+2,"0.1 % + 0.01 % matched pairs",313,0.2367
+2,"0.1 % + 0.01 % matched pairs",314,0.2077
+2,"0.1 % + 0.01 % matched pairs",315,0.1734
+2,"0.1 % + 0.01 % matched pairs",316,-0.0106
+2,"0.1 % + 0.01 % matched pairs",317,-0.4332
+2,"0.1 % + 0.01 % matched pairs",318,-0.2806
+2,"0.1 % + 0.01 % matched pairs",319,-0.0926
+2,"0.1 % + 0.01 % matched pairs",320,0.0002
+2,"0.1 % + 0.01 % matched pairs",321,-0.2820
+2,"0.1 % + 0.01 % matched pairs",322,0.1489
+2,"0.1 % + 0.01 % matched pairs",323,-0.0717
+2,"0.1 % + 0.01 % matched pairs",324,0.2106
+2,"0.1 % + 0.01 % matched pairs",325,0.0698
+2,"0.1 % + 0.01 % matched pairs",326,-0.2700
+2,"0.1 % + 0.01 % matched pairs",327,0.1899
+2,"0.1 % + 0.01 % matched pairs",328,0.1714
+2,"0.1 % + 0.01 % matched pairs",329,0.0021
+2,"0.1 % + 0.01 % matched pairs",330,0.2508
+2,"0.1 % + 0.01 % matched pairs",331,0.0918
+2,"0.1 % + 0.01 % matched pairs",332,-0.2345
+2,"0.1 % + 0.01 % matched pairs",333,0.0672
+2,"0.1 % + 0.01 % matched pairs",334,0.2940
+2,"0.1 % + 0.01 % matched pairs",335,0.2525
+2,"0.1 % + 0.01 % matched pairs",336,-0.0116
+2,"0.1 % + 0.01 % matched pairs",337,0.1083
+2,"0.1 % + 0.01 % matched pairs",338,0.2353
+2,"0.1 % + 0.01 % matched pairs",339,0.0056
+2,"0.1 % + 0.01 % matched pairs",340,-0.2507
+2,"0.1 % + 0.01 % matched pairs",341,-0.1816
+2,"0.1 % + 0.01 % matched pairs",342,0.0272
+2,"0.1 % + 0.01 % matched pairs",343,0.0439
+2,"0.1 % + 0.01 % matched pairs",344,-0.1377
+2,"0.1 % + 0.01 % matched pairs",345,0.1857
+2,"0.1 % + 0.01 % matched pairs",346,0.1247
+2,"0.1 % + 0.01 % matched pairs",347,-0.0177
+2,"0.1 % + 0.01 % matched pairs",348,0.0086
+2,"0.1 % + 0.01 % matched pairs",349,-0.0217
+2,"0.1 % + 0.01 % matched pairs",350,0.2142
+2,"0.1 % + 0.01 % matched pairs",351,0.1305
+2,"0.1 % + 0.01 % matched pairs",352,-0.0815
+2,"0.1 % + 0.01 % matched pairs",353,-0.1375
+2,"0.1 % + 0.01 % matched pairs",354,0.1530
+2,"0.1 % + 0.01 % matched pairs",355,0.1479
+2,"0.1 % + 0.01 % matched pairs",356,0.3442
+2,"0.1 % + 0.01 % matched pairs",357,-0.1083
+2,"0.1 % + 0.01 % matched pairs",358,0.2113
+2,"0.1 % + 0.01 % matched pairs",359,-0.0910
+2,"0.1 % + 0.01 % matched pairs",360,0.0664
+2,"0.1 % + 0.01 % matched pairs",361,0.0628
+2,"0.1 % + 0.01 % matched pairs",362,0.0257
+2,"0.1 % + 0.01 % matched pairs",363,0.1189
+2,"0.1 % + 0.01 % matched pairs",364,0.0900
+2,"0.1 % + 0.01 % matched pairs",365,-0.1897
+2,"0.1 % + 0.01 % matched pairs",366,0.0396
+2,"0.1 % + 0.01 % matched pairs",367,-0.1298
+2,"0.1 % + 0.01 % matched pairs",368,-0.0059
+2,"0.1 % + 0.01 % matched pairs",369,0.0240
+2,"0.1 % + 0.01 % matched pairs",370,-0.1912
+2,"0.1 % + 0.01 % matched pairs",371,-0.0632
+2,"0.1 % + 0.01 % matched pairs",372,0.3927
+2,"0.1 % + 0.01 % matched pairs",373,-0.0427
+2,"0.1 % + 0.01 % matched pairs",374,0.2230
+2,"0.1 % + 0.01 % matched pairs",375,0.1463
+2,"0.1 % + 0.01 % matched pairs",376,-0.0995
+2,"0.1 % + 0.01 % matched pairs",377,0.0442
+2,"0.1 % + 0.01 % matched pairs",378,-0.0798
+2,"0.1 % + 0.01 % matched pairs",379,-0.2565
+2,"0.1 % + 0.01 % matched pairs",380,-0.0233
+2,"0.1 % + 0.01 % matched pairs",381,-0.2029
+2,"0.1 % + 0.01 % matched pairs",382,0.2087
+2,"0.1 % + 0.01 % matched pairs",383,-0.2023
+2,"0.1 % + 0.01 % matched pairs",384,-0.0517
+2,"0.1 % + 0.01 % matched pairs",385,0.0297
+2,"0.1 % + 0.01 % matched pairs",386,0.1266
+2,"0.1 % + 0.01 % matched pairs",387,-0.1402
+2,"0.1 % + 0.01 % matched pairs",388,0.0350
+2,"0.1 % + 0.01 % matched pairs",389,0.0975
+2,"0.1 % + 0.01 % matched pairs",390,0.0515
+2,"0.1 % + 0.01 % matched pairs",391,-0.1105
+2,"0.1 % + 0.01 % matched pairs",392,0.0298
+2,"0.1 % + 0.01 % matched pairs",393,0.2232
+2,"0.1 % + 0.01 % matched pairs",394,-0.1234
+2,"0.1 % + 0.01 % matched pairs",395,-0.0421
+2,"0.1 % + 0.01 % matched pairs",396,0.1887
+2,"0.1 % + 0.01 % matched pairs",397,0.0131
+2,"0.1 % + 0.01 % matched pairs",398,0.0454
+2,"0.1 % + 0.01 % matched pairs",399,-0.0257
+2,"0.1 % + 0.01 % matched pairs",400,-0.0903
+2,"0.1 % + 0.01 % matched pairs",401,-0.0644
+2,"0.1 % + 0.01 % matched pairs",402,-0.1011
+2,"0.1 % + 0.01 % matched pairs",403,0.0232
+2,"0.1 % + 0.01 % matched pairs",404,-0.2939
+2,"0.1 % + 0.01 % matched pairs",405,0.0140
+2,"0.1 % + 0.01 % matched pairs",406,0.1922
+2,"0.1 % + 0.01 % matched pairs",407,0.1002
+2,"0.1 % + 0.01 % matched pairs",408,0.1180
+2,"0.1 % + 0.01 % matched pairs",409,-0.0691
+2,"0.1 % + 0.01 % matched pairs",410,-0.2286
+2,"0.1 % + 0.01 % matched pairs",411,-0.1326
+2,"0.1 % + 0.01 % matched pairs",412,-0.2823
+2,"0.1 % + 0.01 % matched pairs",413,-0.2101
+2,"0.1 % + 0.01 % matched pairs",414,-0.0634
+2,"0.1 % + 0.01 % matched pairs",415,0.0440
+2,"0.1 % + 0.01 % matched pairs",416,0.0147
+2,"0.1 % + 0.01 % matched pairs",417,-0.1240
+2,"0.1 % + 0.01 % matched pairs",418,-0.2992
+2,"0.1 % + 0.01 % matched pairs",419,-0.1928
+2,"0.1 % + 0.01 % matched pairs",420,-0.0426
+2,"0.1 % + 0.01 % matched pairs",421,-0.0250
+2,"0.1 % + 0.01 % matched pairs",422,0.1956
+2,"0.1 % + 0.01 % matched pairs",423,0.1197
+2,"0.1 % + 0.01 % matched pairs",424,0.0975
+2,"0.1 % + 0.01 % matched pairs",425,-0.0240
+2,"0.1 % + 0.01 % matched pairs",426,0.0597
+2,"0.1 % + 0.01 % matched pairs",427,-0.0390
+2,"0.1 % + 0.01 % matched pairs",428,0.0216
+2,"0.1 % + 0.01 % matched pairs",429,0.1217
+2,"0.1 % + 0.01 % matched pairs",430,0.1220
+2,"0.1 % + 0.01 % matched pairs",431,0.0205
+2,"0.1 % + 0.01 % matched pairs",432,0.2144
+2,"0.1 % + 0.01 % matched pairs",433,0.0997
+2,"0.1 % + 0.01 % matched pairs",434,0.1344
+2,"0.1 % + 0.01 % matched pairs",435,-0.1657
+2,"0.1 % + 0.01 % matched pairs",436,-0.0429
+2,"0.1 % + 0.01 % matched pairs",437,0.1572
+2,"0.1 % + 0.01 % matched pairs",438,0.0513
+2,"0.1 % + 0.01 % matched pairs",439,-0.2908
+2,"0.1 % + 0.01 % matched pairs",440,-0.1506
+2,"0.1 % + 0.01 % matched pairs",441,-0.2143
+2,"0.1 % + 0.01 % matched pairs",442,-0.1266
+2,"0.1 % + 0.01 % matched pairs",443,0.1920
+2,"0.1 % + 0.01 % matched pairs",444,0.2354
+2,"0.1 % + 0.01 % matched pairs",445,-0.0096
+2,"0.1 % + 0.01 % matched pairs",446,-0.0035
+2,"0.1 % + 0.01 % matched pairs",447,0.2639
+2,"0.1 % + 0.01 % matched pairs",448,0.0633
+2,"0.1 % + 0.01 % matched pairs",449,0.2010
+2,"0.1 % + 0.01 % matched pairs",450,-0.1910
+2,"0.1 % + 0.01 % matched pairs",451,0.0103
+2,"0.1 % + 0.01 % matched pairs",452,0.3279
+2,"0.1 % + 0.01 % matched pairs",453,-0.0689
+2,"0.1 % + 0.01 % matched pairs",454,0.1599
+2,"0.1 % + 0.01 % matched pairs",455,0.0584
+2,"0.1 % + 0.01 % matched pairs",456,-0.1763
+2,"0.1 % + 0.01 % matched pairs",457,0.3735
+2,"0.1 % + 0.01 % matched pairs",458,-0.0244
+2,"0.1 % + 0.01 % matched pairs",459,-0.0264
+2,"0.1 % + 0.01 % matched pairs",460,0.2798
+2,"0.1 % + 0.01 % matched pairs",461,0.1771
+2,"0.1 % + 0.01 % matched pairs",462,0.0569
+2,"0.1 % + 0.01 % matched pairs",463,-0.0265
+2,"0.1 % + 0.01 % matched pairs",464,-0.0182
+2,"0.1 % + 0.01 % matched pairs",465,0.1208
+2,"0.1 % + 0.01 % matched pairs",466,-0.0387
+2,"0.1 % + 0.01 % matched pairs",467,-0.0901
+2,"0.1 % + 0.01 % matched pairs",468,0.0175
+2,"0.1 % + 0.01 % matched pairs",469,0.2240
+2,"0.1 % + 0.01 % matched pairs",470,-0.1388
+2,"0.1 % + 0.01 % matched pairs",471,0.0582
+2,"0.1 % + 0.01 % matched pairs",472,-0.1631
+2,"0.1 % + 0.01 % matched pairs",473,0.1351
+2,"0.1 % + 0.01 % matched pairs",474,-0.1419
+2,"0.1 % + 0.01 % matched pairs",475,0.0335
+2,"0.1 % + 0.01 % matched pairs",476,0.1192
+2,"0.1 % + 0.01 % matched pairs",477,-0.2209
+2,"0.1 % + 0.01 % matched pairs",478,0.0341
+2,"0.1 % + 0.01 % matched pairs",479,-0.0997
+2,"0.1 % + 0.01 % matched pairs",480,0.1856
+2,"0.1 % + 0.01 % matched pairs",481,0.0254
+2,"0.1 % + 0.01 % matched pairs",482,-0.2558
+2,"0.1 % + 0.01 % matched pairs",483,-0.2080
+2,"0.1 % + 0.01 % matched pairs",484,-0.0054
+2,"0.1 % + 0.01 % matched pairs",485,0.3291
+2,"0.1 % + 0.01 % matched pairs",486,0.0272
+2,"0.1 % + 0.01 % matched pairs",487,0.0664
+2,"0.1 % + 0.01 % matched pairs",488,-0.1763
+2,"0.1 % + 0.01 % matched pairs",489,0.0964
+2,"0.1 % + 0.01 % matched pairs",490,0.0492
+2,"0.1 % + 0.01 % matched pairs",491,0.1712
+2,"0.1 % + 0.01 % matched pairs",492,0.2732
+2,"0.1 % + 0.01 % matched pairs",493,0.0812
+2,"0.1 % + 0.01 % matched pairs",494,-0.2864
+2,"0.1 % + 0.01 % matched pairs",495,-0.0094
+2,"0.1 % + 0.01 % matched pairs",496,0.1583
+2,"0.1 % + 0.01 % matched pairs",497,0.0403
+2,"0.1 % + 0.01 % matched pairs",498,0.1526
+2,"0.1 % + 0.01 % matched pairs",499,0.0670
