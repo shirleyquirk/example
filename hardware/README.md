@@ -66,7 +66,7 @@ duty-cycle divider (M7, [schematic](schematics/duty-cycle-divider.svg)).
 slot (i mod 5) on side (i div 5), clockwise from the top. Every slot is the same
 leaning parallelogram (6 × 2.2 mm), so every position passes the same light.
 No text: names are in the file names and SVG titles. Registration: a notch near
-one end of the upper-left side matches a tab on every ring's inner wall.
+one end of the upper-left side fits over the key fin.
 Off-centre along a side, the notch has no mirror image, so a token turned
 over doesn't seat. On plywood the engraved icon burns dark, which suits it.
 
