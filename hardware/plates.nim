@@ -80,6 +80,40 @@ proc engraveText(cx, cy, size: float, text: string): string =
   "<text x=\"" & mm(cx) & "\" y=\"" & mm(cy) & "\" font-size=\"" & mm(size) &
     "\" class=\"engrave\">" & text & "</text>\n"
 
+# ---------------------------------------------------------------- icons
+# Traced from the rulebook's Biome Icons page by `nim icons` (potrace output in
+# hardware/icons/). Embedded at compile time; black fill = engrave.
+
+const IconSize* = 24.0   ## mm, square
+
+proc iconFile(symbol: Symbol): string =
+  ## potrace's SVG: keep its viewBox and the <g>…</g> holding the paths.
+  const files: array[Symbol, string] = [
+    staticRead("icons/void.svg"), staticRead("icons/caves.svg"),
+    staticRead("icons/volcanic.svg"), staticRead("icons/hostile.svg"),
+    staticRead("icons/crystalline.svg"), staticRead("icons/deadly.svg"),
+    staticRead("icons/vegetation.svg"), staticRead("icons/water.svg"),
+    staticRead("icons/ruins.svg"), staticRead("icons/frigid.svg"),
+    staticRead("icons/rocky.svg"), staticRead("icons/desert.svg")]
+  files[symbol]
+
+proc between(text, first, last: string): string =
+  ## The text from the start of `first` to the end of `last`.
+  let a = text.find(first)
+  let b = text.rfind(last)
+  doAssert a >= 0 and b > a, "unexpected icon SVG"
+  text[a ..< b + last.len]
+
+proc iconAt*(symbol: Symbol, cx, cy, size: float): string =
+  ## The icon as a nested <svg>, `size` mm square, centred at (cx, cy).
+  let file = iconFile(symbol)
+  const key = "viewBox=\""
+  let start = file.find(key) + key.len
+  let viewBoxAttr = file[start ..< file.find('"', start)]
+  "<svg x=\"" & mm(cx - size / 2) & "\" y=\"" & mm(cy - size / 2) &
+    "\" width=\"" & mm(size) & "\" height=\"" & mm(size) & "\" viewBox=\"" &
+    viewBoxAttr & "\">" & file.between("<g", "</g>") & "</svg>\n"
+
 proc plateBody*(plate: Plate, cx, cy: float): string =
   ## The plate's cut and engrave elements, centred at (cx, cy).
   result.add cutCircle(cx, cy, PlateDiameter)
@@ -94,11 +128,18 @@ proc plateBody*(plate: Plate, cx, cy: float): string =
       # engraved tick and card number every 5 cards, outside the ring
       let (tx, ty) = polar(ApertureRingRadius + 5.0, cardAngle(index))
       result.add engraveText(cx + tx, cy + ty + 1.0, 2.8, $index)
-  result.add engraveText(cx, cy - 10.0, 9.0,
-    (if plate.kind == symbolPlate: $Letter[plate.symbol] else: ""))
-  result.add engraveText(cx, cy + 16.0, 6.0, plate.title)
-  result.add engraveText(cx, cy + 23.0, 3.0,
-    $(DeckSize - card(plate.holes)) & " blocked")
+  # Layout inside the ring, avoiding the spindle (centre) and the locating pin
+  # (upper right, r = 22 mm at 20°):
+  #   small print (notebook letter, cards blocked)  y = -27
+  #   name                                          y = -12
+  #   spindle                                       y =   0
+  #   icon, 24 mm                                   y = +8 .. +32 (corner r = 34 < ring)
+  let blocked = $(DeckSize - card(plate.holes)) & " blocked"
+  result.add engraveText(cx, cy - 27.0, 2.6,
+    (if plate.kind == symbolPlate: Letter[plate.symbol] & " · " & blocked else: blocked))
+  result.add engraveText(cx, cy - 12.0, 6.0, plate.title)
+  if plate.kind == symbolPlate:
+    result.add iconAt(plate.symbol, cx, cy + 20.0, IconSize)
 
 const Style = """<style>
   .cut { fill: none; stroke: #ff0000; stroke-width: 0.1; }

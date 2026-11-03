@@ -2,6 +2,7 @@
 #
 #   nim test    unit tests (C backend)
 #   nim build   tests, then compile the app to JS and write index.html
+#   nim icons   trace the biome icons from the rulebook image (needs ImageMagick, potrace)
 #   nim plates  laser-cutting SVGs for the symbol plates (hardware/plates/)
 #   nim sim     simulate the analog chain in ngspice and compare with the app's maths
 #   nim results run every simulation; write CSVs, SVG charts and a report to
@@ -290,3 +291,24 @@ task results, "Run every simulation and write hardware/results/":
     "The stand-alone divider netlist is `hardware/sim/divider.cir`.\n"
   writeFile(dir & "README.md", report)
   echo "wrote ", dir
+
+task icons, "Trace the biome icons from hardware/icons/source/ into hardware/icons/":
+  # Each icon is 64 px square in the source, in a column at x = 56..119. These
+  # are the top edges, found by scanning that column for dark rows. Tutorial
+  # isn't in this deck, so it's skipped.
+  const
+    source = "hardware/icons/source/biome-icons.png"
+    iconTops = [(Caves, 182), (Crystalline, 250), (Deadly, 369), (Desert, 550),
+                (Frigid, 618), (Hostile, 796), (Rocky, 919), (Ruins, 1042),
+                (Vegetation, 1342), (Void, 1465), (Volcanic, 1643), (Water, 1766)]
+  mkDir "build/icons"
+  for (symbol, top) in iconTops:
+    let name = toLowerAscii($symbol)
+    let bitmap = "build/icons/" & name & ".pbm"
+    # 66 px crop with a pixel of margin, upscale 8x with smoothing so the
+    # trace gets curves rather than pixel steps, then threshold to 1 bit.
+    exec "convert " & source & " -crop 66x66+55+" & $(top - 1) &
+      " +repage -colorspace gray -resize 800% -threshold 50% " & bitmap
+    exec "potrace " & bitmap & " --svg --flat --turdsize 40 --alphamax 1.1" &
+      " -o hardware/icons/" & name & ".svg"
+  echo "traced ", iconTops.len, " icons to hardware/icons/"

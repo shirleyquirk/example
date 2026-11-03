@@ -84,12 +84,17 @@ from the app: `nim plates` writes `hardware/plates/*.svg` and `sheet.svg` (all 1
 - Ø8.2 mm centre hole on an 8 mm spindle. Ø3.1 mm locating-pin hole at 22 mm
   radius, 20°. A plate placed upside down puts that hole at −20° and won't seat,
   so there's only one way on.
-- 12 symbol plates (letter and name engraved), **blank-safe** plate, **baffle**
+- 12 symbol plates, each engraved with its biome icon (24 mm, below the spindle)
+  and name. The notebook letter and blocked count are in small print at the top,
+  for documentation. Plus a **blank-safe** plate and a **baffle**
   (all 40 holes, fixed over the detectors to stop light leaking between
   neighbouring positions).
 - Files: red hairline = cut, black = engrave. Convert text to paths in your
-  laser software. The engraved letter stands in for the real icon; swap in the
-  art if you want.
+  laser software.
+- Icons are traced from the rulebook's Biome Icons page by `nim icons`
+  (ImageMagick crop, 8× smooth upscale, threshold, potrace) into
+  `icons/*.svg`. The source image is in `icons/source/`. They're Awaken Realms'
+  artwork, for a personal copy of the game.
 
 ⚠️ **Test first:** some black acrylic is transparent to infrared, and most
 phototransistors peak in the IR. Cut one plate and check it with the chosen
@@ -244,6 +249,7 @@ simpler.
 ## Files
 
 - `plates.nim`: plate geometry and SVG output (`nim plates`).
+- `icons/`: traced biome icons (`nim icons`) and their source image.
 - `plates/`: generated laser files.
 - `simgen.nim`: generates the chain netlist for a game situation (`nim sim`).
 - `sim/divider.cir`: stand-alone divider simulation.

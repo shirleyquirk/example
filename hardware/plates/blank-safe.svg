@@ -53,7 +53,6 @@
 <circle cx="31.489" cy="22.639" r="1.500" class="cut"/>
 <circle cx="36.840" cy="19.360" r="1.500" class="cut"/>
 <circle cx="42.639" cy="16.958" r="1.500" class="cut"/>
-<text x="55.000" y="45.000" font-size="9.000" class="engrave"></text>
-<text x="55.000" y="71.000" font-size="6.000" class="engrave">Blank safe</text>
-<text x="55.000" y="78.000" font-size="3.000" class="engrave">1 blocked</text>
+<text x="55.000" y="28.000" font-size="2.600" class="engrave">1 blocked</text>
+<text x="55.000" y="43.000" font-size="6.000" class="engrave">Blank safe</text>
 </svg>
