@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="124.249mm" height="124.249mm" viewBox="0 0 124.249 124.249">
+<title>Lid top (solid) ×1</title>
+<style>
+  .cut { fill: none; stroke: #ff0000; stroke-width: 0.1; }
+  .mark { fill: none; stroke: #0000ff; stroke-width: 0.1; }
+</style>
+<polygon points="39.881,8.424 84.368,8.424 115.824,39.881 115.824,84.368 84.368,115.824 39.881,115.824 8.424,84.368 8.424,39.881" class="cut"/>
+</svg>

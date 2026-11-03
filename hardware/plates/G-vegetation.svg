@@ -2,6 +2,7 @@
 <title>Vegetation (G)</title>
 <style>
   .cut { fill: none; stroke: #ff0000; stroke-width: 0.1; }
+  .mark { fill: none; stroke: #0000ff; stroke-width: 0.1; }
 </style>
 <g id="G-vegetation"><title>Vegetation (G), 29 slots</title>
 <polygon points="30.727,7.296 63.864,7.296 87.296,30.727 87.296,63.864 63.864,87.296 30.727,87.296 7.296,63.864 7.296,30.727 25.070,12.953 26.131,14.013 29.666,10.478 28.606,9.417" class="cut"/>

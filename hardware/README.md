@@ -22,77 +22,73 @@ Nixie bargraph: **what is the chance the next card is danger?**
 
 Scale everywhere: **0.25 V per card, 40 cards = 10 V.**
 
-## Simplified design (proposed, replaces the precision path below)
+## Current design: the cup
 
-Accuracy traded for simplicity: about ±1 card instead of ±0.2.
+```
+          ┌─────────── lid (battery powered) ───────────┐
+          │ batteries + switch on top                   │
+          │ LED board: 40 LEDs, one above each slot     │
+          │ skirt slides down over the cup and covers   │
+          │ the finger slots, so room light stays out   │
+          └──────────────────────────────────────────────┘
+   ┃▮┃    ┌── pocket: up to 6 plywood tokens, keyed ──┐   finger slots
+   ┃▮┃    │   (likely 2–3)                             │   left and right
+ IN-13    ├── floor = baffle: 40 slots ─────────────────┤
+ on the   │ sensor board: 40 visible-light detectors,   │
+ side     │ 74HC14s, resistors; in from below           │
+   ┃▮┃    └── base (screwed on) ── cable gap → driver ──┘
+```
 
-| | Precision path (M3–M7 below) | Simplified |
-|---|---|---|
-| Tokens | — | Octagonal, black card or acrylic, icon centred, 40 leaning slots |
-| Detection | 40 detectors + 40 Schmitt triggers | **40 detectors on a factory-assembled board** *or* **1 photodiode** in a white chamber (needs a test first) |
-| Inputs | BCD thumbwheels + DACs | **Two pots with printed 0–40 dials** |
-| Maths | Difference amps + duty-cycle divider (5 ICs, matched networks) | **Pot divider: one quad op-amp** ([schematic](schematics/rheostat-divider.svg)) |
-| Supplies | ±15 V, precision 5 V reference | ±12 V, simple 10 V reference |
+| Part | Choice |
+|---|---|
+| Tokens | 3 mm plywood octagons, icon engraved in the centre, 40 leaning slots (`nim plates`) |
+| Cup | Glued plywood layers: base, 2 board-zone rings, floor/baffle, 6 pocket rings with finger slots (`nim cup`) |
+| Light | Lid with 40 LEDs over the 40 slots, own batteries |
+| Detection | Factory-assembled octagonal sensor board, 40 visible-light detectors + Schmitt triggers + 40 resistors (M3, M4) |
+| Inputs | Two pots with printed 0–40 dials |
+| Maths | Pot divider, one quad op-amp ([schematic](schematics/rheostat-divider.svg)) |
+| Display | IN-13 bargraph up the side of the cup (M8), or an alternative below |
+
+**Why 40 LEDs rather than one panel:** each sensor gets a strong, focused light,
+so every slot reads a clear 0 or 1 even through plywood, and neighbouring slots
+don't spill into each other. Battery: 40 LEDs at 1 mA is 40 mA, many hours on 3×AA.
 
 **The pot divider.** An inverting amplifier's gain is R_f / R_in. If R_in *is*
 the "cards played" pot, wired as a rheostat so its resistance is proportional to
-the cards **left**, the amplifier divides by cards left. No divider circuit at all:
-the knob is the divider. The "danger played" pot is a plain voltage divider
-feeding a difference amp. That's the whole calculation on one TL074:
+the cards **left**, the amplifier divides by cards left: the knob is the divider.
+The "danger played" pot is a plain voltage divider feeding a difference amp:
 
     V_P = 10 V · (D − d) / (40 − n)
 
-Accuracy is the pots' own: track linearity (carbon ±5–10 %, conductive plastic
-±1–2 %) and how precisely you set them. It's worst late in the game, where an
-error of half a card in "cards played" is large next to a few cards left. A
-mechanical stop at n = 39 keeps R_in above zero.
+Accuracy is the pots' own, about ±1 card: track linearity (carbon ±5–10 %,
+conductive plastic ±1–2 %) and how precisely you set them. A mechanical stop
+at n = 39 keeps R_in above zero. The more accurate alternative is the
+duty-cycle divider (M7, [schematic](schematics/duty-cycle-divider.svg)).
 
-**Single photodiode (unproven).** Light through the open slots falls into a
-white-lined chamber; one photodiode measures the total. With every slot the
-same area, total light ∝ number of open slots. A second photodiode watching the
-LED holds its brightness constant (a one-op-amp feedback loop), so LED drift
-cancels. Risk: the detector sees some slots better than others. My guess is
-±1 card, but that's speculation until measured. If the test shows a fixed
-pattern, the token generator can resize each slot to compensate.
+**Tokens** (`hardware/plates/`): regular octagons 80 mm across flats. Card i is
+slot (i mod 5) on side (i div 5), clockwise from the top. Every slot is the same
+leaning parallelogram (6 × 2.2 mm), so every position passes the same light.
+No text: names are in the file names and SVG titles. Registration: a notch near
+one end of the upper-left side matches a tab on every ring's inner wall.
+Off-centre along a side, the notch has no mirror image, so a token turned
+over doesn't seat. On plywood the engraved icon burns dark, which suits it.
 
-## Tokens *(done, `nim plates`)*
+**Cup** (`hardware/cup/`): 96.6 mm across flats, 30 mm tall in 3 mm plywood.
+The board outline files are for importing into KiCad, with the 40 sensor/LED
+positions marked in blue. The LED board's positions are mirrored because it
+faces down.
 
-- Regular octagon, 80 mm across flats. 40 slots, 5 per side, card i = slot
-  (i mod 5) on side (i div 5), clockwise from the top. Every slot is the same
-  leaning parallelogram (6 × 2.2 mm, 25° lean), so every card position lets
-  through the same amount of light.
-- Icon engraved in the centre (40 mm). No text: names are in the file names
-  and the SVG titles.
-- Registration: an octagonal pocket in the enclosure with one tab matching a
-  notch near one end of the upper-left side. Off-centre along a side, the notch
-  has no mirror image, so a token turned over doesn't seat.
-- **Card works** as well as acrylic: black card of 300 gsm or more,
-  laser-cut. Thinner tokens are better optically (less depth for light to spread
-  through). Engraving barely shows on black card; use card with a white core,
-  or print the icon on a white sticker.
-- ⚠️ Check the material blocks the light the detector sees (see M1's infrared
-  note).
-
-## Enclosure and stack (proposed)
-
-```
-   ┌──────────── hinged lid ─────────────┐
-   │ LED panel + diffuser, foam gasket   │
-   ├──── octagonal pocket, keyed tab ────┤ ← tokens stack here (up to 13)
-   │ baffle token (fixed)                │
-   │ detector: 40-sensor board, or a     │
-   │ white chamber + 1 photodiode        │
-   │ main board                          │
-   └─────────────────────────────────────┘
- front panel: P1 "danger played" 0–40 · P2 "cards played" 0–40 · IN-13 + 0–100 % scale
-```
-
-- About 120 × 120 × 70 mm: laser-cut finger-joint box, or 3D-printed.
-- The pocket is cut through a stack of layers: 6 mm deep for 13 card tokens,
-  26 mm for 2 mm acrylic. Clearance 0.3 mm: misregistration narrows a slot by up
-  to 0.3 of its 2.2 mm, which matters for the single-photodiode detector and
-  not at all for 40 detectors.
-- A token rack beside the pocket holds the unused tokens.
+**Display alternatives**, if the IN-13 turns out to be a pain:
+- *Edgewise analog panel meter*: a tall, thin needle meter that sits upright on
+  the side of the cup. It's driven straight from V_P through a resistor, with no
+  high voltage, and looks vintage-scientific.
+- *LED bargraph*: an LM3914 driving a 10-segment bar, or three for 30 segments.
+  Trivial, low voltage, but less special.
+- *VFD bargraph tube*: Soviet IV-series bargraph VFDs glow blue-green and need
+  only about 25 V, but you'd need to find one and drive its grids.
+- The IN-13 is the coolest of them: the violet column rises like a liquid.
+  The costs are a 170 V supply (buy a module), a tube that's a few years
+  harder to find than it used to be, and needing to calibrate the bar.
 
 ## Four changes to the original idea
 
@@ -323,6 +319,7 @@ simpler.
 
 - `plates.nim`: token geometry and SVG output; `genplates.nim` writes them (`nim plates`).
 - `schematics/`: divider schematics (SVG), drawn by `draw.py` (schemdraw).
+- `receptacle.nim`, `gencup.nim`: the plywood cup, lid and board outlines (`nim cup`).
 - `icons/`: traced biome icons (`nim icons`) and their source image.
 - `simgen.nim`, `experiments.nim`: netlist generators for the chain, divider and Monte Carlo.
 - `results.nim`: runs ngspice in parallel, writes `results/*.csv` and the report
