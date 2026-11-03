@@ -1,0 +1,36 @@
+* Duty-cycle servo divider: Vout = 10 V * Vnum / Vden
+* The loop adjusts PWM duty d until d*Vden equals Vnum on average (integrator
+* input averages to zero). The same PWM chops a 10 V reference, so
+* Vout = 10 V * d. The result does not depend on the triangle's shape or
+* amplitude, only on switch timing and the reference.
+.param D=31 dp=0 n=0
+.param vnum={0.25*(D-dp)} vden={10-0.25*n}
+
+Vnum  num 0 {vnum}
+Vden  den 0 {vden}
+Vref  ref 0 10
+Vtri  tri 0 PULSE(0 10 0 50u 50u 1n 100u)          ; 10 kHz triangle, 0..10 V
+
+* switch 1: subtracts Vden at the integrator input while PWM is high
+Bsw1  swd 0 V = -V(den) * (0.5 + 0.5*tanh(1e3*(V(pwm)-2.5)))
+* inverting integrator (op-amp as high-gain VCVS), Rin 100k, C 10n
+R1    num inv 100k
+R2    swd inv 100k
+C1    inv int 10n
+Eop   int 0 0 inv 1e5
+* comparator: PWM high while triangle is above the integrator output
+Bcmp  pwm 0 V = 2.5 + 2.5*tanh(1e3*(V(tri)-V(int)))
+* switch 2: chops the 10 V reference with the same PWM, then 2-pole RC filter
+Bsw2  swr 0 V = V(ref) * (0.5 + 0.5*tanh(1e3*(V(pwm)-2.5)))
+R3    swr f1 10k
+C3    f1 0 1u
+R4    f1 out 10k
+C4    out 0 1u
+
+.tran 2u 250m 0 2u
+.control
+  run
+  meas tran vout avg v(out) from=200m to=250m
+  meas tran ripple pp v(out) from=200m to=250m
+.endc
+.end

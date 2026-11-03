@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="110.000mm" height="110.000mm" viewBox="0 0 110.000 110.000">
+<style>
+  .cut { fill: none; stroke: #ff0000; stroke-width: 0.1; }
+  .engrave { fill: #000; font-family: sans-serif; text-anchor: middle; }
+</style>
+<circle cx="55.000" cy="55.000" r="50.000" class="cut"/>
+<circle cx="55.000" cy="55.000" r="4.100" class="cut"/>
+<circle cx="62.524" cy="34.327" r="1.550" class="cut"/>
+<text x="55.000" y="11.000" font-size="2.800" class="engrave">0</text>
+<circle cx="61.257" cy="15.492" r="1.500" class="cut"/>
+<circle cx="67.361" cy="16.958" r="1.500" class="cut"/>
+<circle cx="73.160" cy="19.360" r="1.500" class="cut"/>
+<circle cx="83.284" cy="26.716" r="1.500" class="cut"/>
+<text x="86.820" y="24.180" font-size="2.800" class="engrave">5</text>
+<circle cx="87.361" cy="31.489" r="1.500" class="cut"/>
+<circle cx="90.640" cy="36.840" r="1.500" class="cut"/>
+<circle cx="93.042" cy="42.639" r="1.500" class="cut"/>
+<circle cx="95.000" cy="55.000" r="1.500" class="cut"/>
+<text x="100.000" y="56.000" font-size="2.800" class="engrave">10</text>
+<circle cx="94.508" cy="61.257" r="1.500" class="cut"/>
+<circle cx="93.042" cy="67.361" r="1.500" class="cut"/>
+<circle cx="83.284" cy="83.284" r="1.500" class="cut"/>
+<text x="86.820" y="87.820" font-size="2.800" class="engrave">15</text>
+<circle cx="73.160" cy="90.640" r="1.500" class="cut"/>
+<circle cx="67.361" cy="93.042" r="1.500" class="cut"/>
+<circle cx="61.257" cy="94.508" r="1.500" class="cut"/>
+<circle cx="55.000" cy="95.000" r="1.500" class="cut"/>
+<text x="55.000" y="101.000" font-size="2.800" class="engrave">20</text>
+<circle cx="48.743" cy="94.508" r="1.500" class="cut"/>
+<circle cx="36.840" cy="90.640" r="1.500" class="cut"/>
+<circle cx="31.489" cy="87.361" r="1.500" class="cut"/>
+<circle cx="26.716" cy="83.284" r="1.500" class="cut"/>
+<text x="23.180" y="87.820" font-size="2.800" class="engrave">25</text>
+<circle cx="22.639" cy="78.511" r="1.500" class="cut"/>
+<circle cx="19.360" cy="73.160" r="1.500" class="cut"/>
+<circle cx="16.958" cy="67.361" r="1.500" class="cut"/>
+<circle cx="15.492" cy="61.257" r="1.500" class="cut"/>
+<circle cx="15.000" cy="55.000" r="1.500" class="cut"/>
+<text x="10.000" y="56.000" font-size="2.800" class="engrave">30</text>
+<circle cx="15.492" cy="48.743" r="1.500" class="cut"/>
+<circle cx="16.958" cy="42.639" r="1.500" class="cut"/>
+<circle cx="19.360" cy="36.840" r="1.500" class="cut"/>
+<circle cx="26.716" cy="26.716" r="1.500" class="cut"/>
+<text x="23.180" y="24.180" font-size="2.800" class="engrave">35</text>
+<circle cx="31.489" cy="22.639" r="1.500" class="cut"/>
+<circle cx="36.840" cy="19.360" r="1.500" class="cut"/>
+<circle cx="42.639" cy="16.958" r="1.500" class="cut"/>
+<circle cx="48.743" cy="15.492" r="1.500" class="cut"/>
+<text x="55.000" y="45.000" font-size="9.000" class="engrave">A</text>
+<text x="55.000" y="71.000" font-size="6.000" class="engrave">Void</text>
+<text x="55.000" y="78.000" font-size="3.000" class="engrave">8 blocked</text>
+</svg>
