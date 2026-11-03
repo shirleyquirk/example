@@ -44,7 +44,8 @@ proc dac(name, output: string, value: int): string =
     "R" & name & "i2 " & node & "inv " & output & " 10k\n" &
     "E" & name & "b " & output & " 0 0 " & node & "inv 1e6\n"
 
-const Divider = """
+const Divider* = """
+* inputs: vnum, vden, vref10 (10 V); output: vp
 * duty-cycle divider (see sim/divider.cir for the stand-alone version)
 Vtri  tri 0 PULSE(0 10 0 50u 50u 1n 100u)
 Bsw1  swd 0 V = -V(vden) * (0.5 + 0.5*tanh(1e3*(V(pwm)-2.5)))
@@ -75,7 +76,7 @@ proc chainNetlist*(stack: seq[Plate], played, dangerPlayed: int): string =
   result.add "Enum vnum 0 vd vdp 1\n"            # difference amps (ideal here)
   result.add "Eden vden 0 vref10 vn 1\n"
   result.add Divider
-  result.add ".tran 2u 300m 0 2u\n.control\nrun\n" &
+  result.add ".tran 2u 300m 0 2u uic\n.control\nrun\n" &
     "meas tran vd avg v(vd) from=250m to=300m\n" &
     "meas tran vp avg v(vp) from=250m to=300m\n.endc\n.end\n"
 

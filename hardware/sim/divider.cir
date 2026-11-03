@@ -27,7 +27,7 @@ C3    f1 0 1u
 R4    f1 out 10k
 C4    out 0 1u
 
-.tran 2u 250m 0 2u
+.tran 2u 250m 0 2u uic
 .control
   run
   meas tran vout avg v(out) from=200m to=250m

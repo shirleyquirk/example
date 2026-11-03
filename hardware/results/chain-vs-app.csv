@@ -1,0 +1,7 @@
+scenario,plates,blank_safe,cards_played,danger_played,lit_positions,app_pct,circuit_pct,error_pct_fs
+1,"Void",false,0,0,32,80.000,79.997,-0.0026
+2,"Void + Caves + blank-safe",true,10,3,18,50.000,50.000,-0.0001
+3,"Caves + Rocky + Desert",false,20,5,17,60.000,59.999,-0.0007
+4,"Ruins + blank-safe",true,37,1,26,100.000,99.996,-0.0037
+5,"all 12",false,0,0,1,2.500,2.502,0.0020
+6,"Hostile + Crystalline",false,30,27,31,40.000,40.004,0.0039

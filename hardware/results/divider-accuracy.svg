@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 440" width="760" height="440" role="img">
+<style>
+  .surface { fill: #fcfcfb; }
+  .title { fill: #0b0b0b; font: 600 16px sans-serif; }
+  .subtitle, .label { fill: #52514e; font: 12px sans-serif; }
+  .tick { fill: #898781; font: 11px sans-serif; }
+  .grid { stroke: #e1e0d9; stroke-width: 1; }
+  .baseline { stroke: #c3c2b7; stroke-width: 1; }
+  .ref { stroke: #898781; stroke-width: 1; stroke-dasharray: 4 4; fill: none; }
+  .s0 { stroke: #2a78d6; fill: #2a78d6; } .s1 { stroke: #eb6834; fill: #eb6834; }
+  .s2 { stroke: #1baf7a; fill: #1baf7a; } .s3 { stroke: #eda100; fill: #eda100; }
+  .line { fill: none; stroke-width: 2; stroke-linejoin: round; }
+  .dot { stroke: #fcfcfb; stroke-width: 2; }
+  @media (prefers-color-scheme: dark) {
+    .surface { fill: #1a1a19; }
+    .title { fill: #f0efec; } .subtitle, .label { fill: #c3c2b7; }
+    .grid { stroke: #2c2c2a; } .baseline { stroke: #383835; }
+    .dot { stroke: #1a1a19; }
+    .s0 { stroke: #3987e5; fill: #3987e5; } .s1 { stroke: #d95926; fill: #d95926; }
+    .s2 { stroke: #199e70; fill: #199e70; } .s3 { stroke: #c98500; fill: #c98500; }
+  }
+</style>
+<title>Divider error across the game</title>
+<rect class="surface" width="100%" height="100%"/>
+<text class="title" x="72.0" y="28">Divider error across the game</text>
+<text class="subtitle" x="72.0" y="48">Every simulated case: cards left 1–40 × danger 0/25/50/75/100 %. Dashed = no error.</text>
+<line class="grid" x1="72.0" x2="610.0" y1="384.0" y2="384.0"/><text class="tick" x="64.0" y="388.0" text-anchor="end">-0.10</text>
+<line class="grid" x1="72.0" x2="610.0" y1="309.0" y2="309.0"/><text class="tick" x="64.0" y="313.0" text-anchor="end">-0.05</text>
+<line class="baseline" x1="72.0" x2="610.0" y1="234.0" y2="234.0"/><text class="tick" x="64.0" y="238.0" text-anchor="end">0.00</text>
+<line class="grid" x1="72.0" x2="610.0" y1="159.0" y2="159.0"/><text class="tick" x="64.0" y="163.0" text-anchor="end">0.05</text>
+<line class="grid" x1="72.0" x2="610.0" y1="84.0" y2="84.0"/><text class="tick" x="64.0" y="88.0" text-anchor="end">0.10</text>
+<text class="label" transform="translate(18 234.0) rotate(-90)" text-anchor="middle">error (% of full scale)</text>
+<text class="tick" x="72.0" y="402.0" text-anchor="middle">0</text>
+<text class="tick" x="139.3" y="402.0" text-anchor="middle">5</text>
+<text class="tick" x="206.5" y="402.0" text-anchor="middle">10</text>
+<text class="tick" x="273.8" y="402.0" text-anchor="middle">15</text>
+<text class="tick" x="341.0" y="402.0" text-anchor="middle">20</text>
+<text class="tick" x="408.3" y="402.0" text-anchor="middle">25</text>
+<text class="tick" x="475.5" y="402.0" text-anchor="middle">30</text>
+<text class="tick" x="542.8" y="402.0" text-anchor="middle">35</text>
+<text class="tick" x="610.0" y="402.0" text-anchor="middle">40</text>
+<line class="baseline" x1="72.0" x2="610.0" y1="384.0" y2="384.0"/>
+<text class="label" x="341.0" y="426.0" text-anchor="middle">cards left</text>
+<path class="ref" d="M72.0 234.0L610.0 234.0"/>
+<circle class="dot s0" cx="85.45" cy="113.99" r="4.5"><title>divider: cards left 1.000, error (% of full scale) 0.0800%</title></circle>
+<circle class="dot s0" cx="85.45" cy="234.00" r="4.5"><title>divider: cards left 1.000, error (% of full scale) 0.0000%</title></circle>
+<circle class="dot s0" cx="98.90" cy="173.88" r="4.5"><title>divider: cards left 2.000, error (% of full scale) 0.0401%</title></circle>
+<circle class="dot s0" cx="98.90" cy="204.03" r="4.5"><title>divider: cards left 2.000, error (% of full scale) 0.0200%</title></circle>
+<circle class="dot s0" cx="98.90" cy="234.04" r="4.5"><title>divider: cards left 2.000, error (% of full scale) 0.0000%</title></circle>
+<circle class="dot s0" cx="112.35" cy="193.62" r="4.5"><title>divider: cards left 3.000, error (% of full scale) 0.0269%</title></circle>
+<circle class="dot s0" cx="112.35" cy="207.46" r="4.5"><title>divider: cards left 3.000, error (% of full scale) 0.0177%</title></circle>
+<circle class="dot s0" cx="112.35" cy="220.53" r="4.5"><title>divider: cards left 3.000, error (% of full scale) 0.0090%</title></circle>
+<circle class="dot s0" cx="112.35" cy="234.38" r="4.5"><title>divider: cards left 3.000, error (% of full scale) -0.0003%</title></circle>
+<circle class="dot s0" cx="125.80" cy="203.37" r="4.5"><title>divider: cards left 4.000, error (% of full scale) 0.0204%</title></circle>
+<circle class="dot s0" cx="125.80" cy="211.61" r="4.5"><title>divider: cards left 4.000, error (% of full scale) 0.0149%</title></circle>
+<circle class="dot s0" cx="125.80" cy="226.89" r="4.5"><title>divider: cards left 4.000, error (% of full scale) 0.0047%</title></circle>
+<circle class="dot s0" cx="125.80" cy="226.79" r="4.5"><title>divider: cards left 4.000, error (% of full scale) 0.0048%</title></circle>
+<circle class="dot s0" cx="125.80" cy="235.02" r="4.5"><title>divider: cards left 4.000, error (% of full scale) -0.0007%</title></circle>
+<circle class="dot s0" cx="139.25" cy="209.18" r="4.5"><title>divider: cards left 5.000, error (% of full scale) 0.0165%</title></circle>
+<circle class="dot s0" cx="139.25" cy="233.59" r="4.5"><title>divider: cards left 5.000, error (% of full scale) 0.0003%</title></circle>
+<circle class="dot s0" cx="139.25" cy="234.68" r="4.5"><title>divider: cards left 5.000, error (% of full scale) -0.0005%</title></circle>
+<circle class="dot s0" cx="139.25" cy="235.22" r="4.5"><title>divider: cards left 5.000, error (% of full scale) -0.0008%</title></circle>
+<circle class="dot s0" cx="139.25" cy="235.89" r="4.5"><title>divider: cards left 5.000, error (% of full scale) -0.0013%</title></circle>
+<circle class="dot s0" cx="152.70" cy="213.02" r="4.5"><title>divider: cards left 6.000, error (% of full scale) 0.0140%</title></circle>
+<circle class="dot s0" cx="152.70" cy="221.12" r="4.5"><title>divider: cards left 6.000, error (% of full scale) 0.0086%</title></circle>
+<circle class="dot s0" cx="152.70" cy="233.91" r="4.5"><title>divider: cards left 6.000, error (% of full scale) 0.0001%</title></circle>
+<circle class="dot s0" cx="152.70" cy="232.51" r="4.5"><title>divider: cards left 6.000, error (% of full scale) 0.0010%</title></circle>
+<circle class="dot s0" cx="152.70" cy="236.88" r="4.5"><title>divider: cards left 6.000, error (% of full scale) -0.0019%</title></circle>
+<circle class="dot s0" cx="179.60" cy="217.89" r="4.5"><title>divider: cards left 8.000, error (% of full scale) 0.0107%</title></circle>
+<circle class="dot s0" cx="179.60" cy="223.28" r="4.5"><title>divider: cards left 8.000, error (% of full scale) 0.0071%</title></circle>
+<circle class="dot s0" cx="179.60" cy="233.28" r="4.5"><title>divider: cards left 8.000, error (% of full scale) 0.0005%</title></circle>
+<circle class="dot s0" cx="179.60" cy="233.38" r="4.5"><title>divider: cards left 8.000, error (% of full scale) 0.0004%</title></circle>
+<circle class="dot s0" cx="179.60" cy="238.73" r="4.5"><title>divider: cards left 8.000, error (% of full scale) -0.0032%</title></circle>
+<circle class="dot s0" cx="206.50" cy="220.85" r="4.5"><title>divider: cards left 10.000, error (% of full scale) 0.0088%</title></circle>
+<circle class="dot s0" cx="206.50" cy="232.03" r="4.5"><title>divider: cards left 10.000, error (% of full scale) 0.0013%</title></circle>
+<circle class="dot s0" cx="206.50" cy="233.54" r="4.5"><title>divider: cards left 10.000, error (% of full scale) 0.0003%</title></circle>
+<circle class="dot s0" cx="206.50" cy="235.85" r="4.5"><title>divider: cards left 10.000, error (% of full scale) -0.0012%</title></circle>
+<circle class="dot s0" cx="206.50" cy="240.42" r="4.5"><title>divider: cards left 10.000, error (% of full scale) -0.0043%</title></circle>
+<circle class="dot s0" cx="246.85" cy="223.61" r="4.5"><title>divider: cards left 13.000, error (% of full scale) 0.0069%</title></circle>
+<circle class="dot s0" cx="246.85" cy="227.94" r="4.5"><title>divider: cards left 13.000, error (% of full scale) 0.0040%</title></circle>
+<circle class="dot s0" cx="246.85" cy="233.83" r="4.5"><title>divider: cards left 13.000, error (% of full scale) 0.0001%</title></circle>
+<circle class="dot s0" cx="246.85" cy="238.41" r="4.5"><title>divider: cards left 13.000, error (% of full scale) -0.0029%</title></circle>
+<circle class="dot s0" cx="246.85" cy="242.70" r="4.5"><title>divider: cards left 13.000, error (% of full scale) -0.0058%</title></circle>
+<circle class="dot s0" cx="287.20" cy="225.43" r="4.5"><title>divider: cards left 16.000, error (% of full scale) 0.0057%</title></circle>
+<circle class="dot s0" cx="287.20" cy="230.16" r="4.5"><title>divider: cards left 16.000, error (% of full scale) 0.0026%</title></circle>
+<circle class="dot s0" cx="287.20" cy="236.33" r="4.5"><title>divider: cards left 16.000, error (% of full scale) -0.0016%</title></circle>
+<circle class="dot s0" cx="287.20" cy="239.48" r="4.5"><title>divider: cards left 16.000, error (% of full scale) -0.0037%</title></circle>
+<circle class="dot s0" cx="287.20" cy="244.14" r="4.5"><title>divider: cards left 16.000, error (% of full scale) -0.0068%</title></circle>
+<circle class="dot s0" cx="341.00" cy="227.02" r="4.5"><title>divider: cards left 20.000, error (% of full scale) 0.0047%</title></circle>
+<circle class="dot s0" cx="341.00" cy="231.76" r="4.5"><title>divider: cards left 20.000, error (% of full scale) 0.0015%</title></circle>
+<circle class="dot s0" cx="341.00" cy="237.60" r="4.5"><title>divider: cards left 20.000, error (% of full scale) -0.0024%</title></circle>
+<circle class="dot s0" cx="341.00" cy="241.17" r="4.5"><title>divider: cards left 20.000, error (% of full scale) -0.0048%</title></circle>
+<circle class="dot s0" cx="341.00" cy="245.82" r="4.5"><title>divider: cards left 20.000, error (% of full scale) -0.0079%</title></circle>
+<circle class="dot s0" cx="408.25" cy="228.30" r="4.5"><title>divider: cards left 25.000, error (% of full scale) 0.0038%</title></circle>
+<circle class="dot s0" cx="408.25" cy="233.08" r="4.5"><title>divider: cards left 25.000, error (% of full scale) 0.0006%</title></circle>
+<circle class="dot s0" cx="408.25" cy="238.48" r="4.5"><title>divider: cards left 25.000, error (% of full scale) -0.0030%</title></circle>
+<circle class="dot s0" cx="408.25" cy="243.16" r="4.5"><title>divider: cards left 25.000, error (% of full scale) -0.0061%</title></circle>
+<circle class="dot s0" cx="408.25" cy="247.77" r="4.5"><title>divider: cards left 25.000, error (% of full scale) -0.0092%</title></circle>
+<circle class="dot s0" cx="475.50" cy="229.20" r="4.5"><title>divider: cards left 30.000, error (% of full scale) 0.0032%</title></circle>
+<circle class="dot s0" cx="475.50" cy="234.49" r="4.5"><title>divider: cards left 30.000, error (% of full scale) -0.0003%</title></circle>
+<circle class="dot s0" cx="475.50" cy="239.93" r="4.5"><title>divider: cards left 30.000, error (% of full scale) -0.0040%</title></circle>
+<circle class="dot s0" cx="475.50" cy="244.32" r="4.5"><title>divider: cards left 30.000, error (% of full scale) -0.0069%</title></circle>
+<circle class="dot s0" cx="475.50" cy="248.87" r="4.5"><title>divider: cards left 30.000, error (% of full scale) -0.0099%</title></circle>
+<circle class="dot s0" cx="542.75" cy="229.87" r="4.5"><title>divider: cards left 35.000, error (% of full scale) 0.0028%</title></circle>
+<circle class="dot s0" cx="542.75" cy="234.83" r="4.5"><title>divider: cards left 35.000, error (% of full scale) -0.0006%</title></circle>
+<circle class="dot s0" cx="542.75" cy="239.96" r="4.5"><title>divider: cards left 35.000, error (% of full scale) -0.0040%</title></circle>
+<circle class="dot s0" cx="542.75" cy="244.42" r="4.5"><title>divider: cards left 35.000, error (% of full scale) -0.0069%</title></circle>
+<circle class="dot s0" cx="542.75" cy="249.44" r="4.5"><title>divider: cards left 35.000, error (% of full scale) -0.0103%</title></circle>
+<circle class="dot s0" cx="610.00" cy="230.36" r="4.5"><title>divider: cards left 40.000, error (% of full scale) 0.0024%</title></circle>
+<circle class="dot s0" cx="610.00" cy="235.29" r="4.5"><title>divider: cards left 40.000, error (% of full scale) -0.0009%</title></circle>
+<circle class="dot s0" cx="610.00" cy="240.86" r="4.5"><title>divider: cards left 40.000, error (% of full scale) -0.0046%</title></circle>
+<circle class="dot s0" cx="610.00" cy="245.20" r="4.5"><title>divider: cards left 40.000, error (% of full scale) -0.0075%</title></circle>
+<circle class="dot s0" cx="610.00" cy="250.03" r="4.5"><title>divider: cards left 40.000, error (% of full scale) -0.0107%</title></circle>
+</svg>

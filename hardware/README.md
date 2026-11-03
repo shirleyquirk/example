@@ -66,8 +66,10 @@ the digital alternative at the end.
 | M10 | Enclosure and mechanics | Specified |
 
 `nim sim` simulates M3 outputs through M7 in ngspice for six game situations
-and compares with the app's own maths: worst error 0.005 % of full scale
-(ideal op-amps; real parts are covered in the error budget below).
+and compares with the app's own maths: worst error 0.004 % of full scale
+with ideal parts. **`nim results` runs the full characterisation (divider sweep,
+settling, whole chain, resistor-tolerance Monte Carlo, unit tests) and writes
+graphs, CSVs and a report to [`results/`](results/README.md).**
 
 ---
 
@@ -135,7 +137,9 @@ detector, or use a visible-only detector (M3) and green light (M2).
 
 - **V_num = V_D − V_d** and **V_den = 10 V − V_n**, using unity-gain difference
   amplifiers with laser-trimmed resistors (INA105/INA133-class), or an op-amp
-  with 0.1 % resistors.
+  with a **0.01 % matched resistor network** (LT5400-class). Not 0.1 % discretes:
+  late in the game these subtract nearly equal large voltages (8 V − 6 V), which
+  magnifies gain errors. See the Monte Carlo in `results/`.
 - The 10 V is the 5.000 V reference ×2, so the whole chain is ratiometric: the
   answer V_num / V_den doesn't depend on the reference's absolute accuracy.
 
@@ -193,17 +197,33 @@ thicker orange one.
 - Hinged light-tight lid with the light source (M2).
 - Front panel: two thumbwheels, IN-13 with its engraved scale.
 
-## Error budget (0.1 % resistors, precision op-amps)
+## Error budget
+
+From the Monte Carlo in [`results/`](results/README.md) (late game, 10 cards
+left, where errors are magnified), op-amps ideal:
+
+| Resistors | SD | Worst of 500 builds |
+|---|---|---|
+| 1 % everywhere | 4.6 % FS | 13 % FS (5 cards): unusable |
+| 0.1 % everywhere | 0.47 % FS | 1.4 % FS (0.55 card) |
+| 0.1 % counting resistors and DAC weights, 0.01 % matched pairs for every gain-setting pair | 0.16 % FS | 0.44 % FS (0.17 card) |
+
+**Use the third row.** "Gain-setting pairs" means: the ×2 after the popcount,
+the 10 V doubler, each DAC's feedback and inverter, and both difference amps.
+
+Other sources:
 
 | Source | Effect |
 |---|---|
-| M4 resistor matching | ≤ 0.04 card |
-| M5 DAC resistors | ≤ 0.04 card |
-| M6 difference amps | ≤ 0.02 card |
-| M7 switch timing (100 ns at 10 kHz, partly cancels) | ≤ 0.1 % |
-| IN-13 bar length | the dominant error (~1 mm in ~100 mm). Calibrate it. |
+| M7 divider (simulated, 69 cases) | ≤ 0.08 % FS |
+| M7 switch timing (100 ns at 10 kHz, the two switches' errors largely cancel) | ≤ 0.1 % FS, estimated |
+| Op-amp offsets (≤ 100 µV, precision parts) | ≤ 0.01 % FS |
+| IN-13 bar length | ~1 % (1 mm in ~100 mm). Calibrate it. |
 
-Everything before the tube is far better than you can read off the bar.
+With matched pairs, the electronics are about as good as you can read off the
+bar. With plain 0.1 % parts they're about one bar-millimetre worse in the late
+game. (An earlier version of this table claimed ≤ 0.04 card per block and
+"far better than the bar". The Monte Carlo showed that was wrong for the late game.)
 
 ## The digital alternative (honest comparison)
 

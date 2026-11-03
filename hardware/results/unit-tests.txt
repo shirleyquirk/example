@@ -1,0 +1,17 @@
+[Suite] deck
+  [OK] notebook column totals
+  [OK] one blank card, the last
+  [OK] set queries
+  [OK] matches the notebook read row by row
+[Suite] odds
+  [OK] nothing played, blank safe: danger = 31/40
+  [OK] blank as danger: danger = 32/40
+  [OK] safe count known: (9-2)/35 safe
+  [OK] safe count known, 3 drawn: 1 - C(12,3)/C(30,3)
+  [OK] per-symbol count only (MC 0.9145)
+  [OK] blank safe with both counts (MC 0.6491)
+  [OK] impossible observation
+  [OK] binomial
+[Suite] plates
+  [OK] every combination of symbols, both blank rules (8190 stacks)
+  [OK] upside-down plate can't seat

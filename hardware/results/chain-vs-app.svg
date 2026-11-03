@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 440" width="760" height="440" role="img">
+<style>
+  .surface { fill: #fcfcfb; }
+  .title { fill: #0b0b0b; font: 600 16px sans-serif; }
+  .subtitle, .label { fill: #52514e; font: 12px sans-serif; }
+  .tick { fill: #898781; font: 11px sans-serif; }
+  .grid { stroke: #e1e0d9; stroke-width: 1; }
+  .baseline { stroke: #c3c2b7; stroke-width: 1; }
+  .ref { stroke: #898781; stroke-width: 1; stroke-dasharray: 4 4; fill: none; }
+  .s0 { stroke: #2a78d6; fill: #2a78d6; } .s1 { stroke: #eb6834; fill: #eb6834; }
+  .s2 { stroke: #1baf7a; fill: #1baf7a; } .s3 { stroke: #eda100; fill: #eda100; }
+  .line { fill: none; stroke-width: 2; stroke-linejoin: round; }
+  .dot { stroke: #fcfcfb; stroke-width: 2; }
+  @media (prefers-color-scheme: dark) {
+    .surface { fill: #1a1a19; }
+    .title { fill: #f0efec; } .subtitle, .label { fill: #c3c2b7; }
+    .grid { stroke: #2c2c2a; } .baseline { stroke: #383835; }
+    .dot { stroke: #1a1a19; }
+    .s0 { stroke: #3987e5; fill: #3987e5; } .s1 { stroke: #d95926; fill: #d95926; }
+    .s2 { stroke: #199e70; fill: #199e70; } .s3 { stroke: #c98500; fill: #c98500; }
+  }
+</style>
+<title>Whole analog chain vs the app</title>
+<rect class="surface" width="100%" height="100%"/>
+<text class="title" x="72.0" y="28">Whole analog chain vs the app</text>
+<text class="subtitle" x="72.0" y="48">Plates → 40 detector bits → popcount → DACs → subtractors → divider, in ngspice.</text>
+<rect class="s0" x="72.0" y="60" width="10" height="10" rx="2"/><text class="label" x="86.0" y="69">app (odds.nim)</text>
+<rect class="s1" x="194.0" y="60" width="10" height="10" rx="2"/><text class="label" x="208.0" y="69">circuit (ngspice)</text>
+<line class="baseline" x1="72.0" x2="610.0" y1="384.0" y2="384.0"/><text class="tick" x="64.0" y="388.0" text-anchor="end">0</text>
+<line class="grid" x1="72.0" x2="610.0" y1="324.0" y2="324.0"/><text class="tick" x="64.0" y="328.0" text-anchor="end">20</text>
+<line class="grid" x1="72.0" x2="610.0" y1="264.0" y2="264.0"/><text class="tick" x="64.0" y="268.0" text-anchor="end">40</text>
+<line class="grid" x1="72.0" x2="610.0" y1="204.0" y2="204.0"/><text class="tick" x="64.0" y="208.0" text-anchor="end">60</text>
+<line class="grid" x1="72.0" x2="610.0" y1="144.0" y2="144.0"/><text class="tick" x="64.0" y="148.0" text-anchor="end">80</text>
+<line class="grid" x1="72.0" x2="610.0" y1="84.0" y2="84.0"/><text class="tick" x="64.0" y="88.0" text-anchor="end">100</text>
+<text class="label" transform="translate(18 234.0) rotate(-90)" text-anchor="middle">danger chance, next card (%)</text>
+<rect class="s0" x="80.97" y="144.00" width="34.87" height="240.00" rx="2"><title>app (odds.nim), #1: 80.000%</title></rect>
+<rect class="s1" x="117.83" y="144.01" width="34.87" height="239.99" rx="2"><title>circuit (ngspice), #1: 79.997%</title></rect>
+<text class="tick" x="116.8" y="402.0" text-anchor="middle">#1</text>
+<rect class="s0" x="170.63" y="234.00" width="34.87" height="150.00" rx="2"><title>app (odds.nim), #2: 50.000%</title></rect>
+<rect class="s1" x="207.50" y="234.00" width="34.87" height="150.00" rx="2"><title>circuit (ngspice), #2: 50.000%</title></rect>
+<text class="tick" x="206.5" y="402.0" text-anchor="middle">#2</text>
+<rect class="s0" x="260.30" y="204.00" width="34.87" height="180.00" rx="2"><title>app (odds.nim), #3: 60.000%</title></rect>
+<rect class="s1" x="297.17" y="204.00" width="34.87" height="180.00" rx="2"><title>circuit (ngspice), #3: 59.999%</title></rect>
+<text class="tick" x="296.2" y="402.0" text-anchor="middle">#3</text>
+<rect class="s0" x="349.97" y="84.00" width="34.87" height="300.00" rx="2"><title>app (odds.nim), #4: 100.000%</title></rect>
+<rect class="s1" x="386.83" y="84.01" width="34.87" height="299.99" rx="2"><title>circuit (ngspice), #4: 99.996%</title></rect>
+<text class="tick" x="385.8" y="402.0" text-anchor="middle">#4</text>
+<rect class="s0" x="439.63" y="376.50" width="34.87" height="7.50" rx="2"><title>app (odds.nim), #5: 2.500%</title></rect>
+<rect class="s1" x="476.50" y="376.49" width="34.87" height="7.51" rx="2"><title>circuit (ngspice), #5: 2.502%</title></rect>
+<text class="tick" x="475.5" y="402.0" text-anchor="middle">#5</text>
+<rect class="s0" x="529.30" y="264.00" width="34.87" height="120.00" rx="2"><title>app (odds.nim), #6: 40.000%</title></rect>
+<rect class="s1" x="566.17" y="263.99" width="34.87" height="120.01" rx="2"><title>circuit (ngspice), #6: 40.004%</title></rect>
+<text class="tick" x="565.2" y="402.0" text-anchor="middle">#6</text>
+<line class="baseline" x1="72.0" x2="610.0" y1="384.0" y2="384.0"/>
+<text class="label" x="341.0" y="426.0" text-anchor="middle">scenario (see table)</text>
+</svg>
