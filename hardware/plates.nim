@@ -8,11 +8,11 @@
 ## i.e. card i shows none of the stacked symbols: the lit positions are exactly
 ## the danger cards.
 ##
-## Registration: tokens sit in an octagonal pocket. One small notch near one end
-## of one side matches a tab in the pocket. A notch at a corner would not do,
-## because every corner lies on a mirror axis, so a flipped token would still
-## fit. Offset along a side, the notch has no mirror image anywhere: only the
-## right-way-up orientation seats.
+## Registration: one corner is clipped unevenly (ChamferLong along one side,
+## ChamferShort along the other), and the stand has a matching angled guide at
+## that corner. An evenly clipped corner would not do: every corner lies on a
+## mirror axis, so a flipped token would still fit. Unevenly clipped, it has no
+## mirror image: only the right-way-up orientation seats.
 ##
 ## The icon is engraved in the middle; there is no text on the token. Names
 ## live in the file name and the SVG <title>.
@@ -31,12 +31,11 @@ const
   SlotLength* = 6.0                   ## radial
   SlotWidth* = 2.2                    ## along the side (area = length × width, same for every slot)
   SlotLean* = 25.0                    ## degrees: slots are leaning parallelograms
-  SlotDepth* = 9.0                    ## slot centre, measured in from the edge (clear of the key notch)
-  NotchSide* = 7                      ## the upper-left side
-  NotchFrom* = 8.0                    ## along the side from its centre; never 0, so no mirror symmetry
-  NotchTo* = 13.0                     ## 5 mm wide: the 4.4 mm key fin + clearance
-  NotchDepth* = 4.0                   ## the 3 mm key fin + clearance
-  IconSize* = 36.0                    ## square, centred
+  SlotDepth* = 7.5                    ## slot centre, measured in from the edge
+  KeySide* = 6                        ## the keyed corner is between sides 6 and 7 (upper left)
+  ChamferLong* = 9.0                  ## the clip runs this far back along side 6 ...
+  ChamferShort* = 4.0                 ## ... and this far along side 7. Unequal, so no mirror image
+  IconSize* = 40.0                    ## square, centred
   Margin = 4.0
 
 static: doAssert DeckSize == 8 * SlotsPerSide
@@ -106,23 +105,30 @@ proc slotCorners*(index: CardIndex): array[4, Point] =
    c + (SlotLength / 2) * n + (SlotWidth / 2 + lean) * t,
    c + (SlotLength / 2) * n + (-SlotWidth / 2 + lean) * t]
 
-proc octagon*(apothem: float, notchFrom = 0.0, notchTo = 0.0, notchDepth = 0.0): seq[Point] =
-  ## Regular octagon, flat on top, clockwise. With notchDepth > 0, a notch
-  ## (or, seen from inside a pocket, a tab) on side NotchSide between
-  ## notchFrom and notchTo along the side.
+proc octagon*(apothem: float, chamferLong = 0.0, chamferShort = 0.0): seq[Point] =
+  ## Regular octagon, flat on top, clockwise. With a chamfer, the corner
+  ## between sides KeySide and KeySide + 1 is clipped unevenly: chamferLong
+  ## back along KeySide, chamferShort along the next side.
   let side = 2 * apothem * tan(PI / 8)
   for s in 0 .. 7:
     let (n, t) = (normal(s), tangent(s))
-    result.add apothem * n + (-side / 2) * t
-    if s == NotchSide and notchDepth > 0:
-      result.add apothem * n + notchFrom * t
-      result.add (apothem - notchDepth) * n + notchFrom * t
-      result.add (apothem - notchDepth) * n + notchTo * t
-      result.add apothem * n + notchTo * t
+    let start = apothem * n + (-side / 2) * t
+    if s == KeySide + 1 and chamferLong > 0:
+      let prev = KeySide
+      result.add apothem * normal(prev) + (side / 2 - chamferLong) * tangent(prev)
+      result.add start + chamferShort * t
+    else:
+      result.add start
+
+proc chamferEnds*(apothem: float): (Point, Point) =
+  ## The two ends of the clipped corner's edge, on an octagon of `apothem`.
+  let side = 2 * apothem * tan(PI / 8)
+  (apothem * normal(KeySide) + (side / 2 - ChamferLong) * tangent(KeySide),
+   apothem * normal(KeySide + 1) + (-side / 2 + ChamferShort) * tangent(KeySide + 1))
 
 proc outline*(): seq[Point] =
-  ## The token outline: octagon with its registration notch.
-  octagon(Apothem, NotchFrom, NotchTo, NotchDepth)
+  ## The token outline: octagon with the keyed corner clipped.
+  octagon(Apothem, ChamferLong, ChamferShort)
 
 # ---------------------------------------------------------------- icons
 # Traced from the rulebook's Biome Icons page by `nim icons` (potrace output in

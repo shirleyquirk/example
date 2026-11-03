@@ -3,9 +3,9 @@
 | File | Part | Cut |
 |---|---|---|
 | [base.svg](base.svg) | Base (slots for the strip tabs) | ×1 |
-| [floor.svg](floor.svg) | Floor = baffle (40 slots, strip slots, key-fin slot) | ×1 |
-| [strip.svg](strip.svg) | Guide strip (8 identical; shoulder away from the corner) | ×8 |
-| [key-fin.svg](key-fin.svg) | Key fin | ×1 |
+| [floor.svg](floor.svg) | Floor = baffle (40 slots + strip slots) | ×1 |
+| [strip.svg](strip.svg) | Guide strip (6 identical; shoulder on the end away from the corner) | ×6 |
+| [key-strip.svg](key-strip.svg) | Key strip (angled, at the clipped corner) | ×1 |
 | [lid.svg](lid.svg) | Lid (rests on the strip tops; LED board underneath) | ×1 |
 | [sensor-board.svg](sensor-board.svg) | Sensor board outline (for KiCad); blue = sensor positions | ×1 |
 | [led-board.svg](led-board.svg) | LED board outline (faces down; blue = LED positions, mirrored) | ×1 |

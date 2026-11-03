@@ -28,23 +28,23 @@ Scale everywhere: **0.25 V per card, 40 cards = 10 V.**
             lid: plate on the strip tops, LED board underneath
             (40 LEDs over the 40 slots), batteries on top
         ┃   ┃                                   ┃   ┃
-        ┃   ┃   up to 6 plywood tokens          ┃   ┃   8 guide strips in pairs
-        ┃   ┃   (likely 2–3), keyed by a fin    ┃   ┃   at 4 corners; open corners
+        ┃   ┃   up to 6 plywood tokens          ┃   ┃   guide strips at 4 corners;
+        ┃   ┃   (likely 2–3), keyed corner      ┃   ┃   open corners
         ┃   ┣━━ floor = baffle: 40 slots ━━━━━━━┫   ┃   between them for fingers
         ┃   ┃   sensor board on spacers          ┃   ┃
         ┗━━━┻━━ base ━━━━━━━━━━━━━━━━━━━━━━━━━━━┻━━━┛
-   IN-13 bargraph beside it, or on a strip
+   danger meter beside it: needle over green / yellow / red
 ```
 
 | Part | Choice |
 |---|---|
 | Tokens | 3 mm plywood octagons, icon engraved in the centre, 40 leaning slots (`nim plates`) |
-| Stand | Tab-and-slot plywood: base, floor/baffle, 8 guide strips, key fin, lid (`nim cup`) |
+| Stand | Tab-and-slot plywood: base, floor/baffle, 6 guide strips + 1 angled key strip, lid (`nim cup`) |
 | Light | Lid with 40 LEDs over the 40 slots, own batteries |
 | Detection | Factory-assembled octagonal sensor board, 40 visible-light detectors + Schmitt triggers + 40 resistors (M3, M4) |
 | Inputs | Two pots with printed 0–40 dials |
 | Maths | Pot divider, one quad op-amp ([schematic](schematics/rheostat-divider.svg)) |
-| Display | IN-13 bargraph up the side of the cup (M8), or an alternative below |
+| Display | **Danger meter**: analog panel meter with a green / yellow / red dial (`nim meter`) |
 
 **Why 40 LEDs rather than one panel:** each sensor gets a strong, focused light,
 so every slot reads a clear 0 or 1 even through plywood, and neighbouring slots
@@ -65,40 +65,40 @@ duty-cycle divider (M7, [schematic](schematics/duty-cycle-divider.svg)).
 **Tokens** (`hardware/plates/`): regular octagons 80 mm across flats. Card i is
 slot (i mod 5) on side (i div 5), clockwise from the top. Every slot is the same
 leaning parallelogram (6 × 2.2 mm), so every position passes the same light.
-No text: names are in the file names and SVG titles. Registration: a notch near
-one end of the upper-left side fits over the key fin.
-Off-centre along a side, the notch has no mirror image, so a token turned
-over doesn't seat. On plywood the engraved icon burns dark, which suits it.
+No text: names are in the file names and SVG titles. Registration: one corner
+(upper left) is clipped unevenly, 9 mm back along one side and 4 mm along the
+other, and the stand has an angled key strip against it. An evenly clipped
+corner would not key it, since every corner of an octagon lies on a mirror
+axis; clipped unevenly, a token turned over doesn't seat (tested). On plywood the engraved icon burns dark, which suits it.
 
 **Stand** (`hardware/cup/`), all 3 mm plywood, tab and slot:
 - *Base* and *lid*: 100 mm octagons with slots for the strip tabs.
 - *Floor*: the 40 slots (it's the baffle), plus slots the strips pass through.
   It rests on a shoulder on each strip, 6 mm above the base, leaving room for
   the sensor board on spacers.
-- *8 guide strips*, in pairs at 4 of the 8 corners: each side of the octagon gets
-  one strip near one end, so a token is held on all sides, and the open corners
-  are finger access. All 8 are the same shape; flip it for the other strip of a pair,
-  so its shoulder is on the end away from the corner.
-- *Key fin*: a small upright piece tabbed into the floor, sitting in the tokens'
-  notch. A flat strip can't reach into the notch, so the key is its own piece.
-  Off-centre along a side, the notch has no mirror image: only right way up fits.
+- *Guide strips* at 4 of the 8 corners: three corners have a pair (one strip
+  on each side near the corner), so each of those sides is held. The keyed
+  corner has one angled *key strip* lying against the clipped corner. The open
+  corners are finger access. The 6 plain strips are the same shape; flip one
+  over for the other side of a pair, so its shoulder is on the end away from the
+  corner.
 - Slots are cut 0.1 mm oversize per side. Change `Fit` after a test cut, because
   plywood thickness and laser kerf vary.
 - `top-view.svg` is a plan view for checking the fit, not a cut file.
 - The board outline files are for importing into KiCad, with the 40 positions
   marked in blue. The LED board's are mirrored because it faces down.
 
-**Display alternatives**, if the IN-13 turns out to be a pain:
-- *Edgewise analog panel meter*: a tall, thin needle meter that sits upright on
-  the side of the cup. It's driven straight from V_P through a resistor, with no
-  high voltage, and looks vintage-scientific.
-- *LED bargraph*: an LM3914 driving a 10-segment bar, or three for 30 segments.
-  Trivial, low voltage, but less special.
-- *VFD bargraph tube*: Soviet IV-series bargraph VFDs glow blue-green and need
-  only about 25 V, but you'd need to find one and drive its grids.
-- The IN-13 is the coolest of them: the violet column rises like a liquid.
-  The costs are a 170 V supply (buy a module), a tube that's a few years
-  harder to find than it used to be, and needing to calibrate the bar.
+**Danger meter** (`nim meter` → `hardware/meter/`): `dial.svg` is a replacement
+face for a small analog panel meter, with a green / yellow / red arc (zones at
+33 % and 66 %, one constant each), DANGER and "% next card". Measure your meter
+(visible face, needle pivot, sweep) and set the constants at the top of
+`meter.nim` before printing. Drive: V_P (0–10 V) through a series resistor into a
+1 mA movement (about 8.2 k plus a 5 k trimmer to set full scale), or use a 0–10 V
+voltmeter movement directly. No high voltage.
+
+`in13-scale.svg` is the same zones as a vertical strip, if you'd rather have the
+IN-13's glowing column beside a printed scale. It's still the coolest-looking
+option, at the cost of a 170 V supply.
 
 ## Four changes to the original idea
 
@@ -330,6 +330,7 @@ simpler.
 - `plates.nim`: token geometry and SVG output; `genplates.nim` writes them (`nim plates`).
 - `schematics/`: divider schematics (SVG), drawn by `draw.py` (schemdraw).
 - `receptacle.nim`, `gencup.nim`: the plywood stand, lid and board outlines (`nim cup`).
+- `meter.nim`: danger meter dial and IN-13 scale (`nim meter`).
 - `icons/`: traced biome icons (`nim icons`) and their source image.
 - `simgen.nim`, `experiments.nim`: netlist generators for the chain, divider and Monte Carlo.
 - `results.nim`: runs ngspice in parallel, writes `results/*.csv` and the report

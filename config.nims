@@ -4,7 +4,8 @@
 #   nim build    tests, then compile the app to JS and write index.html
 #   nim icons    trace the biome icons from the rulebook image (needs ImageMagick, potrace)
 #   nim plates   laser-cutting SVGs for the symbol tokens (hardware/plates/)
-#   nim cup      plywood cup, lid and board outlines (hardware/cup/)
+#   nim cup      plywood stand, lid and board outlines (hardware/cup/)
+#   nim meter    danger meter dial and IN-13 scale (hardware/meter/)
 #   nim sim      quick check: whole analog chain in ngspice vs the app's maths
 #   nim results  every simulation, CSVs, gnuplot charts and a report in
 #                hardware/results/ (needs ngspice, gnuplot)
@@ -52,3 +53,6 @@ task results, "Run every simulation and write hardware/results/":
 
 task cup, "Write the plywood cup, lid and board-outline SVGs to hardware/cup/":
   exec run & "hardware/gencup.nim"
+
+task meter, "Write the danger meter dial and IN-13 scale to hardware/meter/":
+  exec run & "hardware/meter.nim"
