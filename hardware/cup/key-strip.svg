@@ -1,8 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="116.239mm" height="116.239mm" viewBox="0 0 116.239 116.239">
-<title>Key strip (angled, at the clipped corner) ×1</title>
-<style>
-  .cut { fill: none; stroke: #ff0000; stroke-width: 0.1; }
-  .mark { fill: none; stroke: #0000ff; stroke-width: 0.1; }
-</style>
-<polygon points="53.120,74.620 63.120,74.620 63.120,71.620 65.120,71.620 65.120,44.620 62.620,44.620 62.620,41.620 53.620,41.620 53.620,44.620 51.120,44.620 51.120,65.620 49.120,65.620 49.120,71.620 53.120,71.620" class="cut"/>
-</svg>

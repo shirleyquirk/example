@@ -39,7 +39,7 @@ Scale everywhere: **0.25 V per card, 40 cards = 10 V.**
 | Part | Choice |
 |---|---|
 | Tokens | 3 mm plywood octagons, icon engraved in the centre, 40 leaning slots (`nim plates`) |
-| Stand | Tab-and-slot plywood: base, floor/baffle, 6 guide strips + 1 angled key strip, lid (`nim cup`) |
+| Stand | Tab-and-slot plywood: base, floor/baffle, 4 finger-jointed corner pieces, lid (`nim cup`) |
 | Light | Lid with 40 LEDs over the 40 slots, own batteries |
 | Detection | Factory-assembled octagonal sensor board, 40 visible-light detectors + Schmitt triggers + 40 resistors (M3, M4) |
 | Inputs | Two pots with printed 0–40 dials |
@@ -65,23 +65,27 @@ duty-cycle divider (M7, [schematic](schematics/duty-cycle-divider.svg)).
 **Tokens** (`hardware/plates/`): regular octagons 80 mm across flats. Card i is
 slot (i mod 5) on side (i div 5), clockwise from the top. Every slot is the same
 leaning parallelogram (6 × 2.2 mm), so every position passes the same light.
-No text: names are in the file names and SVG titles. Registration: one corner
-(upper left) is clipped unevenly, 9 mm back along one side and 4 mm along the
-other, and the stand has an angled key strip against it. An evenly clipped
-corner would not key it, since every corner of an octagon lies on a mirror
-axis; clipped unevenly, a token turned over doesn't seat (tested). On plywood the engraved icon burns dark, which suits it.
+No text: names are in the file names and SVG titles. Registration: at the
+keyed corner (upper left) one corner strip is set in by one wall thickness, and
+the token has a matching 3 mm step on that side of that corner only. Turned
+over, the step would be on the other side of the corner, so the token doesn't
+seat (tested for all 8 rotations). On plywood the engraved icon burns dark, which suits it.
 
 **Stand** (`hardware/cup/`), all 3 mm plywood, tab and slot:
 - *Base* and *lid*: 100 mm octagons with slots for the strip tabs.
 - *Floor*: the 40 slots (it's the baffle), plus slots the strips pass through.
   It rests on a shoulder on each strip, 6 mm above the base, leaving room for
   the sensor board on spacers.
-- *Guide strips* at 4 of the 8 corners: three corners have a pair (one strip
-  on each side near the corner), so each of those sides is held. The keyed
-  corner has one angled *key strip* lying against the clipped corner. The open
-  corners are finger access. The 6 plain strips are the same shape; flip one
-  over for the other side of a pair, so its shoulder is on the end away from the
-  corner.
+- *Four corner pieces* at alternate corners: two strips each, one along each
+  side, meeting at the corner and finger-jointed together (5 segments). At
+  135° the strips overlap in a slanted parallelogram; each strip's fingers
+  reach its far side and its gaps stop at its near side, so they interlock, with
+  the finger tips a little proud on the outside. The open corners in between
+  are finger access. Three corners are identical (strips A and B ×3); at the
+  keyed corner strip A is set in one wall thickness, which also changes both
+  strips' lengths, so they're separate files.
+- Each strip has a shoulder at its far end that carries the floor, a bottom tab
+  into the base, and a top tab into the lid.
 - Slots are cut 0.1 mm oversize per side. Change `Fit` after a test cut, because
   plywood thickness and laser kerf vary.
 - `top-view.svg` is a plan view for checking the fit, not a cut file.

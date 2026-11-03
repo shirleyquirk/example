@@ -8,11 +8,11 @@
 ## i.e. card i shows none of the stacked symbols: the lit positions are exactly
 ## the danger cards.
 ##
-## Registration: one corner is clipped unevenly (ChamferLong along one side,
-## ChamferShort along the other), and the stand has a matching angled guide at
-## that corner. An evenly clipped corner would not do: every corner lies on a
-## mirror axis, so a flipped token would still fit. Unevenly clipped, it has no
-## mirror image: only the right-way-up orientation seats.
+## Registration: the stand's guide strips meet in pairs at four corners. At the
+## keyed corner one strip is set in by one wall thickness, parallel to its side,
+## and the token has a matching step on that side of that corner only. Turned
+## over, the step would be on the other side of the corner, where the strip
+## doesn't leave room: only the right-way-up orientation seats.
 ##
 ## The icon is engraved in the middle; there is no text on the token. Names
 ## live in the file name and the SVG <title>.
@@ -32,9 +32,10 @@ const
   SlotWidth* = 2.2                    ## along the side (area = length × width, same for every slot)
   SlotLean* = 25.0                    ## degrees: slots are leaning parallelograms
   SlotDepth* = 7.5                    ## slot centre, measured in from the edge
-  KeySide* = 6                        ## the keyed corner is between sides 6 and 7 (upper left)
-  ChamferLong* = 9.0                  ## the clip runs this far back along side 6 ...
-  ChamferShort* = 4.0                 ## ... and this far along side 7. Unequal, so no mirror image
+  KeySide* = 6                        ## the keyed corner is between sides 6 and 7; the step is on side 6
+  Wall* = 3.0                         ## plywood thickness: the key strip is set in by this much
+  GuideReach* = 11.0                  ## guide strips start this far back from each corner
+  GuideClearance* = 0.3               ## token to guide strips, per side
   IconSize* = 40.0                    ## square, centred
   Margin = 4.0
 
@@ -105,30 +106,33 @@ proc slotCorners*(index: CardIndex): array[4, Point] =
    c + (SlotLength / 2) * n + (SlotWidth / 2 + lean) * t,
    c + (SlotLength / 2) * n + (-SlotWidth / 2 + lean) * t]
 
-proc octagon*(apothem: float, chamferLong = 0.0, chamferShort = 0.0): seq[Point] =
-  ## Regular octagon, flat on top, clockwise. With a chamfer, the corner
-  ## between sides KeySide and KeySide + 1 is clipped unevenly: chamferLong
-  ## back along KeySide, chamferShort along the next side.
+proc meet*(n1: Point, r1: float, n2: Point, r2: float): Point =
+  ## Where the lines {p · n1 = r1} and {p · n2 = r2} cross.
+  let det = n1.x * n2.y - n1.y * n2.x
+  ((r1 * n2.y - r2 * n1.y) / det, (n1.x * r2 - n2.x * r1) / det)
+
+proc keyStepFrom*(): float =
+  ## Along side KeySide, from its centre: where the token's step begins
+  ## (GuideClearance before the key strip starts).
+  SideLength / 2 - GuideReach - GuideClearance
+
+proc octagon*(apothem: float, keyStep = 0.0): seq[Point] =
+  ## Regular octagon, flat on top, clockwise. With keyStep > 0, side KeySide
+  ## steps in by keyStep from keyStepFrom() to the corner with the next side.
   let side = 2 * apothem * tan(PI / 8)
   for s in 0 .. 7:
     let (n, t) = (normal(s), tangent(s))
-    let start = apothem * n + (-side / 2) * t
-    if s == KeySide + 1 and chamferLong > 0:
-      let prev = KeySide
-      result.add apothem * normal(prev) + (side / 2 - chamferLong) * tangent(prev)
-      result.add start + chamferShort * t
+    if s == KeySide + 1 and keyStep > 0:
+      let k = KeySide
+      result.add apothem * normal(k) + keyStepFrom() * tangent(k)
+      result.add (apothem - keyStep) * normal(k) + keyStepFrom() * tangent(k)
+      result.add meet(normal(k), apothem - keyStep, n, apothem)
     else:
-      result.add start
-
-proc chamferEnds*(apothem: float): (Point, Point) =
-  ## The two ends of the clipped corner's edge, on an octagon of `apothem`.
-  let side = 2 * apothem * tan(PI / 8)
-  (apothem * normal(KeySide) + (side / 2 - ChamferLong) * tangent(KeySide),
-   apothem * normal(KeySide + 1) + (-side / 2 + ChamferShort) * tangent(KeySide + 1))
+      result.add apothem * n + (-side / 2) * t
 
 proc outline*(): seq[Point] =
-  ## The token outline: octagon with the keyed corner clipped.
-  octagon(Apothem, ChamferLong, ChamferShort)
+  ## The token outline: octagon with the key step.
+  octagon(Apothem, keyStep = Wall)
 
 # ---------------------------------------------------------------- icons
 # Traced from the rulebook's Biome Icons page by `nim icons` (potrace output in

@@ -4,6 +4,24 @@ import std/[unittest, math]
 import ../src/[model, odds]
 import ../hardware/[plates, simgen, receptacle]
 
+
+proc dot2(a, b: Point): float = a.x * b.x + a.y * b.y
+
+proc outsideBy(p: Point): float =
+  ## Signed distance from the token outline: positive outside, negative inside.
+  ## Works for the non-convex outline (the key step).
+  let poly = outline()
+  var best = Inf
+  var inside = false
+  for i in 0 ..< poly.len:
+    let (a, b) = (poly[i], poly[(i + 1) mod poly.len])
+    let (dx, dy) = (b.x - a.x, b.y - a.y)
+    let t = clamp(((p.x - a.x) * dx + (p.y - a.y) * dy) / (dx * dx + dy * dy), 0.0, 1.0)
+    best = min(best, hypot(p.x - (a.x + t * dx), p.y - (a.y + t * dy)))
+    if (a.y > p.y) != (b.y > p.y) and p.x < a.x + (p.y - a.y) * dx / dy:
+      inside = not inside
+  if inside: -best else: best
+
 suite "plates":
   test "every combination of symbols, both blank rules (8190 stacks)":
     for mask in 1 ..< (1 shl 12):
@@ -16,10 +34,6 @@ suite "plates":
       check litPositions(stack) == AllCards - NotebookDeck.safe(symbols, blankIsDanger)
       stack.add blankSafePlate()
       check litPositions(stack) == AllCards - NotebookDeck.safe(symbols, blankIsSafe)
-  test "keyed corner has no mirror image":
-    # An evenly clipped corner would be symmetric about the corner's own
-    # mirror axis, so a flipped token would still fit.
-    check ChamferLong != ChamferShort and ChamferLong > 0 and ChamferShort > 0
   test "every slot has the same area":
     proc area(c: array[4, Point]): float =
       for i in 0 .. 3:
@@ -29,50 +43,40 @@ suite "plates":
     for index in CardIndex:
       check abs(area(slotCorners(index)) - SlotLength * SlotWidth) < 1e-9
   test "slots stay inside the token and clear the icon":
-    let edges = outline()
     for index in CardIndex:
       for p in slotCorners(index):
         check sqrt(p.x * p.x + p.y * p.y) > IconSize / sqrt(2.0)   # outside the icon's square
-        for i in 0 ..< edges.len:
-          # distance inward from each outline edge (outline is convex, clockwise)
-          let (a, b) = (edges[i], edges[(i + 1) mod edges.len])
-          let (dx, dy) = (b.x - a.x, b.y - a.y)
-          let inward = ((p.x - a.x) * dy - (p.y - a.y) * dx) / sqrt(dx * dx + dy * dy)
-          check inward < -1.0 or inward > 1.0
-          check inward < 0          # inside
+        check outsideBy(p) < -1.0                                   # at least 1 mm of material
 
 suite "stand":
-  proc outsideBy(p: Point): float =
-    ## How far p is outside the token outline (negative = inside).
-    let edges = outline()
-    result = -Inf
-    for i in 0 ..< edges.len:
-      let (a, b) = (edges[i], edges[(i + 1) mod edges.len])
-      let (dx, dy) = (b.x - a.x, b.y - a.y)
-      result = max(result, ((p.x - a.x) * dy - (p.y - a.y) * dx) / sqrt(dx * dx + dy * dy))
-  test "every guide strip stays outside the token by the clearance":
-    for g in guides():
-      for p in g.footprint(0, g.width, 0, Ply):
-        check outsideBy(p) >= Clearance - 1e-9
-  test "the key strip touches the clipped corner":
-    # its inner face is exactly Clearance from the clipped edge
-    let key = guides()[^1]
-    let mid = key.origin + (key.width / 2) * key.u
-    check abs(outsideBy(mid) - Clearance) < 1e-9
+  test "every strip stays outside the token by the clearance":
+    for s in strips():
+      for p in s.footprint(0, s.gapEnd, 0, Ply):
+        check outsideBy(p) >= GuideClearance - 1e-9
+  test "the key strip is set in by one wall thickness":
+    var keyed = 0
+    for s in strips():
+      if s.keyed:
+        inc keyed
+        check abs(dot2(s.origin, s.m) - (InnerApothem - Wall)) < 1e-9
+    check keyed == 1
+  test "fingers interlock: each strip's fingers reach past the other's gaps":
+    for (a, b) in corners():
+      check a.fingerEnd > a.gapEnd and b.fingerEnd > b.gapEnd
+      check a.ownsEven != b.ownsEven
   test "a flipped token doesn't fit":
-    # Mirror the token about its vertical axis (turning it over) and try every
-    # rotation by 45°: some corner of it must cut into a guide strip.
+    # Turn the token over and try every rotation by 45°: some corner of it
+    # must land inside a strip.
     for turn in 0 .. 7:
       let a = float(turn) * PI / 4
       var hits = false
       for q in outline():
-        let p: Point = (-q.x, q.y)                         # turned over
+        let p: Point = (-q.x, q.y)
         let r: Point = (p.x * cos(a) - p.y * sin(a), p.x * sin(a) + p.y * cos(a))
-        for g in guides():
-          # inside the strip's footprint?
-          let d = (x: r.x - g.origin.x, y: r.y - g.origin.y)
-          let along = d.x * g.u.x + d.y * g.u.y
-          let outward = d.x * g.m.x + d.y * g.m.y
-          if along > 0 and along < g.width and outward > -Clearance and outward < Ply:
+        for s in strips():
+          let d: Point = (r.x - s.origin.x, r.y - s.origin.y)
+          let along = dot2(d, s.u)
+          let outward = dot2(d, s.m)
+          if along > 0 and along < s.gapEnd and outward > -GuideClearance and outward < Ply:
             hits = true
       check hits

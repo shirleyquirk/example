@@ -1,107 +1,149 @@
 ## The plywood stand the tokens stack in (`nim cup`), tab-and-slot, from the
-## token geometry in plates.nim. Everything is 3 mm plywood.
+## token geometry in plates.nim. Everything is Wall (3 mm) plywood.
 ##
 ##   lid        plate resting on the strip tops; LED board underneath (40 LEDs
 ##              over the 40 slots), batteries on top
-##   strips     upright guides at 4 of the octagon's 8 corners. Three corners
-##              have a pair of strips, one on each side near the corner. The
-##              keyed corner has one angled strip lying against the tokens'
-##              unevenly clipped corner, so only the right-way-up token fits.
-##              The open corners in between are finger access. Strips tab into
-##              the base, carry the floor on a shoulder, and tab into the lid.
-##   floor      plate with the 40 slots (the baffle) and slots for the strips
+##   corners    four corner pieces at alternate corners of the octagon. Each is
+##              two strips, one along each side, meeting at the corner and
+##              finger-jointed together. The four open corners between them
+##              are finger access. At the keyed corner the strip on side KeySide
+##              is set in by one wall thickness; the tokens have a matching
+##              step there, so only the right-way-up token fits.
+##   floor      plate with the 40 slots (the baffle) and slots the strips pass
+##              through; it rests on a shoulder at each strip's far end
 ##   (gap)      the sensor board sits here on spacers, 40 sensors facing up
-##   base       plate with slots for the strip tabs
+##   base       plate with slots for the strips' bottom tabs
+##
+## Finger joints at an octagon corner meet at 135°, so the two strips' slabs
+## overlap in a slanted parallelogram (plan view). Each strip's fingers reach
+## the far side of that overlap and its gaps stop at the near side, so they
+## always interlock; the finger tips stand a little proud on the outside of the
+## corner, as usual for angled laser-cut finger joints.
 
 import std/[math, strformat]
 import plates
 
 const
-  Ply* = 3.0
+  Ply* = Wall
   Fit* = 0.1                  ## slot clearance for plywood tabs, per side
-  Clearance* = 0.3            ## token to strips, per side
-  StripWidth* = 10.0
-  KeyStripWidth* = 14.0       ## the angled strip at the keyed corner
   BoardGap* = 6.0             ## base top to floor bottom: sensor board + parts
   PocketTokens* = 6
   PocketHeight* = float(PocketTokens) * Ply
-  Shoulder* = 2.0             ## strips are this much wider below the floor
+  Shoulder* = 2.0             ## below the floor, strips are this much longer at the far end
   PlateApothem* = 50.0        ## base, floor and lid
+  Fingers* = 5                ## finger joint segments over the strip height (odd)
+  BottomTab = (2.0, 8.0)      ## along the strip from its far end
+  TopTab = (2.5, 7.5)
 
-  InnerApothem* = Apothem + Clearance         ## strips' inner faces
+  InnerApothem* = Apothem + GuideClearance    ## strips' inner faces
   StripTop* = BoardGap + Ply + PocketHeight   ## from the base's top face
-  CornerSides* = [0, 2, 4, 6]                 ## guides at the corners after these sides
+  CornerSides* = [0, 2, 4, 6]                 ## corner pieces at the corners after these sides
 
-type Guide* = object
-  ## One upright strip, as a frame in plan view: it runs along `u` from
-  ## `origin`, its inner face on the line, its thickness outward along `m`.
-  origin*, u*, m*: Point
-  width*: float
-  shoulderAtStart*: bool      ## which end gets the shoulder (away from the corner)
+static: doAssert KeySide in CornerSides
 
+type
+  Strip* = object
+    ## One strip of a corner piece, in plan view: it starts at `origin` (its
+    ## far end, away from the corner) and runs along `u` towards the corner.
+    ## Its inner face is on the line through `origin`; it is Ply thick along
+    ## the outward direction `m`.
+    origin*, u*, m*: Point
+    gapEnd*, fingerEnd*: float   ## lengths at its gaps and at its fingers
+    ownsEven*: bool              ## fingers on segments 0, 2, 4…  (else 1, 3…)
+    keyed*: bool
+
+  Corner* = tuple[first, second: Strip]
+
+proc dot(a, b: Point): float = a.x * b.x + a.y * b.y
 proc sub(a, b: Point): Point = (a.x - b.x, a.y - b.y)
-proc length(a: Point): float = sqrt(a.x * a.x + a.y * a.y)
 
-proc guides*(): seq[Guide] =
-  let edge = SideLength / 2 - 1.0
-  for side in 0 .. 7:
-    if side in [KeySide, KeySide + 1]: continue        # replaced by the key strip
-    let (n, t) = (normal(side), tangent(side))
-    if side in CornerSides:     # corner at the clockwise end
-      result.add Guide(origin: InnerApothem * n + (edge - StripWidth) * t, u: t, m: n,
-                       width: StripWidth, shoulderAtStart: true)
-    else:                       # corner at the anticlockwise end
-      result.add Guide(origin: InnerApothem * n + (-edge) * t, u: t, m: n,
-                       width: StripWidth, shoulderAtStart: false)
-  # the key strip, against the clipped corner, Clearance outside it
-  let (a, b) = chamferEnds(Apothem)
-  let d = sub(b, a)
-  let u = (1 / length(d)) * d
-  let m: Point = (u.y, -u.x)                 # outward; tests/test_plates checks the side
-  let mid = 0.5 * (a + b)
-  result.add Guide(origin: mid + Clearance * m + (-KeyStripWidth / 2) * u, u: u, m: m,
-                   width: KeyStripWidth, shoulderAtStart: true)
+proc corners*(): seq[Corner] =
+  for c in CornerSides:
+    let (a, b) = (c, c + 1)                     # sides either side of the corner
+    let keyed = c == KeySide
+    let ra = InnerApothem - (if keyed: Ply else: 0.0)
+    let rb = InnerApothem
+    let start = SideLength / 2 - GuideReach     # far end, along each side from its centre
+    var sa = Strip(origin: ra * normal(a) + start * tangent(a), u: tangent(a),
+                   m: normal(a), ownsEven: true, keyed: keyed)
+    var sb = Strip(origin: rb * normal(b) + (-start) * tangent(b),
+                   u: (-1.0) * tangent(b), m: normal(b), ownsEven: false)
+    # The overlap of the two slabs: corners where their faces cross.
+    var overlap: seq[Point]
+    for da in [0.0, Ply]:
+      for db in [0.0, Ply]:
+        overlap.add meet(normal(a), ra + da, normal(b), rb + db)
+    for s in [addr sa, addr sb]:
+      var lo = Inf
+      var hi = -Inf
+      for p in overlap:
+        let x = dot(sub(p, s.origin), s.u)
+        lo = min(lo, x)
+        hi = max(hi, x)
+      s.gapEnd = lo
+      s.fingerEnd = hi
+    result.add (sa, sb)
 
-proc footprint*(g: Guide, along0, along1, out0, out1: float): seq[Point] =
-  @[g.origin + along0 * g.u + out0 * g.m, g.origin + along0 * g.u + out1 * g.m,
-    g.origin + along1 * g.u + out1 * g.m, g.origin + along1 * g.u + out0 * g.m]
+proc strips*(): seq[Strip] =
+  for (a, b) in corners(): result.add [a, b]
 
-proc guideSlots(cx, cy: float, inset: float): string =
-  ## A slot for each strip, `inset` narrower than the strip at each end.
-  for g in guides():
-    result.add polygon(g.footprint(inset - Fit, g.width - inset + Fit, -Fit, Ply + Fit), cx, cy)
+proc footprint*(s: Strip, x0, x1, out0, out1: float): seq[Point] =
+  @[s.origin + x0 * s.u + out0 * s.m, s.origin + x0 * s.u + out1 * s.m,
+    s.origin + x1 * s.u + out1 * s.m, s.origin + x1 * s.u + out0 * s.m]
 
-proc profile(points: openArray[(float, float)], cx, cy: float): string =
-  ## A flat part drawn in its own plane (x across, y up), centred at (cx, cy).
-  var p: seq[Point]
-  for (x, y) in points: p.add (x, -y)
-  polygon(p, cx, cy)
+proc plateSlots(cx, cy: float, tab: (float, float)): string =
+  ## Slots in the base or lid for each strip's tab.
+  for s in strips():
+    result.add polygon(s.footprint(tab[0] - Fit, tab[1] + Fit, -Fit, Ply + Fit), cx, cy)
 
-proc stripProfile(w, cx, cy: float): string =
-  ## Bottom tab into the base, shoulder (carries the floor) on one end, top
-  ## tab into the lid. Flip the part to put the shoulder on the other end.
-  profile([(2.0, -Ply), (w - 2.0, -Ply), (w - 2.0, 0.0), (w, 0.0), (w, StripTop),
-           (w - 2.5, StripTop), (w - 2.5, StripTop + Ply), (2.5, StripTop + Ply),
-           (2.5, StripTop), (0.0, StripTop), (0.0, BoardGap), (-Shoulder, BoardGap),
-           (-Shoulder, 0.0), (2.0, 0.0)], cx - w / 2, cy + StripTop / 2)
+proc floorSlots(cx, cy: float): string =
+  ## The strips pass right through the floor, joint and all.
+  for s in strips():
+    result.add polygon(s.footprint(-Fit, s.fingerEnd + Fit, -Fit, Ply + Fit), cx, cy)
+
+proc stripProfile*(s: Strip, cx, cy: float): string =
+  ## The strip cut out flat: x along it from its far end, y up from the
+  ## base's top face. Bottom tab into the base, shoulder carrying the floor at
+  ## the far end, finger joint at the corner end, top tab into the lid.
+  let h = StripTop / float(Fingers)
+  var p: seq[(float, float)]
+  p.add [(BottomTab[0], -Ply), (BottomTab[1], -Ply), (BottomTab[1], 0.0)]
+  # corner end, bottom to top
+  for j in 0 ..< Fingers:
+    let mine = (j mod 2 == 0) == s.ownsEven
+    let x = if mine: s.fingerEnd else: s.gapEnd
+    p.add [(x, float(j) * h), (x, float(j + 1) * h)]
+  p.add [(TopTab[1], StripTop), (TopTab[1], StripTop + Ply), (TopTab[0], StripTop + Ply),
+         (TopTab[0], StripTop), (0.0, StripTop), (0.0, BoardGap),
+         (-Shoulder, BoardGap), (-Shoulder, 0.0), (BottomTab[0], 0.0)]
+  var pts: seq[Point]
+  let w = s.fingerEnd
+  for (x, y) in p: pts.add (cx - w / 2 + x, cy + StripTop / 2 - y)
+  polygon(pts, 0, 0)
 
 type PartKind* = enum
-  base, floor, strip, keyStrip, lid, sensorBoard, ledBoard
+  base, floor, stripA, stripB, keyStripA, keyStripB, lid, sensorBoard, ledBoard
 
 proc name*(part: PartKind): string =
-  ["base", "floor", "strip", "key-strip", "lid", "sensor-board", "led-board"][ord(part)]
+  ["base", "floor", "strip-a", "strip-b", "key-strip-a", "key-strip-b", "lid",
+   "sensor-board", "led-board"][ord(part)]
 
 proc title*(part: PartKind): string =
   case part
-  of base: "Base (slots for the strip tabs)"
+  of base: "Base (slots for the strips' bottom tabs)"
   of floor: "Floor = baffle (40 slots + strip slots)"
-  of strip: "Guide strip (6 identical; shoulder on the end away from the corner)"
-  of keyStrip: "Key strip (angled, at the clipped corner)"
+  of stripA: "Corner strip A (first side of a corner; fingers at bottom and top)"
+  of stripB: "Corner strip B (second side; fingers in between)"
+  of keyStripA: "Key corner strip A (set in one wall thickness)"
+  of keyStripB: "Key corner strip B"
   of lid: "Lid (rests on the strip tops; LED board underneath)"
   of sensorBoard: "Sensor board outline (for KiCad); blue = sensor positions"
   of ledBoard: "LED board outline (faces down; blue = LED positions, mirrored)"
 
-proc count*(part: PartKind): int = (if part == strip: 6 else: 1)
+proc count*(part: PartKind): int =
+  case part
+  of stripA, stripB: CornerSides.len - 1
+  else: 1
 
 proc sensorMarks(cx, cy: float, mirrored: bool): string =
   for index in 0 ..< 40:
@@ -109,16 +151,26 @@ proc sensorMarks(cx, cy: float, mirrored: bool): string =
     if mirrored: c.x = -c.x
     result.add &"<circle cx=\"{mm(cx + c.x)}\" cy=\"{mm(cy + c.y)}\" r=\"0.8\" class=\"mark\"/>\n"
 
+proc keyCorner(): Corner =
+  for c in corners():
+    if c.first.keyed: return c
+
+proc plainCorner(): Corner =
+  for c in corners():
+    if not c.first.keyed: return c
+
 proc body*(part: PartKind, cx, cy: float): string =
   case part
-  of base: polygon(octagon(PlateApothem), cx, cy) & guideSlots(cx, cy, inset = 2.0)
+  of base: polygon(octagon(PlateApothem), cx, cy) & plateSlots(cx, cy, BottomTab)
   of floor:
-    var s = polygon(octagon(PlateApothem), cx, cy) & guideSlots(cx, cy, inset = 0.0)
+    var s = polygon(octagon(PlateApothem), cx, cy) & floorSlots(cx, cy)
     for index in 0 ..< 40: s.add polygon(slotCorners(index), cx, cy)
     s
-  of strip: stripProfile(StripWidth, cx, cy)
-  of keyStrip: stripProfile(KeyStripWidth, cx, cy)
-  of lid: polygon(octagon(PlateApothem), cx, cy) & guideSlots(cx, cy, inset = 2.5)
+  of stripA: stripProfile(plainCorner().first, cx, cy)
+  of stripB: stripProfile(plainCorner().second, cx, cy)
+  of keyStripA: stripProfile(keyCorner().first, cx, cy)
+  of keyStripB: stripProfile(keyCorner().second, cx, cy)
+  of lid: polygon(octagon(PlateApothem), cx, cy) & plateSlots(cx, cy, TopTab)
   of sensorBoard: polygon(outline(), cx, cy) & sensorMarks(cx, cy, mirrored = false)
   of ledBoard: polygon(octagon(Apothem), cx, cy) & sensorMarks(cx, cy, mirrored = true)
 
@@ -128,7 +180,7 @@ proc partSvg*(part: PartKind): string =
 
 proc topViewSvg*(): string =
   ## Not a cut file: plan view to check fit. Red = floor plate, token outline,
-  ## slots; blue = strips with their shoulders.
+  ## slots; blue = strips (out to their finger ends) and shoulders.
   let size = 2 * PlateApothem / cos(PI / 8) + 8
   let (cx, cy) = (size / 2, size / 2)
   proc blue(points: seq[Point]): string =
@@ -136,9 +188,8 @@ proc topViewSvg*(): string =
     for p in points: coords.add &"{mm(cx + p.x)},{mm(cy + p.y)} "
     &"<polygon points=\"{coords}\" fill=\"#2a78d6\" fill-opacity=\"0.35\" stroke=\"#2a78d6\" stroke-width=\"0.15\"/>\n"
   var body = polygon(octagon(PlateApothem), cx, cy) & polygon(outline(), cx, cy)
-  for g in guides():
-    body.add blue(g.footprint(0, g.width, 0, Ply))
-    body.add blue(if g.shoulderAtStart: g.footprint(-Shoulder, 0, 0, Ply)
-                  else: g.footprint(g.width, g.width + Shoulder, 0, Ply))
+  for s in strips():
+    body.add blue(s.footprint(0, s.fingerEnd, 0, Ply))
+    body.add blue(s.footprint(-Shoulder, 0, 0, Ply))
   for index in 0 ..< 40: body.add polygon(slotCorners(index), cx, cy)
   svgDocument(size, size, "Top view (not a cut file)", body)

@@ -14,10 +14,10 @@
   [OK] binomial
 [Suite] plates
   [OK] every combination of symbols, both blank rules (8190 stacks)
-  [OK] keyed corner has no mirror image
   [OK] every slot has the same area
   [OK] slots stay inside the token and clear the icon
 [Suite] stand
-  [OK] every guide strip stays outside the token by the clearance
-  [OK] the key strip touches the clipped corner
+  [OK] every strip stays outside the token by the clearance
+  [OK] the key strip is set in by one wall thickness
+  [OK] fingers interlock: each strip's fingers reach past the other's gaps
   [OK] a flipped token doesn't fit

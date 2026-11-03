@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="116.239mm" height="116.239mm" viewBox="0 0 116.239 116.239">
+<title>Corner strip B (second side; fingers in between) ×3</title>
+<style>
+  .cut { fill: none; stroke: #ff0000; stroke-width: 0.1; }
+  .mark { fill: none; stroke: #0000ff; stroke-width: 0.1; }
+</style>
+<polygon points="52.436,74.620 58.436,74.620 58.436,71.620 58.560,71.620 58.560,66.220 65.803,66.220 65.803,60.820 58.560,60.820 58.560,55.420 65.803,55.420 65.803,50.020 58.560,50.020 58.560,44.620 57.936,44.620 57.936,41.620 52.936,41.620 52.936,44.620 50.436,44.620 50.436,65.620 48.436,65.620 48.436,71.620 52.436,71.620" class="cut"/>
+</svg>

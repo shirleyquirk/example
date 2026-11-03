@@ -57,15 +57,19 @@ again in a fresh environment. Kept for whoever (human or Claude) continues.
   Card i = slot (i mod 5) on side (i div 5). A slot is cut where the card does
   NOT show the symbol, so stacking (an AND of open slots) lights exactly the
   danger cards.
-- **Keyed corner**: upper-left corner clipped 9 mm / 4 mm. It must be uneven:
-  every octagon corner lies on a mirror axis, so an even clip would let a
-  flipped token fit. Tested for all 8 rotations.
-- **Stand**: tab-and-slot plywood: base, floor (= baffle, 40 slots), 6 guide
-  strips in pairs at 3 corners + 1 angled key strip at the clipped corner, lid
-  on the strip tops. Shoulders only on the end away from the corner (two would
-  collide). `Fit` = 0.1 mm per side, to be tuned after a test cut. History:
-  stacked glued rings (owner: ugly/fussy) → 8 strips + key fin + notch (owner:
-  prefer a different corner) → current.
+- **Keyed corner**: the stand's corner pieces are all alike, but at the upper-left
+  corner one strip is set in by one wall thickness (3 mm), parallel to its side;
+  the token has a matching step on that side of that corner only (owner's
+  design). Flip test passes for all 8 rotations.
+- **Stand**: tab-and-slot plywood: base, floor (= baffle, 40 slots), four corner
+  pieces (two strips each, meeting at the corner with 135° finger joints: fingers
+  reach the far side of the slabs' overlap parallelogram, gaps stop at the near
+  side), lid on the strip tops. `Fit` = 0.1 mm per side, to be tuned after a
+  test cut. History: stacked glued rings (owner: ugly/fussy) → separate strips
+  + key fin + notch → uneven clipped corner + angled strip → corner pieces that
+  meet with finger joints, keyed by setting one strip in (owner's design).
+- Token outline is non-convex (the key step): geometry tests use proper
+  point-in-polygon and distance-to-segment, not the convex shortcut.
 - **Light**: lid with 40 LEDs, one over each slot, battery powered. Owner says
   light leaks are fine (no skirt).
 - **Detection**: octagonal sensor board, 40 visible-light detectors (e.g.

@@ -1,15 +1,16 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="116.239mm" height="116.239mm" viewBox="0 0 116.239 116.239">
-<title>Base (slots for the strip tabs) ×1</title>
+<title>Base (slots for the strips' bottom tabs) ×1</title>
 <style>
   .cut { fill: none; stroke: #ff0000; stroke-width: 0.1; }
   .mark { fill: none; stroke: #0000ff; stroke-width: 0.1; }
 </style>
 <polygon points="37.409,8.120 78.830,8.120 108.120,37.409 108.120,78.830 78.830,108.120 37.409,108.120 8.120,78.830 8.120,37.409" class="cut"/>
 <polygon points="65.588,17.920 65.588,14.720 71.788,14.720 71.788,17.920" class="cut"/>
-<polygon points="76.880,20.029 79.143,17.766 83.527,22.150 81.264,24.413" class="cut"/>
+<polygon points="81.264,24.413 83.527,22.150 79.143,17.766 76.880,20.029" class="cut"/>
 <polygon points="98.320,65.588 101.520,65.588 101.520,71.788 98.320,71.788" class="cut"/>
-<polygon points="96.210,76.880 98.473,79.143 94.089,83.527 91.826,81.264" class="cut"/>
+<polygon points="91.826,81.264 94.089,83.527 98.473,79.143 96.210,76.880" class="cut"/>
 <polygon points="50.651,98.320 50.651,101.520 44.451,101.520 44.451,98.320" class="cut"/>
-<polygon points="39.359,96.210 37.096,98.473 32.712,94.089 34.975,91.826" class="cut"/>
-<polygon points="18.153,49.551 15.041,48.806 17.413,38.886 20.525,39.630" class="cut"/>
+<polygon points="34.975,91.826 32.712,94.089 37.096,98.473 39.359,96.210" class="cut"/>
+<polygon points="20.920,50.651 17.720,50.651 17.720,44.451 20.920,44.451" class="cut"/>
+<polygon points="24.413,34.975 22.150,32.712 17.766,37.096 20.029,39.359" class="cut"/>
 </svg>

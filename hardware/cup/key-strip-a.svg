@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="116.239mm" height="116.239mm" viewBox="0 0 116.239 116.239">
+<title>Key corner strip A (set in one wall thickness) ×1</title>
+<style>
+  .cut { fill: none; stroke: #ff0000; stroke-width: 0.1; }
+  .mark { fill: none; stroke: #0000ff; stroke-width: 0.1; }
+</style>
+<polygon points="50.936,74.620 56.936,74.620 56.936,71.620 67.303,71.620 67.303,66.220 60.060,66.220 60.060,60.820 67.303,60.820 67.303,55.420 60.060,55.420 60.060,50.020 67.303,50.020 67.303,44.620 56.436,44.620 56.436,41.620 51.436,41.620 51.436,44.620 48.936,44.620 48.936,65.620 46.936,65.620 46.936,71.620 50.936,71.620" class="cut"/>
+</svg>
